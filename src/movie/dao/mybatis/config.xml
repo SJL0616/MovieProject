@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 작성자 : 서원우 -->
+<!-- 내용 : <typeAliases>태그 안에 원하는 VO를 작성하세요. <mappers>태그 안에 원하는 Mapper를 작성하세요. -->
+<!-- 최초 작성일 : 24-02-22 -->
+<!-- 마지막 수정일 : 24-02-22(서원우) -->
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<properties resource="movie/dao/mybatis/db.properties"></properties>
+
+	<typeAliases>
+		<typeAlias type="movie.vo.UserVO" alias="user" />
+	</typeAliases>
+
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${driver}" />
+				<property name="url" value="${url}" />
+				<property name="username" value="${username}" />
+				<property name="password" value="${password}" />
+			</dataSource>
+		</environment>
+	</environments>
+
+	<mappers>
+		<mapper resource="movie/dao/mybatis/UserMapper.xml" />
+	</mappers>
+
+</configuration>
