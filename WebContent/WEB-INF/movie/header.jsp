@@ -25,7 +25,7 @@
 		<div class="content">
 			<div class="row">
 				<div class="image">
-					<a href="${ctx}"> <img alt="" src="./img/logo (2).png"></a>
+					<%-- <a href="${ctx}"> <img alt="" src="./img/logo (2).png"></a> --%>
 				</div>
 				<c:if test="${log ne null and log  ne 'admin'}">
 					<div class="w-25 py-3">
