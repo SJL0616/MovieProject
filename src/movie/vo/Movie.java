@@ -1,5 +1,12 @@
 package movie.vo;
 
+
+/**
+ 작성자 : 이상준
+ 내용: 영화 VO
+ 최초 작성일: 2024.02.22
+ 마지막 수정일: 2024.02.22
+*/
 public class Movie {
 
 	private int movieID;
