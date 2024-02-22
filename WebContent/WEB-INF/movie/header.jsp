@@ -17,7 +17,7 @@
 <%-- <link rel="stylesheet" type="text/css" href="${ctx}/css/style.css" /> --%>
 </head>
 <body>
-	<%-- <c:set var="log" value="${sessionScope.log}" />
+	 <c:set var="log" value="${sessionScope.log}" />
 	<script>
 		console.log("${log}");
 	</script>
@@ -30,7 +30,7 @@
 				<c:if test="${log ne null and log  ne 'admin'}">
 					<div class="w-25 py-3">
 						<div class="btn btn-light">
-							<a href="${ctx}/myReserve.do?id=${log}">내 예약</a>
+							<a href="${ctx}/myReserve.do?id=${log}">내 예매</a>
 						</div>
 						<div class="btn btn-light">
 							<a href="#" onclick="resign()">회원탈퇴</a>
@@ -59,9 +59,8 @@
 						<div class=" btn btn-light">
 							<a href="${ctx}/login.do">로그인</a>
 						</div>
-
 					</div>
 				</c:if>
 			</div>
 		</div> 
-	</header>--%>
+	</header>
