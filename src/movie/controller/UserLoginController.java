@@ -1,7 +1,7 @@
 // 작성자 : 서원우
 // 내용 : 로그인 컨트롤러입니다.
 // 최초 작성일 : 24-02-22
-// 마지막 수정일 : 24-02-22
+// 마지막 수정일 : 24-02-22 (서원우)
 package movie.controller;
 
 import java.io.IOException;
@@ -10,6 +10,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import movie.dao.UserDAO;
+import movie.vo.UserVO;
 
 public class UserLoginController implements Controller {
 
@@ -21,7 +24,7 @@ public class UserLoginController implements Controller {
 		String inputPw = request.getParameter("pw");
 		System.out.printf("inputId : %s, inputPw : %s\n", inputId, inputPw);
 		if (request.getParameter("id") == null)
-			return "memberLogin";
+			return "userLogin";
 		UserVO userVO = UserDAO.getInstance().getTheUserById(inputId);
 		response.setContentType("text/html; charset=UTF-8");
 		if (userVO == null || userVO.getPw().equals(inputPw) == false) {

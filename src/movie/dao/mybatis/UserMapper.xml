@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 작성자 : 서원우 -->
+<!-- 내용 : db에서 쿼리문을 실행시키고 받아온 데이터를 UserDAO로 전달합니다. -->
+<!-- 최초 작성일 : 24-02-22 -->
+<!-- 마지막 수정일 : 24-02-22(서원우) -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="movie.dao.mybatis.UserMapper">
+
+	<select id="getTheUserById" parameterType="String"
+		resultType="user">
+		select * from user where id=#{id}
+	</select>
+
+</mapper>
