@@ -13,7 +13,7 @@ public class IndexController implements Controller{
 	@Override
 	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		MovieDAO.getInstance().saveMovieData();
+		//MovieDAO.getInstance().saveMovieData();
 		return "main";
 	}
 
