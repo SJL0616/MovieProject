@@ -10,7 +10,12 @@
 
 	<select id="getTheUserById" parameterType="String"
 		resultType="user">
-		select * from user where id=#{id}
+		SELECT * FROM user WHERE id=#{id};
+	</select>
+
+	<select id="getTheUserByKakaoId" parameterType="String"
+		resultType="user">
+		SELECT * FROM user WHERE kakao=#{kakaoId};
 	</select>
 
 </mapper>

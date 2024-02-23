@@ -78,6 +78,12 @@
 #pw {
 	height: 50px;
 }
+
+.APIs {
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+}
 </style>
 
 <div class="loginPage">
@@ -89,14 +95,19 @@
 					<input id="id" maxlength="20" type="text" placeholder="아이디"
 						required="required" /> <input id="pw" maxlength="20"
 						type="password" placeholder="비밀번호" required="required" /> <br>
-					<button type="button" onclick="location.href='${ctx}/index.jsp'">로그인</button>
+					<button type="button" onclick="validCheck(form)">로그인</button>
 				</form>
 				<div class=" otherWays">
 					<div>
 						<button>회원가입</button>
 					</div>
 					<div class="APIs">
-						<button>카카오</button>
+						<a id="kakao-login-btn"
+							href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=21ab5b4db87c2754b7ad5637ffdc7eb3&redirect_uri=http://localhost:8085/MovieProject/kakaoLoginResult.jsp">
+							<img
+							src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg"
+							width="200" alt="카카오 로그인 버튼" />
+						</a>
 						<button>네이버</button>
 						<button>애플</button>
 						<button>구글</button>
