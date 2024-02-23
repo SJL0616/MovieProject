@@ -86,7 +86,9 @@ public class KakaoController implements Controller {
 			System.out.println("response body : " + result);
 
 			// Gson 라이브러리에 포함된 클래스로 JSON파싱 객체 생성
+			@SuppressWarnings("deprecation")
 			JsonParser parser = new JsonParser();
+			@SuppressWarnings("deprecation")
 			JsonElement element = parser.parse(result);
 
 			access_Token = element.getAsJsonObject().get("access_token").getAsString();

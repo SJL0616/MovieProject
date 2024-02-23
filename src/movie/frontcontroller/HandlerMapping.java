@@ -5,6 +5,7 @@ import java.util.HashMap;
 import movie.controller.Controller;
 import movie.controller.IndexController;
 import movie.controller.user.KakaoController;
+import movie.controller.user.NaverController;
 import movie.controller.user.UserLoginController;
 import movie.controller.user.UserLogoutController;
 
@@ -17,6 +18,7 @@ public class HandlerMapping {
 		mappings.put("/login.do", new UserLoginController());
 		mappings.put("/logout.do", new UserLogoutController());
 		mappings.put("/kakaoLogin.do", new KakaoController());
+		mappings.put("/naverLogin.do", new NaverController());
 	}
 
 	public Controller getController(String key) {

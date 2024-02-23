@@ -44,4 +44,10 @@ public class UserDAO {
 		UserVO user = session.selectOne("getTheUserByKakaoId", kakaoId);
 		return user;
 	}
+
+	public UserVO getTheUserByNaverId(String naverId) {
+		SqlSession session = sqlSessionFactory.openSession();
+		UserVO user = session.selectOne("getTheUserByNaverId", naverId);
+		return user;
+	}
 }
