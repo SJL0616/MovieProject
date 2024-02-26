@@ -26,14 +26,6 @@
       type="text/css"
       href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
     />
-    <!-- Font Awesome 5 -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
-    />
-    <!-- ticketing.jsp -->
-    <link rel="stylesheet" href="${ctx}/css/ticketing.css" />
-    <script defer src="${ctx}/js/ticketting.js"></script>
     
 <%-- <link rel="stylesheet" type="text/css" href="${ctx}/css/style.css" /> --%>
 </head>
