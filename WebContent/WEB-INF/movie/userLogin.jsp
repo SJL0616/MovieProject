@@ -7,7 +7,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="header.jsp"%>
-<script src="${ctx}/js/userLogin.js"></script>
 <link href="${ctx}/css/userLogin.css" rel="stylesheet" type="text/css">
 <div class="loginPage">
 	<div class="loginForm">
@@ -42,3 +41,4 @@
 		</div>
 	</div>
 </div>
+<script src="${ctx}/js/userLogin.js"></script>

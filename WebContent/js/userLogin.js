@@ -22,7 +22,7 @@ function validCheck(form) {
 }
 function getResult(data) {
 	if (data === "valid") {
-		location.href = "${ctx}/index.jsp"
+		location.href = "index.jsp"
 		alert("로그인 성공.");
 	} else if (data === "notValid") {
 		alert("아이디와 비밀번호를 확인하세요.");
