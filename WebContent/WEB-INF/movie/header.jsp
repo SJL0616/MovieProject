@@ -34,6 +34,7 @@
     <!-- ticketing.jsp -->
     <link rel="stylesheet" href="${ctx}/css/ticketing.css" />
     <script defer src="${ctx}/js/ticketting.js"></script>
+    
 <%-- <link rel="stylesheet" type="text/css" href="${ctx}/css/style.css" /> --%>
 </head>
 <body>
