@@ -1,5 +1,7 @@
 package movie.vo;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 /**
  작성자 : 이상준
@@ -10,9 +12,10 @@ package movie.vo;
 public class Movie {
 
 	private int movieID;
+	private String tmdbCd;
 	private String title;
 	private String titleEn;
-	private int openDate;
+	private String openDate;
 	private int rank;
 	private int audiCum;
 	private String overview;
@@ -27,7 +30,7 @@ public class Movie {
 	
 	public Movie() {}
 	
-	public Movie(int movieID, String title, String titleEn, int openDate, int rank, int audiCum, String overview,
+	public Movie(int movieID, String title, String titleEn, String openDate, int rank, int audiCum, String overview,
 			int showTime, String showTypes, String director, String actors, String genre, String watchGrade,
 			String image, String trailer) {
 		this.movieID = movieID;
@@ -45,6 +48,51 @@ public class Movie {
 		this.watchGrade = watchGrade;
 		this.image = image;
 		this.trailer = trailer;
+	}
+	
+	
+	public Movie(int movieID, String title, String titleEn, String openDate, int rank, int audiCum, String overview,
+			int showTime, JsonArray showTypes, JsonArray director, JsonArray actors, JsonArray genre, JsonArray watchGrade,
+			String image, String trailer) {
+		this.movieID = movieID;
+		this.title = title;
+		this.titleEn = titleEn;
+		this.openDate = openDate;
+		this.rank = rank;
+		this.audiCum = audiCum;
+		this.overview = overview;
+		this.showTime = showTime;
+		this.showTypes =  getSTFromJArr(showTypes);
+		this.director =  director.get(0).getAsJsonObject().get("peopleNm").getAsString();
+		this.actors = getActorsFormJArr(actors);
+		this.genre = genre.get(0).getAsJsonObject().get("genreNm").getAsString();
+		this.watchGrade = watchGrade.get(0).getAsJsonObject().get("watchGradeNm").getAsString();
+		this.image = image;
+		this.trailer = trailer;
+	}
+	
+	public String getSTFromJArr(JsonArray jsonArray) {
+		int length = jsonArray.size();
+		String showType = null;
+		if(length >0) {
+			JsonObject jobj = (JsonObject)jsonArray.get(0);
+			showType = jobj.get("showTypeGroupNm").getAsString()
+					   +", "
+					   +jobj.get("showTypeNm").getAsString();
+		}
+		return showType;
+	}
+	
+	public String getActorsFormJArr(JsonArray jsonArray) {
+		int length = jsonArray.size();
+		String actors = null;
+		if(length > 0) {
+			for(Object obj : jsonArray) {
+				JsonObject oneActor = (JsonObject) obj;
+				actors += oneActor.get("peopleNm").getAsString() +", ";
+			}
+		}
+		return actors;
 	}
 	
 	public int getMovieID() {
@@ -65,10 +113,10 @@ public class Movie {
 	public void setTitleEn(String titleEn) {
 		this.titleEn = titleEn;
 	}
-	public int getOpenDate() {
+	public String getOpenDate() {
 		return openDate;
 	}
-	public void setOpenDate(int openDate) {
+	public void setOpenDate(String openDate) {
 		this.openDate = openDate;
 	}
 	public int getRank() {
@@ -137,6 +185,12 @@ public class Movie {
 	public void setTrailer(String trailer) {
 		this.trailer = trailer;
 	}
-	
+	public String getTmdbCd() {
+		return tmdbCd;
+	}
+
+	public void setTmdbCd(String tmdbCd) {
+		this.tmdbCd = tmdbCd;
+	}
 	
 }

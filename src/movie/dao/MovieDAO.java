@@ -6,13 +6,17 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
+import movie.vo.Movie;
 
 /**
  * 작성자 : 이상준 내용: 영화 DTO 최초 작성일: 2024.02.22 마지막 수정일: 2024.02.22
@@ -20,10 +24,13 @@ import com.google.gson.JsonParser;
 public class MovieDAO {
 
 	private static MovieDAO instance;
-
+	private final String kobisKey = "64ca2aeb06dc83995c52593480291dc2";
+	private final String tmdbKey = "4bbd8a79baa451e755477a68934a9110";
+	private static ArrayList<Movie> list = null;
+	
 	private MovieDAO() {
+		saveMovieData();
 	}
-
 	public static MovieDAO getInstance() {
 		if (instance == null) {
 			instance = new MovieDAO();
@@ -31,113 +38,140 @@ public class MovieDAO {
 		return instance;
 	}
 
+	public ArrayList<Movie> getTotalList() {
+		return list;
+	}
+	
+	public ArrayList<Movie> getTopFour(){
+		return new ArrayList<Movie>(list.subList(0, 4));
+	}
+
+
+	
 	/**
-	 * 작성자 : 이상준 내용: API를 사용해서 일일 박스오피스를 DB에 저장하는 합수 파라미터: 없음 리턴: 최초 작성일: 2024.02.22
+	 * 작성자 : 이상준 내용: API를 사용해서 일일 박스오피스를 DB에 저장하는 합수 
+	 * 파라미터: 없음 
+	 * 최초 작성일: 2024.02.22
 	 * 마지막 수정일: 2024.02.22
 	 */
 	public void saveMovieData() {
+		list = getMovieListByKobis();
+		setVisualInfoByTBDB(list);
+		
+		/*
+		 * for(Movie m : list) {
+		 * 
+		 * Gson gson = new Gson(); String show = gson.toJson(m);
+		 * System.out.println("m "+ show); }
+		 */
+		 
+	}
 
+	private ArrayList<Movie> getMovieListByKobis() {
+
+		ArrayList<Movie> list = new ArrayList<Movie>();
 		// 인증키 (개인이 받아와야함)
-		String key = "64ca2aeb06dc83995c52593480291dc2";
 		String date = "&targetDt=20240219";
 		// 파싱한 데이터를 저장할 변수
 		String result = "";
 
 		try {
-			// 영화 정보를 제공하는 웹 서비스에 접속할 URL 생성
-			/*
-			 * URL url = new URL(
-			 * "http://kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieList.json?key="
-			 * + key );
-			 */
 			URL url1 = new URL(
 					"	http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key="
-							+ key + date);
-			// URL을 통해 데이터를 읽어오기 위한 BufferedReader 생성
+							+ kobisKey + date);
 			BufferedReader bf;
-
-			// UTF-8 인코딩으로 데이터를 읽어오기 위해 InputStreamReader로 BufferedReader 초기화
 			bf = new BufferedReader(new InputStreamReader(url1.openStream(), "UTF-8"));
 
-			// 읽어온 데이터를 문자열로 저장
 			result = bf.readLine();
 
-			// JSON 데이터 파싱을 위한 JSONParser 객체 생성
 			JsonParser jsonParser = new JsonParser();
-
-			// JSON 데이터를 파싱하여 JSONObject로 변환
 			JsonObject jsonObject = (JsonObject) jsonParser.parseString(result);
 
-			
 			JsonObject movieListResult = (JsonObject) jsonObject.get("boxOfficeResult");
-
 			JsonArray movieList = (JsonArray) movieListResult.get("dailyBoxOfficeList");
-
+			Movie m = null;
 			for (Object movie : movieList) {
 				JsonObject movieData = (JsonObject) movie;
-				
-				System.out.println("1. 코드 : " + movieData.get("movieCd"));
-			}
-			
-			
-			
-			for (Object movie : movieList) {
-				JsonObject movieData = (JsonObject) movie;
-				
-				System.out.println("1. 코드 : " + movieData.get("movieCd"));
-				
-				
-                System.out.println("2.영화명(한글): " + movieData.get("movieNm"));
-                //System.out.println("3.영화명(영어): " + movieData.get("movieNm"));
-                System.out.println("4. 개봉일: " + movieData.get("openDt"));
-                System.out.println("5. 박스오피스 순위: " + movieData.get("rank"));
-                System.out.println("6. 누적관객수 : " + movieData.get("audiAcc"));
-                System.out.println("7. 개봉일: " + movieData.get("openDt"));
-        
-				String tmdbMCode = getMCByTMDB(movieData.get("movieNm").toString(), movieData.get("openDt").toString());
-				String imgSrc = null;
-				String trailerSrc = null;
-				if (tmdbMCode != null) {
-					//imgSrc = getImageSrc(tmdbMCode);
-					trailerSrc = getTrailerSrc(tmdbMCode);
-				}
-				
-				System.out.println("TMDB MOVIE CODE :" + tmdbMCode);
-				System.out.println("TMDB imgSrc :" + imgSrc);
-				System.out.println("TMDB trailerSrc :" + trailerSrc);
-				// System.out.println("3.영화명(영어): " + movieData.get("movieNm"));
 
-				/*
-				 * System.out.println("5. 박스오피스 순위: " + movieData.get("rank"));
-				 * System.out.println("6. 누적관객수 : " + movieData.get("audiAcc"));
-				 * System.out.println("7. 개봉일: " + movieData.get("openDt"));
-				 */
-				// 필요한 다른 데이터도 출력 가능
-				System.out.println("--------");
+				JsonObject movieInfo = getMovieInfo(movieData.get("movieCd").getAsString());
+				/*System.out.println(movieInfo);
+				System.out.println("2.영화명(한글): " + movieData.get("movieNm").getAsString());
+				System.out.println("4. 개봉일: " + movieData.get("openDt"));
+				System.out.println("5. 박스오피스 순위: " + movieData.get("rank"));
+				System.out.println("6. 누적관객수 : " + movieData.get("audiAcc"));
+				System.out.println("7. 개봉일: " + movieData.get("openDt"));
+
+				System.out.println("3. 영어 제목 :" + movieInfo.get("movieNmEn"));
+				System.out.println("8. 상영 시간 :" + movieInfo.get("showTm"));
+				System.out.println("9. 상영 형태 :" + movieInfo.get("showTypes"));
+				
+				System.out.println("10. 감독 :" + movieInfo.get("directors"));
+				System.out.println("11. 출연진 :" + movieInfo.get("actors"));
+				System.out.println("12. 장르 :" + movieInfo.get("genres"));
+				System.out.println("13. 관람 등급 :" + movieInfo.get("audits"));*/
+				
+				m = new Movie(
+						Integer.parseInt(movieData.get("movieCd").getAsString()),
+						movieData.get("movieNm").getAsString(),
+						movieInfo.get("movieNmEn").getAsString(),
+						movieData.get("openDt").getAsString(),
+						Integer.parseInt(movieData.get("rank").getAsString()),
+						Integer.parseInt(movieData.get("audiAcc").getAsString()),
+						null,
+						Integer.parseInt(movieInfo.get("showTm").getAsString()),
+						(JsonArray)movieInfo.get("showTypes"),
+						(JsonArray)movieInfo.get("directors"),
+						(JsonArray)movieInfo.get("actors"),
+						(JsonArray)movieInfo.get("genres"),
+						(JsonArray)movieInfo.get("audits"),
+						null, null);
+				
+				list.add(m);
 			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		return list;
 	}
-
+	
+	private void setVisualInfoByTBDB( ArrayList<Movie> list){
+		for(Movie m : list) {
+			String[] movieInfo = getMCByTMDB(String.valueOf(m.getTitle()), m.getOpenDate());
+			m.setTmdbCd(movieInfo[0]);
+			m.setOverview(movieInfo[1]);
+			String tmdbMCode = movieInfo[0];
+			String imgSrc = null;
+			String trailerSrc = null;
+			if (tmdbMCode != null) {
+				imgSrc = getImageSrc(tmdbMCode);
+				trailerSrc = getTrailerSrc(tmdbMCode);
+			}
+			m.setImage(imgSrc);
+			m.setTrailer(trailerSrc);
+		}
+	}
+	
+	
+	
+	
+	
 	/**
 	 * 작성자 : 이상준 내용: TMDB API를 사용해서 TMDB 에서 파라미터로 쓰일 CODE값을 가져오는 함수 파라미터: 영화 이름(한글)
 	 * 리턴: String 최초 작성일: 2024.02.22 마지막 수정일: 2024.02.22
 	 */
-	private String getMCByTMDB(String movieName, String openDt) {
-		System.out.println("getMCByTMDB name +" + movieName);
-		String movieCode = null;
-		String replacedName = movieName.trim().replaceAll("\"", "").replaceAll(" ", "+");
-
-		String key = "api_key=4bbd8a79baa451e755477a68934a9110";
-		String query = "&query=" + replacedName;
-		String language = "&language=ko-KR";
+	private String[] getMCByTMDB(String movieName, String openDt) {
+		String[] movieInfo = null;
+		String replacedName = movieName.trim().replaceAll(" ", "+");
+		String language = "ko-KR";
 
 		String result = "";
 		try {
-			URL url = new URL("	https://api.themoviedb.org/3/search/movie?" + key + query + language);
-			System.out.println(url.toString());
+			URL url = new URL("	https://api.themoviedb.org/3/search/movie?"
+					+ "api_key=" + tmdbKey
+					+ "&query="+ replacedName 
+					+ "&language="+language);
+			
 			BufferedReader bf;
 
 			// UTF-8 인코딩으로 데이터를 읽어오기 위해 InputStreamReader로 BufferedReader 초기화
@@ -152,34 +186,37 @@ public class MovieDAO {
 			// JSON 데이터를 파싱하여 JSONObject로 변환
 			JsonObject jsonObject = (JsonObject) jsonParser.parse(result);
 			// JSON 데이터 출력
-			System.out.println(jsonObject);
 			JsonArray movieListResult = (JsonArray) jsonObject.get("results");
-
+//System.out.println(movieListResult.toString());
 			int size = movieListResult.size();
 			if (size == 0) {
 				return null;
 			} else if (movieListResult.size() == 1) {
+				movieInfo = new String[2];
 				JsonObject movieData = (JsonObject) movieListResult.get(0);
-				movieCode = movieData.get("id").toString();
+				movieInfo[0] = movieData.get("id").getAsString();
+				movieInfo[1] = movieData.get("overview").getAsString();
 			} else {
-				Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(openDt.replaceAll("\"", ""));
+				Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(openDt);
 				Date date2 = null;
+				movieInfo = new String[2];
 				for (Object movie : movieListResult) {
 					JsonObject movieData = (JsonObject) movie;
 					date2 = new SimpleDateFormat("yyyy-MM-dd")
-							.parse(movieData.get("release_date").toString().replaceAll("\"", ""));
+							.parse(movieData.get("release_date").getAsString());
 					if (date1.compareTo(date2) == 0) {
-						movieCode = movieData.get("id").toString();
+						movieInfo[0] = movieData.get("id").getAsString();
+						movieInfo[1] = movieData.get("overview").getAsString();
 						break;
 					}
 				}
-				if (movieCode == null) {
+				if (movieInfo[0] == null) {
 					for (Object movie : movieListResult) {
 						JsonObject movieData = (JsonObject) movie;
-						System.out.println(movieData.get("title").toString());
-						if (movieData.get("title").toString().replaceAll("\"", "")
-								.equals(movieName.replaceAll("\"", ""))) {
-							movieCode = movieData.get("id").toString();
+						if (movieData.get("title").getAsString()
+								.equals(movieName)) {
+							movieInfo[0] = movieData.get("id").getAsString();
+							movieInfo[1] = movieData.get("overview").getAsString();
 							break;
 						}
 					}
@@ -189,21 +226,21 @@ public class MovieDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return movieCode;
+		return movieInfo;
 	}
 
 	private String getImageSrc(String movieCode) {
 		// 인증키 (개인이 받아와야함)
-		System.out.println("=== getImageSrc ===");
+		//System.out.println("=== getImageSrc ===");
 		String imgSrc = null;
-		String key = "api_key=4bbd8a79baa451e755477a68934a9110";
 
 		// 파싱한 데이터를 저장할 변수
 		String movieId = movieCode;
-		//String jpgSrc = "https://image.tmdb.org/t/p/w500/";
+		// String jpgSrc = "https://image.tmdb.org/t/p/w500/";
 		String result = "";
 		try {
-			URL url = new URL("https://api.themoviedb.org/3/movie/" + movieId + "/images?" + key);
+			URL url = new URL("https://api.themoviedb.org/3/movie/" + movieId + "/images?" 
+		                    + "api_key="+ tmdbKey);
 
 			BufferedReader bf;
 			bf = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
@@ -211,34 +248,57 @@ public class MovieDAO {
 			JsonParser jsonParser = new JsonParser();
 			JsonObject jsonObject = (JsonObject) jsonParser.parse(result);
 			JsonArray images = (JsonArray) jsonObject.get("posters");
-			System.out.println(images);
 			for (Object movie : images) {
-				JsonObject movieData = (JsonObject)movie;
-				if(movieData.get("iso_639_1").toString().replaceAll("\"", "").equals("ko")) {
-					imgSrc = movieData.get("file_path").toString().replaceAll("\"", "");
+				JsonObject movieData = (JsonObject) movie;
+				
+				JsonElement element = movieData.get("iso_639_1");
+				if(element != null && !element.isJsonNull()) {
+					if (movieData.get("iso_639_1").getAsString().equals("ko")) {
+						imgSrc = movieData.get("file_path").getAsString();
+						break;
+					}
+				}
+				
+				/*
+				 * System.out.println("movieData.get(\"iso_639_1\")");
+				 * System.out.println(movieData);
+				 * System.out.println(movieData.get("iso_639_1"));
+				 * System.out.println(movieData.get("iso_639_1") == null);
+				 * System.out.println(movieData.get("iso_639_1").toString());
+				 */
+				
+			}
+			if(imgSrc == null) {
+				for (Object movie : images) {
+					JsonObject movieData = (JsonObject) movie;
+					JsonElement element = movieData.get("iso_639_1");
+					if(element != null && !element.isJsonNull()) {
+						imgSrc = movieData.get("file_path").getAsString();
+						break;
+					}
 				}
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return imgSrc;
 	}
-	
-	
-	
+
 	private String getTrailerSrc(String movieCode) {
 		// 인증키 (개인이 받아와야함)
-		System.out.println("=== getTrailerSrc ===");
+		//System.out.println("=== getTrailerSrc ===");
 		String trailerSrc = null;
-		String key = "api_key=4bbd8a79baa451e755477a68934a9110";
-		String language = "&language=ko-KR";
-
-		// 파싱한 데이터를 저장할 변수
+		String language = "ko-KR";
 		String movieId = movieCode;
-		String jpgSrc = "https://image.tmdb.org/t/p/w500/";
+		//String jpgSrc = "https://image.tmdb.org/t/p/w500/";
+		
+		
 		String result = "";
 		try {
-			URL url = new URL("https://api.themoviedb.org/3/movie/" + movieId + "/videos?" + key + language);
+			URL url = new URL("https://api.themoviedb.org/3/movie/" + movieId + "/videos?" 
+					 + "api_key="+ tmdbKey 
+					 + "&language="+language);
 
 			BufferedReader bf;
 			bf = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
@@ -246,56 +306,66 @@ public class MovieDAO {
 			JsonParser jsonParser = new JsonParser();
 			JsonObject jsonObject = (JsonObject) jsonParser.parse(result);
 			JsonArray results = (JsonArray) jsonObject.get("results");
-			
-			System.out.println(results.size());
-			if(results.size() == 0 ) {
-				url = new URL("https://api.themoviedb.org/3/movie/" + movieId + "/videos?" + key);
+
+			if (results.size() == 0) {
+				url = new URL("https://api.themoviedb.org/3/movie/" + movieId + "/videos?" 
+			                + "api_key="+ tmdbKey);
 
 				bf = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
 				result = bf.readLine();
 				jsonObject = (JsonObject) jsonParser.parse(result);
 				results = (JsonArray) jsonObject.get("results");
-				
-				System.out.println(results.size());
-				if(results.size() != 0 ) {
+
+				if (results.size() != 0) {
 					System.out.println(results);
 				}
-				
+
 			}
-			if(results.size() == 0 ) {
+			if (results.size() == 0) {
 				return null;
-			}else if (results.size() > 0) {
-				JsonObject oneTrailer = (JsonObject)results.get(0);
-				trailerSrc = oneTrailer.get("key").toString().replaceAll("\"", "");
+			} else if (results.size() > 0) {
+				JsonObject oneTrailer = (JsonObject) results.get(0);
+				trailerSrc = oneTrailer.get("key").getAsString();
 			}
-			System.out.println(results);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return trailerSrc;
 	}
-	
-	
+
 	JsonObject getMovieInfo(String mvCd) {
-		JsonObject jobj = null;
-		/*
-		 * URL url2 = new
-		 * URL("	http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key="
-		 * + key+mvCd ); // URL을 통해 데이터를 읽어오기 위한 BufferedReader 생성 BufferedReader bf;
-		 * 
-		 * // UTF-8 인코딩으로 데이터를 읽어오기 위해 InputStreamReader로 BufferedReader 초기화 bf = new
-		 * BufferedReader(new InputStreamReader(url2.openStream(), "UTF-8"));
-		 * 
-		 * // 읽어온 데이터를 문자열로 저장 result = bf.readLine();
-		 * 
-		 * // JSON 데이터 파싱을 위한 JSONParser 객체 생성 JSONParser jsonParser = new JSONParser();
-		 * 
-		 * // JSON 데이터를 파싱하여 JSONObject로 변환 JSONObject jsonObject = (JSONObject)
-		 * jsonParser.parse(result);
-		 * 
-		 * // JSON 데이터 출력 System.out.println(jsonObject);
-		 */
-		return jobj;
+		JsonObject jObj = new JsonObject();
+		// 파싱한 데이터를 저장할 변수
+		String query = "&movieCd=" + mvCd;
+		String result = "";
+		try {
+			URL url = new URL("	http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key="
+					+ kobisKey + query);
+			// URL을 통해 데이터를 읽어오기 위한 BufferedReader 생성
+			BufferedReader bf;
+
+			// UTF-8 인코딩으로 데이터를 읽어오기 위해 InputStreamReader로 BufferedReader 초기화
+			bf = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+
+			// 읽어온 데이터를 문자열로 저장
+			result = bf.readLine();
+
+			// JSON 데이터 파싱을 위한 JSONParser 객체 생성
+			JsonParser jsonParser = new JsonParser();
+
+			// JSON 데이터를 파싱하여 JSONObject로 변환
+			JsonObject jsonObject = (JsonObject) jsonParser.parse(result);
+
+			// JSON 데이터 출력
+			JsonObject movieInfoResult = (JsonObject) jsonObject.get("movieInfoResult");
+			JsonObject movieInfo = (JsonObject) movieInfoResult.get("movieInfo");
+			if (movieInfo != null) {
+				jObj = movieInfo;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return jObj;
 	}
 
 }
