@@ -1,6 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/movie/header.jsp"%>
+    <!-- Font Awesome 5 -->
+<link
+   rel="stylesheet"
+   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+/>
+<!-- ticketing.jsp -->
+<link rel="stylesheet" href="${ctx}/css/ticketing.css" />
+<script defer src="${ctx}/js/ticketting.js"></script>
 
  <body class="body-iframe">
     <div class="tit-util">
@@ -157,23 +165,3 @@
     </div>
   </body>
 </html>
-<script>
-  $(".wrap-list").slick({
-    slidesToShow: 14,
-    slidesToScroll: 1,
-    autoplay: false,
-    autoplaySpeed: 2000,
-    infinite: false,
-    prevArrow: $(".btn-pre"),
-    nextArrow: $(".btn-next"),
-  });
-  $(".time-list").slick({
-    slidesToShow: 9,
-    slidesToScroll: 1,
-    autoplay: false,
-    autoplaySpeed: 2000,
-    infinite: false,
-    prevArrow: $(".time-pre"),
-    nextArrow: $(".time-next"),
-  });
-</script>
