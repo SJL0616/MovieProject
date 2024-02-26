@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -31,6 +33,7 @@ public class MovieDAO {
 	private MovieDAO() {
 		saveMovieData();
 	}
+	
 	public static MovieDAO getInstance() {
 		if (instance == null) {
 			instance = new MovieDAO();
@@ -55,23 +58,30 @@ public class MovieDAO {
 	 * 마지막 수정일: 2024.02.22
 	 */
 	public void saveMovieData() {
-		list = getMovieListByKobis();
+		LocalDate now = LocalDate.now();
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");        
+        String formatedNow = now.minusDays(1).format(formatter);       
+        //System.out.println(formatedNow);  
+        
+		list = getMovieListByKobis(formatedNow);
 		setVisualInfoByTBDB(list);
 		
-		/*
-		 * for(Movie m : list) {
-		 * 
-		 * Gson gson = new Gson(); String show = gson.toJson(m);
-		 * System.out.println("m "+ show); }
-		 */
+		
+		  for(Movie m : list) {
+		  
+		  Gson gson = new Gson(); String show = gson.toJson(m);
+		  System.out.println("m "+ show); 
+		  }
+		 
 		 
 	}
 
-	private ArrayList<Movie> getMovieListByKobis() {
+	private ArrayList<Movie> getMovieListByKobis(String now) {
 
 		ArrayList<Movie> list = new ArrayList<Movie>();
 		// 인증키 (개인이 받아와야함)
-		String date = "&targetDt=20240219";
+		String date = "&targetDt="+now;
 		// 파싱한 데이터를 저장할 변수
 		String result = "";
 
@@ -109,24 +119,27 @@ public class MovieDAO {
 				System.out.println("11. 출연진 :" + movieInfo.get("actors"));
 				System.out.println("12. 장르 :" + movieInfo.get("genres"));
 				System.out.println("13. 관람 등급 :" + movieInfo.get("audits"));*/
+				if(!movieInfo.isJsonNull()) {
+					System.out.println(movieInfo);
+					m = new Movie(
+							Integer.parseInt(movieData.get("movieCd").getAsString()),
+							movieData.get("movieNm").getAsString(),
+							movieInfo.get("movieNmEn").getAsString(),
+							movieData.get("openDt").getAsString(),
+							Integer.parseInt(movieData.get("rank").getAsString()),
+							Integer.parseInt(movieData.get("audiAcc").getAsString()),
+							null,
+							Integer.parseInt(movieInfo.get("showTm").getAsString()),
+							(JsonArray)movieInfo.get("showTypes"),
+							(JsonArray)movieInfo.get("directors"),
+							(JsonArray)movieInfo.get("actors"),
+							(JsonArray)movieInfo.get("genres"),
+							(JsonArray)movieInfo.get("audits"),
+							null, null);
+					
+					list.add(m);
+				}
 				
-				m = new Movie(
-						Integer.parseInt(movieData.get("movieCd").getAsString()),
-						movieData.get("movieNm").getAsString(),
-						movieInfo.get("movieNmEn").getAsString(),
-						movieData.get("openDt").getAsString(),
-						Integer.parseInt(movieData.get("rank").getAsString()),
-						Integer.parseInt(movieData.get("audiAcc").getAsString()),
-						null,
-						Integer.parseInt(movieInfo.get("showTm").getAsString()),
-						(JsonArray)movieInfo.get("showTypes"),
-						(JsonArray)movieInfo.get("directors"),
-						(JsonArray)movieInfo.get("actors"),
-						(JsonArray)movieInfo.get("genres"),
-						(JsonArray)movieInfo.get("audits"),
-						null, null);
-				
-				list.add(m);
 			}
 
 		} catch (Exception e) {
@@ -317,7 +330,7 @@ public class MovieDAO {
 				results = (JsonArray) jsonObject.get("results");
 
 				if (results.size() != 0) {
-					System.out.println(results);
+					//System.out.println(results);
 				}
 
 			}
