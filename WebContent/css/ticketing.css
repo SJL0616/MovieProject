@@ -1,0 +1,297 @@
+@charset "UTF-8";
+*{
+  box-sizing: border-box;
+}
+.body-iframe {
+  overflow: auto;
+  letter-spacing: 0;
+  line-height: 1.5;
+  font-size: 15px;
+  color: #444;
+  font-weight: 400;
+}
+.body-iframe .tit-util{
+  padding: 25px;
+}
+.body-iframe .tit-util .tit{
+  font-size: 1.8666em;
+  font-weight: 400;
+  letter-spacing: -1px;
+  color: #222;
+  margin: 0;
+}
+ul,li{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.ticket{
+  width: 1000px;
+  border: 1px solid #ccc;
+  border-top: 1px solid black;
+  box-sizing: border-box;
+}
+/*header 날짜 */
+.wrap{
+  display: flex;
+  margin: 0 auto;
+}
+.wrap-list{
+  width: 950px;
+  position: relative;
+}
+.wrap-list button{
+  height: 40px;
+  border: 0;
+  font-weight: 400;
+  cursor: pointer;
+  background-color: #fff;
+}
+.wrap-list button:hover{
+  border-bottom: 2px solid #503396;
+}
+.wrap-list #on{
+  background-color: #f7f8f9;
+  border-bottom: 2px solid #503396;
+}
+.btn-pre{
+  cursor: pointer;
+  background-color: #fff;
+  border:0;
+}
+.btn-next{
+  cursor: pointer;
+  background-color: #fff;
+  border:0;
+}
+/*moive time css*/
+.quick-reserve-area{
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  border-top: 1px solid #d8d9db;
+}
+.quick-reserve-area button{
+  margin: 0;
+  padding: 0;
+  border: 0;
+  letter-spacing: -1px;
+  background-color: transparent;
+}
+
+/*moive css*/
+.movie-choice{
+  flex:1;
+  height: 529px;
+  padding: 10px;
+  border-right: 1px solid #ccc;
+}
+.movie-choice .list{
+  overflow-y: scroll;
+  border: 1px solid #ccc;
+  height: 350px;
+}
+.view-area .choice-all{
+  overflow: hidden;
+  width: 100%;
+  height: 90px;
+  margin: 10px 0 0 0;
+  padding: 25px 0 0 0;
+  font-size: .9333em;
+  line-height: 1.3;
+  text-align: center;
+  border: 1px solid #ebebeb;
+  background-color: #fff;
+}
+.view-area .choice-list{
+  overflow: hidden;
+  margin: 10px 0 0 0;
+  display: none;
+}
+.view-area .choice-list .bg{
+  float: left;
+  width: 63px;
+  height: 90px;
+  border: 1px solid #ccc;
+  margin-left: 30px;
+}
+.bg .wrap{
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.bg .wrap .img{
+  width: 100%;
+  height: 100%;
+}
+.bg .wrap .del{
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 2;
+  width: 20px;
+  height: 20px;
+  border: 0;
+  background-color: #444;
+  color: #fff;
+}
+.movie-choice .list .btn{
+  display: block;
+  position: relative;
+  width: 100%;
+  min-height: 28px;
+  padding: 3px 30px 3px 30px;
+  text-align: left;
+  font-size: .8667em;
+  background-color: transparent;
+  letter-spacing: 0;
+  cursor: pointer;
+}
+.movie-choice .list .btn .movie-grade{
+  border-radius: 5px;
+  color: #fff;
+  padding: 2px;
+  font-size: 16px;
+}
+.movie-choice .list .btn .age-12{
+  background-color: rgb(255, 225, 0);
+}.movie-choice .list .btn .age-15{
+  background-color: orange;
+}.movie-choice .list .btn .age-all{
+  background-color: green;
+}
+.movie-choice .list #on{
+  color: #fff;
+  font-weight: 400;
+  background-color: #666;
+}
+/* theater css
+.theater-choice{
+  flex:1;
+  padding: 10px;
+}
+.theater-choice .list-area{
+  overflow-y: scroll;
+  border: 1px solid #ccc;
+} */
+/* time css*/
+.time-choice{
+  flex:1;
+  height: 529px;
+}
+.time-area{
+  width: 100%;
+}
+.time-area p{
+  padding: 0px 10px;
+}
+
+.time-button{
+  display: flex;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+.time-list{
+  width: 500px;
+}
+.time-list button{
+  height: 30px;
+  color: #444;
+  font-size: 1em;
+  border:0;
+  background-color: transparent;
+  cursor: pointer;
+}
+.time-list #on{
+  background-color: #555;
+  color: #fff;
+}
+.time-pre{
+  width: 35px;
+  cursor: pointer;
+  background-color: #fff;
+  border:0;
+}
+.time-next{
+  width: 35px;
+  cursor: pointer;
+  background-color: #fff;
+  border:0;
+}
+.movie-shedule-area{
+  height: 444px;
+  overflow-y: scroll;
+}
+.movie-shedule-area ul li .btn{
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+  padding: 0;
+  background-color: transparent;
+  border:0;
+  cursor: pointer;
+}
+.movie-shedule-area ul li .btn:hover{
+  background-color: #ccc;
+}
+
+.movie-shedule-area ul li .btn .legend{
+  display: table-cell;
+  width: 30px;
+  height: 66px;
+  padding: 10px 0 0 0;
+  vertical-align: top;
+}
+.movie-shedule-area ul li .btn .time{
+  display: table-cell;
+  width: 60px;
+  padding: 10px 0;
+  text-align: left;
+  vertical-align: top;
+  font-weight: 300;
+  border: 1px;
+}
+.movie-shedule-area ul li .btn .time strong{
+  display: block;
+  font-size: 1.2em;
+  font-weight: 700;
+}
+.movie-shedule-area ul li .btn .time em{
+  display: block;
+  padding: 3px 0 0 0;
+  font-size: .8667em;
+  font-weight: 300;
+}
+.movie-shedule-area ul li .btn .title{
+  display: table-cell;
+  width: 275px;
+  padding: 10px 0;
+  text-align: left;
+}
+.movie-shedule-area ul li .btn .title strong{
+  display: block;
+  font-weight: 400;
+  padding: 0 5px 0 0;
+  line-height: 1.3;
+}
+.movie-shedule-area ul li .btn .title em{
+  display: block;
+  padding-top: 7px;
+  font-size: .8em;
+}
+.movie-shedule-area ul li .btn .info{
+  display: table-cell;
+  width: 110px;
+  padding: 0 5px 0 0;
+  font-size:.8em;
+  vertical-align: middle;
+  text-align: right;
+}
+.movie-shedule-area ul li .btn .info .theater{
+  overflow: hidden;
+  display: block;
+  padding: 0;
+  line-height: 1.5;
+}
+
