@@ -1,0 +1,77 @@
+@charset "UTF-8";
+
+.loginPage {
+	border: 1px solid red;
+	display: flex;
+	justify-content: center;
+}
+
+.loginForm {
+	border: 2px solid green;
+	width: 850px;
+	height: 556px;
+}
+
+.loginForm .title {
+	width: 835px;
+	height: 45px;
+	background-color: #503396;
+	color: white;
+	padding-left: 15px;
+	font-size: 18px;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+}
+
+.loginForm .formBody {
+	width: 100%;
+	height: 100%;
+	display: flex;
+}
+
+.loginForm .leftSection {
+	width: 100%;
+	height: calc(100% - 45px);
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+}
+
+.loginForm .rightSection {
+	background-color: gold;
+	width: 100%;
+	height: calc(100% - 45px);
+	flex: 1;
+}
+
+.leftSection .realForm {
+	background-color: navy;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	flex: 6;
+	padding: 25px;
+	margin: 0;
+}
+
+.leftSection .otherWays {
+	background-color: red;
+	height: 100%;
+	flex: 4;
+}
+
+#id {
+	height: 50px;
+}
+
+#pw {
+	height: 50px;
+}
+
+.APIs {
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+}

@@ -4,7 +4,11 @@ import java.util.HashMap;
 
 import movie.controller.Controller;
 import movie.controller.IndexController;
-import movie.controller.UserLoginController;
+import movie.controller.user.KakaoController;
+import movie.controller.user.NaverController;
+import movie.controller.user.UserJoinController;
+import movie.controller.user.UserLoginController;
+import movie.controller.user.UserLogoutController;
 
 public class HandlerMapping {
 	private HashMap<String, Controller> mappings;
@@ -13,6 +17,10 @@ public class HandlerMapping {
 		mappings = new HashMap<String, Controller>();
 		mappings.put("/main.do", new IndexController());
 		mappings.put("/login.do", new UserLoginController());
+		mappings.put("/logout.do", new UserLogoutController());
+		mappings.put("/kakaoLogin.do", new KakaoController());
+		mappings.put("/naverLogin.do", new NaverController());
+		mappings.put("/userJoin.do", new UserJoinController());
 	}
 
 	public Controller getController(String key) {

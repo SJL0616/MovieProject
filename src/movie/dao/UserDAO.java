@@ -6,12 +6,10 @@ package movie.dao;
 
 import java.io.IOException;
 import java.io.InputStream;
-
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-
 import movie.vo.UserVO;
 
 public class UserDAO {
@@ -37,7 +35,19 @@ public class UserDAO {
 
 	public UserVO getTheUserById(String id) {
 		SqlSession session = sqlSessionFactory.openSession();
-		UserVO member = session.selectOne("getTheUserById");
-		return member;
+		UserVO user = session.selectOne("getTheUserById", id);
+		return user;
+	}
+
+	public UserVO getTheUserByKakaoId(String kakaoId) {
+		SqlSession session = sqlSessionFactory.openSession();
+		UserVO user = session.selectOne("getTheUserByKakaoId", kakaoId);
+		return user;
+	}
+
+	public UserVO getTheUserByNaverId(String naverId) {
+		SqlSession session = sqlSessionFactory.openSession();
+		UserVO user = session.selectOne("getTheUserByNaverId", naverId);
+		return user;
 	}
 }
