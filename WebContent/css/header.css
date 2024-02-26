@@ -1,0 +1,57 @@
+@charset "UTF-8";
+
+header {
+	background-color: #444;
+	color: white;
+	height: 100px;
+	display: flex;
+	justify-content: center;
+}
+
+header .header-content {
+	width: 50%;
+}
+
+header .ci {
+	font-size: 0;
+	width: 140px;
+	height: 47px;
+	background:
+		url(https://img.megabox.co.kr/static/pc/images/common/ci/logo-white_new2.png)
+		center center no-repeat;
+}
+
+header .top-of-header {
+	height: 50%;
+	display: flex;
+	justify-content: flex-end;
+}
+
+header .top-of-header a {
+	color: gray;
+	text-decoration: none;
+	margin-left: 15px;
+}
+
+header .top-of-header a:hover {
+	text-decoration: underline;
+}
+
+header .bottom-of-header {
+	height: 50%;
+	display: flex;
+	justify-content: space-around;
+}
+
+header .mymega {
+	background-image:
+		url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-mymega-white.png);
+	display: block;
+	width: 36px;
+	height: 36px;
+	font-size: 0;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-color: transparent;
+	background-color: #444;
+}
