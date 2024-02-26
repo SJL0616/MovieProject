@@ -17,7 +17,7 @@ public class IndexController implements Controller{
 	@Override
 	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//ArrayList<Movie> topFour =  MovieDAO.getInstance().getTopFour();
+		ArrayList<Movie> topFour =  MovieDAO.getInstance().getTopFour();
 		
 		/*
 		  for(Movie m : topFour) {
@@ -26,7 +26,7 @@ public class IndexController implements Controller{
 		  System.out.println("m "+ show); 
 		  }*/
 		  
-		 // request.setAttribute("list", topFour);
+		 request.setAttribute("list", topFour);
 		 
 		return "main";
 	}
