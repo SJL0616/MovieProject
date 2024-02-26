@@ -14,6 +14,27 @@
 	rel="stylesheet"
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<!-- slick.js -->
+    <script
+      type="text/javascript"
+      src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
+    />
+    <!-- Font Awesome 5 -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
+    />
+    <!-- ticketing.jsp -->
+    <link rel="stylesheet" href="${ctx}/css/ticketing.css" />
+    <script defer src="${ctx}/js/ticketting.js"></script>
+    
 <%-- <link rel="stylesheet" type="text/css" href="${ctx}/css/style.css" /> --%>
 </head>
 <body>
