@@ -63,17 +63,25 @@ public class Movie {
 		this.overview = overview;
 		this.showTime = showTime;
 		this.showTypes =  getSTFromJArr(showTypes);
-		this.director =  director.get(0).getAsJsonObject().get("peopleNm").getAsString();
+		this.director = getDirFromJArr(director);
 		this.actors = getActorsFormJArr(actors);
 		this.genre = genre.get(0).getAsJsonObject().get("genreNm").getAsString();
 		this.watchGrade = watchGrade.get(0).getAsJsonObject().get("watchGradeNm").getAsString();
 		this.image = image;
 		this.trailer = trailer;
 	}
+	public String getDirFromJArr(JsonArray jsonArray) {
+		int length = jsonArray.size();
+		String name = "";
+		if(length >0) {
+			name = jsonArray.get(0).getAsJsonObject().get("peopleNm").getAsString();
+		}
+		return name;
+	}
 	
 	public String getSTFromJArr(JsonArray jsonArray) {
 		int length = jsonArray.size();
-		String showType = null;
+		String showType = "";
 		if(length >0) {
 			JsonObject jobj = (JsonObject)jsonArray.get(0);
 			showType = jobj.get("showTypeGroupNm").getAsString()
@@ -85,11 +93,19 @@ public class Movie {
 	
 	public String getActorsFormJArr(JsonArray jsonArray) {
 		int length = jsonArray.size();
-		String actors = null;
+		String actors = "";
 		if(length > 0) {
+			int i = 0;
 			for(Object obj : jsonArray) {
 				JsonObject oneActor = (JsonObject) obj;
-				actors += oneActor.get("peopleNm").getAsString() +", ";
+				if(!oneActor.isJsonNull()) {
+					actors += oneActor.get("peopleNm").getAsString();
+				}
+				i++;
+				if(i != length) {
+					actors +=", ";
+				}
+				
 			}
 		}
 		return actors;
