@@ -24,7 +24,8 @@ public class IndexController implements Controller{
 		  
 		  Gson gson = new Gson(); String show = gson.toJson(m);
 		  System.out.println("m "+ show); 
-		  }*/
+		  }
+		  */
 		  
 		 request.setAttribute("list", topFour);
 		 

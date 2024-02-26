@@ -2,35 +2,36 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@ include file="./header.jsp"%>
+  <link rel="stylesheet" type="text/css" href="${ctx}/css/main.css">
 <h4>메인</h4>
-</body>
 
+<div class="main_movie">
+<div class="background">
+<div class="bg-pattern"></div>
+<div class= "content">
+<div class="tab-sorting">
+<button type="button" class="on" sort="boxoRankList" name="btnSort">박스오피스</button>
+</div>
+<a href="/movie" class="more-movie" title="더 많은 영화보기">
+더 많은 영화보기 <i class="iconset ico-more-corss gray"></i>
+</a>
 <div class="main-movie-list">
 						<ol class="list">
 							<c:forEach var="vo" items="${list}">
 								<li name="li_boxoRankList"  class="first">
-											<a href="javascript:gfn_moveDetail('24004100')" class="movie-list-info" title="영화상세 보기">
+								<!-- javascript:gfn_moveDetail('24004100') -->
+											<a href="" class="movie-list-info" title="영화상세 보기">
 												<!-- <div class="screen-type2">
 													<p><img src="/static/pc/images/common/btn/mov_top_tag_db.png" alt="dolby"></p>
 													<p><img src="/static/pc/images/common/btn/mov_top_tag_atmos.png" alt="atmos"></p>
 												</div> -->
-												<p class="rank">${vo.getRank()}<span class="ir">위</span></p>
+												<p class="rank">${vo.getRank()}<span class="ir"></span></p>
 												<!-- to 개발 : alt 값에 영화 제목 출력 -->
 										      	<img src="https://image.tmdb.org/t/p/w500${vo.getImage() }" alt="파묘" class="poster" onerror="noImg(this, 'main');"/>
 							                    <div class="wrap">
 													<div class="summary">
 														${vo.getOverview()}
 													</div>
-													<!--
-														관람 전이 더 높을 때
-														<div class="my-score small">
-
-														관람 후가 더 높을 때
-														<div class="my-score big">
-
-														관람 후가 더 같을 때
-														<div class="my-score equal">
-													 -->
 													<div class="score">
 														<div class="preview">
 															<p class="tit">관람평</p>
@@ -42,13 +43,13 @@
 											<div class="btn-util">
                                                 <button type="button" class="button btn-like" rpst-movie-no="24004100">
 													<i title="보고싶어 설정 안함" class="iconset ico-heart-toggle-gray"></i>
-														1.8k
+														
 														</button>
                                                 <div class="case">
                                                     <!-- 개봉 예매가능 기본-->
                                                             <a href="javascript:moveBokdPage('24004100');" class="button gblue" title="영화 예매하기">예매</a>
                                                         </div>
-                                             </div>
+                                            </div>
                                     </li>
 							</c:forEach>
 		<!-- 3개의 list를  loop 한다-->
@@ -190,5 +191,9 @@
 									<!-- 박스오피스 종료 -->
 								</ol>
 					</div>
+					</div>
+					</div>
+					</div>
+					</body>
 </html>
 <script type="text/javascript" src="${ctx}/js/main.js"></script>
