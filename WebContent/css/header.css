@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+body {
+	margin: 0;
+}
+
 header {
 	background-color: #444;
 	color: white;
@@ -26,7 +30,7 @@ header .ci {
 }
 
 header .top-of-header {
-	height: 50%;
+	height: 30%;
 	display: flex;
 	justify-content: flex-end;
 	padding-top: 15px;
@@ -43,7 +47,7 @@ header .top-of-header a:hover {
 }
 
 header .bottom-of-header {
-	height: 50%;
+	height: 70%;
 	display: flex;
 	justify-content: space-around;
 	font-size: 20px;

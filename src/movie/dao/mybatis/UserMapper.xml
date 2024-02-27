@@ -37,4 +37,15 @@
 		);
 	</select>
 
+	<update id="disconnectToKakao" parameterType="String">
+		UPDATE user SET
+		kakao = null WHERE id = #{id};
+	</update>
+
+	<update id="setKakaoIdToTheUser" parameterType="map">
+		UPDATE user
+		SET kakao = #{kakaoId}
+		WHERE id = #{id}
+	</update>
+
 </mapper>

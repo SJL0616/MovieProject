@@ -34,16 +34,27 @@ public class KakaoController implements Controller {
 		String[] tempList = myJsonData.split(",");
 		String kakaoId = tempList[1].substring(5);
 		apiHelper.unlink();
-		UserVO user = UserDAO.getInstance().getTheUserByKakaoId(kakaoId);
-		if (user == null) {
-			response.getWriter().print("notValid");
-		} else {
-			HttpSession session = request.getSession();
-			session.setAttribute("log", user.getId());
+
+		HttpSession session = request.getSession();
+		UserVO user = (UserVO) session.getAttribute("user");
+		if (user == null) { // 로그인중이 아닐 때 (카카오로 로그인하기)
+			user = UserDAO.getInstance().getTheUserByKakaoId(kakaoId);
+			if (user == null) {
+				response.getWriter().print("notValid");
+				return null;
+			} else {
+				session.setAttribute("log", user.getId());
+				session.setAttribute("user", user);
+				response.getWriter().print("valid");
+				return null;
+			}
+		} else { // 로그인중일 때 (카카오와 연동하기)
+			UserDAO.getInstance().setKakaoIdToTheUser(user.getId(),kakaoId);
+			user = UserDAO.getInstance().getTheUserByKakaoId(kakaoId);
 			session.setAttribute("user", user);
-			response.getWriter().print("valid");
+			response.getWriter().print("connected");
+			return null;
 		}
-		return null;
 	}
 
 	private String getKakaoAccessToken(String code) {
@@ -64,7 +75,7 @@ public class KakaoController implements Controller {
 			StringBuilder sb = new StringBuilder();
 			sb.append("grant_type=authorization_code");
 			sb.append("&client_id=21ab5b4db87c2754b7ad5637ffdc7eb3"); // TODO REST_API_KEY 입력
-			sb.append("&redirect_uri=http://localhost:8085/MovieProject/kakaoLoginResult.jsp"); // TODO 인가코드 받은
+			sb.append("&redirect_uri=http://localhost:8085/MovieProject/kakaoLoginResult.do"); // TODO 인가코드 받은
 																								// redirect_uri
 			// 입력
 			sb.append("&code=" + code);
