@@ -10,10 +10,9 @@ import movie.controller.user.UserIdValidAjax;
 import movie.controller.user.UserJoinController;
 import movie.controller.user.UserLoginController;
 import movie.controller.user.UserLogoutController;
-
+import movie.controller.user.UserUpdateController;
 public class HandlerMapping {
 	private HashMap<String, Controller> mappings;
-
 	public HandlerMapping() {
 		mappings = new HashMap<String, Controller>();
 		mappings.put("/main.do", new IndexController());
@@ -23,8 +22,8 @@ public class HandlerMapping {
 		mappings.put("/naverLogin.do", new NaverController());
 		mappings.put("/userJoin.do", new UserJoinController());
 		mappings.put("/userIdValidAjax.do", new UserIdValidAjax());
+		mappings.put("/userUpdate.do", new UserUpdateController());
 	}
-
 	public Controller getController(String key) {
 		return mappings.get(key);
 	}
