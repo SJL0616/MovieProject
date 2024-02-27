@@ -6,7 +6,7 @@
  -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@include file="./WEB-INF/movie/header.jsp"%>
+<%@include file="./header.jsp"%>
 <script>
 			displayCode()
 			function displayCode() {
@@ -27,6 +27,9 @@
 				} else if (data === "notValid") {
 					location.href="${ctx}/login.do"
 					alert("카카오와 연동된 유저가 없습니다.");
+				} else if (data === "connected"){
+					location.href="${ctx}/userMyMega.do"
+					alert("연동에 성공했습니다.");
 				}
 			}
 		</script>
