@@ -48,6 +48,15 @@ public class MovieDAO {
 	public ArrayList<Movie> getTopFour(){
 		return new ArrayList<Movie>(list.subList(0, 4));
 	}
+	
+	public Movie getOne(int movieId) {
+		for(Movie m : list) {
+			if(m.getMovieID() == movieId) {
+				return m;
+			}
+		}
+		return null;
+	}
 
 
 	
