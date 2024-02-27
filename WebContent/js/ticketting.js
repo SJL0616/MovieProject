@@ -63,7 +63,7 @@ function init() {
 			wraplist[i - 1].style.color = "blue";
 		}
 		// day 값 넣기 및 date 값 data 에 담기
-		wraplist[i - 1].innerHTML = date + " " + days(day);
+		wraplist[i - 1].innerHTML = month+"<br>"+date + " " + days(day);
 		wraplist[i - 1].setAttribute("data-date", year + "-" + month + "-" + date);
 		date += 1;
 		day += 1;
