@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 작성자 : 김진수 -->
+<!-- 내용 : movieTheater DB -->
+<!-- 최초 작성일 : 24-02-27 -->
+<!-- 마지막 수정일 : 24-02-27(김진수) -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="movie.dao.mybatis.MovieTheaterMapper">
+<resultMap id="movieTheaterMap" type="movietheater">
+    <id property="movieThcd" column="movie_thcd"/>
+    <result property="movieName" column="movie_name"/>
+    <result property="movieAddress" column="movie_address"/>
+    <result property="locationX" column="location_x"/>
+    <result property="locationY" column="location_y"/>
+</resultMap>
+
+  <select id="movieTheaterList" resultType="movietheater">
+  	select * from movietheater;
+  </select>
+</mapper>

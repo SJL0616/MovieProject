@@ -42,7 +42,7 @@
 					</div>
 					<div class="bottom-of-header">
 						<div>영화</div>
-						<div>예매</div>
+						<div><a href="${ctx}/ticketing.do">예매</a></div>
 						<div></div>
 						<div class="ci" onclick="location.href='${ctx}/index.jsp'">
 							<a title="MEGABOX 메인으로 가기">MEGABOX : Life Theater</a>

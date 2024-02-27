@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/WEB-INF/movie/header.jsp"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     <!-- Font Awesome 5 -->
 <link
    rel="stylesheet"
@@ -10,7 +11,7 @@
 <link rel="stylesheet" href="${ctx}/css/ticketing.css" />
 <script defer src="${ctx}/js/ticketting.js"></script>
 
- <body class="body-iframe">
+ <div class="body-iframe" align="center">
     <div class="tit-util">
       <h2 class="tit">빠른예매</h2>
     </div>
@@ -61,24 +62,14 @@
           <p>영화 리스트</p>
           <div class="list">
             <ul>
+            <c:forEach var="list" items="${list}">
               <li>
-                <button class="btn disabled" movie-nm="파묘" movie-no="1">
-                  <span class="movie-grade age-15">15</span>
-                  <span class="txt">파묘</span>
+                <button class="btn disabled" movie-nm="${list.title}" movie-no="${list.movieID}" img-path="https://image.tmdb.org/t/p/w500${list.image}">
+                  <span class="movie-grade age-${fn:substring(list.watchGrade,0,2) == '전체'? 'all' : fn:substring(list.watchGrade,0,2)}">${fn:substring(list.watchGrade,0,2) == '전체'? 'All' : fn:substring(list.watchGrade,0,2)}</span>
+                  <span class="txt">${list.title}</span>
                 </button>
               </li>
-              <li>
-                <button class="btn disabled" movie-nm="파묘" movie-no="2">
-                  <span class="movie-grade age-12">12</span>
-                  <span class="txt">듄 : 파트2</span>
-                </button>
-              </li>
-              <li>
-                <button class="btn disabled" movie-nm="파묘" movie-no="3">
-                  <span class="movie-grade age-all">All</span>
-                  <span class="txt">웡카</span>
-                </button>
-              </li>
+              </c:forEach>
             </ul>
           </div>
           <div class="view-area">
@@ -102,19 +93,9 @@
               <i class="fa fa-chevron-left"></i>
             </button>
             <div class="time-list">
-              <button id="btn-time">1</button><button id="btn-time">2</button
-              ><button id="btn-time">3</button><button id="btn-time">4</button
-              ><button id="btn-time">5</button><button id="btn-time">6</button
-              ><button id="btn-time">7</button><button id="btn-time">8</button
-              ><button id="btn-time">9</button><button id="btn-time">10</button
-              ><button id="btn-time">11</button><button id="btn-time">12</button
-              ><button id="btn-time">13</button><button id="btn-time">14</button
-              ><button id="btn-time">15</button><button id="btn-time">16</button
-              ><button id="btn-time">17</button><button id="btn-time">18</button
-              ><button id="btn-time">19</button><button id="btn-time">20</button
-              ><button id="btn-time">21</button><button id="btn-time">22</button
-              ><button id="btn-time">23</button><button id="btn-time">24</button
-              ><button id="btn-time">25</button>
+            <c:forEach var="i" begin="1" end="25">
+              <button id="btn-time" data-time="${i >= 10? i : 0+i}">${i}</button>
+              </c:forEach>
             </div>
             <button title="다음 날짜 보기" class="time-next">
               <i class="fa fa-chevron-right"></i>
@@ -123,7 +104,7 @@
           <div class="movie-shedule-area">
             <ul>
               <li>
-                <button class="btn" play-start-time="1615">
+                <button class="btn" play-start-time="1615" onclick="location.href='${ctx}/movietheater.do'">
                   <div class="legend"></div>
                   <span class="time">
                     <strong title="상영 시작">16:15</strong>
@@ -135,7 +116,6 @@
                   </span>
                   <div class="info">
                     <span class="theater" title="극장">
-                      "남양주현대 아울렛 스페이스 원"
                     </span>
                   </div>
                 </button>
@@ -153,7 +133,6 @@
                   </span>
                   <div class="info">
                     <span class="theater" title="극장">
-                      "남양주현대 아울렛 스페이스 원"
                     </span>
                   </div>
                 </button>
@@ -163,5 +142,5 @@
         </div>
       </div>
     </div>
-  </body>
+  </div>
 </html>
