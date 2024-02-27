@@ -24,52 +24,40 @@
 <body>
 	<c:set var="log" value="${sessionScope.log}" />
 	<script>
-				console.log("${log}");
-			</script>
-			<header>
-				<div class=header-content>
-					<div class="top-of-header">
-						<div class="left-link">
-							<c:if test="${log ne null and log  ne 'admin'}">
-								<a href="${ctx}/myReserve.do?id=${log}">내 예매</a>
-								<a href="#" onclick="resign()">회원탈퇴</a>
-								<a href="${ctx}/logout.do">로그아웃</a>
-							</c:if>
-							<c:if test="${log  eq 'admin'}">
-								<a href="${ctx}/register.do?form=true">등록</a>
-								<a href="${ctx}/logout.do">로그아웃</a>
-							</c:if>
-							<c:if test="${empty log  }">
-								<a href="${ctx}/login.do">로그인</a>
-								<a href="${ctx}/userJoin.do">회원가입</a>
-							</c:if>
-						</div>
-					</div>
-					<div class="bottom-of-header">
-						<div>영화</div>
-						<div><a href="${ctx}/ticketing.do">예매</a></div>
-						<div></div>
-						<div class="ci" onclick="location.href='${ctx}/index.jsp'">
-							<a title="MEGABOX 메인으로 가기">MEGABOX : Life Theater</a>
-						</div>
-						<div>극장</div>
-						<div>
-							<a href="${ctx}/userUpdate.do" class="mymega" title="나의 메가박스">나의
-								메가박스</a>
-						</div>
-					</div>
+		console.log("${log}");
+	</script>
+	<header>
+		<div class=header-content>
+			<div class="top-of-header">
+				<div class="left-link">
+					<c:if test="${log ne null and log  ne 'admin'}">
+						<a href="${ctx}/myReserve.do?id=${log}">내 예매</a>
+						<a href="#" onclick="resign()">회원탈퇴</a>
+						<a href="${ctx}/logout.do">로그아웃</a>
+					</c:if>
+					<c:if test="${log  eq 'admin'}">
+						<a href="${ctx}/register.do?form=true">등록</a>
+						<a href="${ctx}/logout.do">로그아웃</a>
+					</c:if>
+					<c:if test="${empty log  }">
+						<a href="${ctx}/login.do">로그인</a>
+						<a href="${ctx}/userJoin.do">회원가입</a>
+					</c:if>
 				</div>
 			</div>
 			<div class="bottom-of-header">
 				<div>영화</div>
-				<div>예매</div>
+				<div>
+					<a href="${ctx}/ticketing.do">예매</a>
+				</div>
 				<div></div>
 				<div class="ci" onclick="location.href='${ctx}/index.jsp'">
 					<a title="MEGABOX 메인으로 가기">MEGABOX : Life Theater</a>
 				</div>
 				<div>극장</div>
-				<div onclick="toMyMega()">
-					<a href="#" class="mymega" title="나의 메가박스">나의 메가박스</a>
+				<div>
+					<a href="${ctx}/userUpdate.do" class="mymega" title="나의 메가박스">나의
+						메가박스</a>
 				</div>
 			</div>
 		</div>
