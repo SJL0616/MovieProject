@@ -7,6 +7,8 @@ package movie.dao;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -65,6 +67,25 @@ public class UserDAO {
 		user.setPhone(inputPhone);
 		SqlSession session = sqlSessionFactory.openSession();
 		int cnt = session.insert("addUserIntoDB", user);
+		session.commit();
+		session.close();
+		return cnt;
+	}
+
+	public int disconnectToKakao(String id) {
+		SqlSession session = sqlSessionFactory.openSession();
+		int cnt = session.update("disconnectToKakao", id);
+		session.commit();
+		session.close();
+		return cnt;
+	}
+
+	public int setKakaoIdToTheUser(String userId, String kakaoId) {
+		Map<String, String> params = new HashMap<>();
+		params.put("id", userId);
+		params.put("kakaoId", kakaoId);
+		SqlSession session = sqlSessionFactory.openSession();
+		int cnt = session.update("setKakaoIdToTheUser", params);
 		session.commit();
 		session.close();
 		return cnt;

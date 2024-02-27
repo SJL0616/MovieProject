@@ -1,0 +1,551 @@
+@charset "UTF-8";
+body {
+    overflow: auto;
+    overflow-y: scroll;
+    letter-spacing: 0;
+    line-height: 1.5;
+    font-size: 15px;
+    color: #444;
+    font-weight: 400;
+   /*  font-family: NanumBarunGothic, Dotum, '돋움', sans-serif; */
+}
+#contents {
+	box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    padding: 40px 0 0 0;
+}
+.inner-wrap {
+    width: 1100px;
+    margin: 0 auto;
+}
+h2.tit {
+    padding: 0 0 26px 0;
+    font-size: 1.8666em;
+    text-overflow: ellipsis;
+    font-weight: bold;
+    letter-spacing: -1px;
+    line-height: 1.1;
+    color: #222;
+}
+/* sort용 메뉴 영역 */
+.tab-list {
+    position: static;
+    width: 100%;
+    background-color: rgba(255, 255, 255);
+}
+
+.tab-list:after, .tab-list:before {
+    content: '';
+    display: table;
+}
+
+.tab-list>ul {
+    position: relative;
+    width: 100%;
+    height: 42px;
+}
+ol, ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.movie-list ol li {
+    overflow: hidden;
+    position: relative;
+    float: left;
+    width: 230px;
+    height: 450px;
+    margin: 0 0 0 60px;
+    padding: 0;
+    background-color: #fff;
+}
+.movie-list ol {
+	margin-left: -60px;
+}
+.tab-list>ul>li {
+	box-sizing: border-box;
+	width:20%;
+    float: left;
+    height: 42px;
+    margin: 0;
+    border: 1px solid #ebebeb;
+    border-bottom :1px solid #503396;
+    border-width: 1px 1px 1px 0;
+}
+.tab-list>ul>li.on {
+    border: 1px solid #503396;
+    border-bottom: 0;
+}
+.tab-list>ul>li>a {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 41px;
+    line-height: 40px;
+    padding: 0;
+    text-align: center;
+    color: #222;
+    font-size: 1.0667em;
+    text-decoration: none;
+}
+
+
+/* sort  버튼  */
+
+
+.movie-list-util {
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+.mt40 {
+    margin-top: 40px !important;
+}
+.movie-list-util .movie-sorting {
+    float: left;
+    padding: 10px 0 0 0;
+}
+.movie-list-util .onair-condition {
+    float: left;
+    margin-left: 10px;
+    padding: 10px 0 0 0;
+}
+.movie-list-util .onair-condition .btn-onair {
+	cursor: pointer;
+    display: block;
+    padding: 0 0 0 30px;
+    background: url(../img/btn-on-air.png) no-repeat 0 2px;
+}
+.movie-list-util .onair-condition .btn-onair.on {
+    background-position: 0 -17px;
+}
+.movie-list-util button {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+}
+
+.movie-list-util .no-result-count {
+    float: left;
+    margin: 0 0 0 20px;
+    padding: 1px 0 0 0; 
+    color: #222;
+    line-height: 34px;
+}
+.movie-list-util .movie-search {
+    position: relative;
+    float: right;
+    width: 230px;
+    height: 36px;
+    margin: 0;
+    padding: 0 31px 0 0;
+    border: 1px solid #d8d9db;
+    border-radius: 3px;
+}
+.movie-list-util .movie-search .input-text {
+	outline:none;
+    display: block;
+    width: 100%;
+    height: 34px;
+    border: 0;
+}
+
+.movie-list-util .movie-search .btn-search-input {
+    position: absolute;
+    right: 1px;
+    top: 1px;
+}
+
+.movie-list-util button {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+}
+.btn-search-input {
+	
+    overflow: hidden;
+    width: 30px;
+    height: 32px;
+    margin: 0;
+    padding: 0;
+    font-size: 0;
+    line-height: 0;
+    border: 0;
+    text-indent: -9999px;
+    background: url(../img/btn-search-input.png) no-repeat center;
+}
+.movie-list {
+    letter-spacing: 0;
+    box-sizing: border-box;
+}
+.movie-list ol {
+    /* //margin-left: -60px; */
+}
+ol, ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.main-movie-list > ol li {
+    overflow: hidden;
+    position: relative;
+    float: left;
+    width: 230px;
+    height: 450px;
+    margin: 0 0 0 60px;
+    padding: 0;
+    background-color: #fff;
+}
+.movie-list ol li .movie-list-info {
+    overflow: hidden;
+    display: block;
+    position: relative;
+    height: 331px;
+    text-decoration: none;
+}
+
+.movie-list ol li.no-img .movie-list-info .rank {
+    background-image: none;
+}
+
+.movie-list ol li .movie-list-info .rank {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 230px;
+    height: 150px;
+    padding: 8px 0 0 10px;
+    line-height: 1.1;
+    font-size: 2em;
+    font-style: italic;
+    font-family: Roboto, Dotum, '돋움', sans-serif;
+    font-weight: 300;
+    color: #fff;
+    text-shadow: 2px 2px 2px rgba(0,0,0,.8);
+    background: url(https://img.megabox.co.kr/static/pc/images/movie/bg-movie-list-rank.png) no-repeat 0 0;
+}
+.movie-list p {
+    margin: 0;
+    padding: 0;
+}
+.movie-list ol li .movie-list-info .rank {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 230px;
+    height: 150px;
+    padding: 8px 0 0 10px;
+    line-height: 1.1;
+    font-size: 2em;
+    font-style: italic;
+    font-family: Roboto, Dotum, '돋움', sans-serif;
+    font-weight: 300;
+    color: #fff;
+    text-shadow: 2px 2px 2px rgba(0,0,0,.8);
+    /* background: url(https://img.megabox.co.kr/static/pc/images/movie/bg-movie-list-rank.png) no-repeat 0 0; */
+}
+
+.movie-list ol li .movie-list-info img.poster {
+    width: 230px;
+    height: 331px;
+}
+.movie-list ol li .movie-list-info .movie-score:hover{
+	opacity: 1;
+}
+.movie-list ol li .movie-list-info .movie-score {
+    position: absolute;
+    
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 230px;
+    height: 331px;
+    color: #fff;
+    opacity: 0;
+   transition :all 0.2s;
+}
+
+.movie-list ol li .movie-list-info .movie-score .wrap {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, .8);
+    box-sizing: border-box;
+}
+a:link {
+    color: #444;
+    text-decoration: none;
+}
+
+.movie-list ol li .movie-list-info .movie-score .wrap .summary {
+
+    overflow: hidden;
+    height: 152px;
+}
+
+.movie-list ol li .movie-list-info .movie-score .my-score {
+    overflow: hidden;
+    width: 100%;
+    margin-top: 110px;
+    padding: 5px 0 0 0;
+    border-top: 1px solid #3c3c3c;
+    text-align: center;
+}
+
+
+/*영화 이름, 관람가 표시 영역  */
+.movie-list ol li .tit-area {
+	box-sizing:border-box;
+    position: relative;
+    width: 100%;
+    margin: 15px 0 0 0;
+    padding: 0 0 0 30px;
+    line-height: 25px;
+}
+.movie-list ol li .tit-area .movie-grade {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-top: -10px;
+}
+.movie-grade.age-12 {
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/12_46x46.png);
+    background-size: 23px 23px;
+}
+.movie-grade.age-all {
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/ALL_46x46.png);
+    background-size: 23px 23px;
+}
+.movie-grade.age-15 {
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/15_46x46.png);
+    background-size: 23px 23px;
+}
+.movie-grade.age-19 {
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/18_46x46.png);
+    background-size: 23px 23px;
+}
+.movie-list p {
+    margin: 0;
+    padding: 0;
+}
+.movie-grade {
+    overflow: hidden;
+    display: inline-block;
+    width: 23px;
+    height: 23px;
+    margin: 0;
+    padding: 0;
+    text-indent: -9999px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.movie-list ol li .tit-area .tit {
+    overflow: hidden;
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 2px 0 0 1px;
+    font-size: 1.3333em;
+    font-weight: 400;
+}
+.movie-list ol li .rate-date {
+	font-size: 14.5px;
+    overflow: hidden;
+    padding: 10px 0 8px 0;
+}
+.movie-list ol li .rate-date span.rate {
+    margin: 0 7px 0 0;
+    padding: 0 3px 0 0;
+}
+.movie-list ol li .rate-date span.rate:after {
+    content: '';
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 1px;
+    height: 12px;
+    margin: -6px 0 0 0;
+    background-color: #d8d9db;
+}
+
+.movie-list ol li .rate-date span {
+    display: block;
+    position: relative;
+    float: left;
+}
+.movie-list ol li .rate-date span {
+    display: block;
+    position: relative;
+    float: left;
+}
+.movie-list ol li:nth-child(4n)~li {
+    margin-top: 60px;
+}
+.movie-list ol li .btn-util {
+    overflow: hidden;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 36px;
+}
+.movie-list ol li .btn-util .btn-like {
+    float: left;
+    width: 72px;
+    margin: 0;
+    padding: 0 5px;
+    font-size: .8667em;
+    border-color: #ebebeb;
+}
+.movie-list ol li .btn-util .case {
+    float: left;
+    width: 153px;
+    margin-left: 5px;
+}
+.movie-list ol li .btn-util .case.col-2 .button:first-child {
+    margin-left: 0;
+}
+
+.movie-list ol li .btn-util .case .button {
+    display: block;
+    float: left;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+.button.purple {
+    color: #fff;
+    line-height: 36px;
+    border: 0;
+    background: #503396;
+}
+a.button {
+	
+    text-decoration: none;
+}
+.button {
+    display: inline-block;
+    height: 36px;
+    margin: 0;
+    padding: 0 15px;
+    text-align: center;
+    line-height: 34px;
+    color: #503396;
+    font-weight: 400;
+    border-radius: 4px;
+    font-family: NanumBarunGothic, Dotum, '돋움', sans-serif;
+    text-decoration: none;
+    border: 1px solid #503396;
+    vertical-align: middle;
+    background-color: #fff;
+    cursor: pointer;
+}
+.button>i:first-child {
+    margin-left: 0;
+    margin-right: 4px;
+}
+.button>i {
+    margin-top: -2px;
+    margin-left: 4px;
+}
+.ico-heart-toggle-gray {
+    width: 17px;
+    height: 15px;
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-heart-toggle-gray.png);
+}
+.iconset {
+    overflow: hidden;
+    display: inline-block;
+    margin: -1px 0 0 0;
+    padding: 0;
+    font-size: 0;
+    line-height: 0;
+    vertical-align: middle;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
