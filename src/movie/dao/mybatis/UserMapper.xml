@@ -23,4 +23,18 @@
 		SELECT * FROM user WHERE naver=#{naverId};
 	</select>
 
+	<select id="addUserIntoDB" parameterType="user">
+		INSERT INTO user
+		VALUES(
+		#{id},
+		#{pw},
+		#{email},
+		#{phone},
+		null,
+		null,
+		null,
+		null
+		);
+	</select>
+
 </mapper>
