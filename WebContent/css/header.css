@@ -3,13 +3,14 @@
 header {
 	background-color: #444;
 	color: white;
-	height: 100px;
+	height: 90px;
 	display: flex;
 	justify-content: center;
+	border-bottom: 1px solid gray;
 }
 
 header .header-content {
-	width: 50%;
+	width: 60%;
 }
 
 header .ci {
@@ -19,12 +20,16 @@ header .ci {
 	background:
 		url(https://img.megabox.co.kr/static/pc/images/common/ci/logo-white_new2.png)
 		center center no-repeat;
+	cursor: pointer;
+	position: absolute;
+	top: 25px;
 }
 
 header .top-of-header {
 	height: 50%;
 	display: flex;
 	justify-content: flex-end;
+	padding-top: 15px;
 }
 
 header .top-of-header a {
@@ -41,6 +46,7 @@ header .bottom-of-header {
 	height: 50%;
 	display: flex;
 	justify-content: space-around;
+	font-size: 20px;
 }
 
 header .mymega {
