@@ -1,0 +1,396 @@
+@charset "UTF-8";
+
+.movie-detail-page {
+    position: relative;
+    z-index: 1;
+    height: 520px;
+    margin: 0 0 40px 0;
+    color: #ccc;
+    background-color: #151515;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.movie-detail-page .bg-pattern {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    background: url(https://img.megabox.co.kr/static/pc/images/movie/bg-movie-detail-pattern.png) repeat-x 0 0;
+}
+.movie-detail-page .bg-mask {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 4;
+    width: 100%;
+    height: 100%;
+    background: -moz-linear-gradient(left, #0f0f0f 20%, rgba(15, 15, 15, 0) 50%, #0f0f0f 80%);
+    background: -webkit-linear-gradient(left, #0f0f0f 20%, rgba(15, 15, 15, 0) 50%, #0f0f0f 80%);
+    background: -o-linear-gradient(left, #0f0f0f 20%, rgba(15, 15, 15, 0) 50%, #0f0f0f 80%);
+    background: -ms-linear-gradient(left, #0f0f0f 20%, rgba(15, 15, 15, 0) 50%, #0f0f0f 80%);
+    background: linear-gradient(to right, #0f0f0f 20%, rgba(15, 15, 15, 0) 50%, #0f0f0f 80%);
+}
+
+.movie-detail-page .movie-detail-cont {
+    position: relative;
+    z-index: 4;
+    width: 1100px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 55px 0 0 0;
+}
+
+.movie-detail-page .movie-detail-cont .contents-type {
+    display: inline-block;
+    margin: 0 0 0 6px;
+    line-height: 22px;
+    vertical-align: middle;
+}
+.movie-detail-page p {
+    margin: 0;
+    padding: 0;
+}
+
+
+/*타이틀  */
+.movie-detail-page .movie-detail-cont .title {
+    position: static;
+    left: inherit;
+    top: inherit;
+    width: 800px;
+    padding: 15px 0 0 0;
+    color: #fff;
+    font-size: 3.0666em;
+    font-weight: 400;
+    line-height: 1.2;
+    text-shadow: 2px 2px 10px rgba(0,0,0,.7);
+}
+.movie-detail-page .movie-detail-cont .title-eng {
+    width: 800px;
+    padding: 10px 0 0 0;
+    font-size: 1.3333em;
+    font-family: Roboto;
+    color: #fff;
+    line-height: 1.1;
+    overflow: hidden;
+    max-width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.movie-detail-page .movie-detail-cont .btn-util {
+    padding: 15px 0 0 0;
+}
+
+.movie-detail-page .movie-detail-cont .btn-util .btn {
+    display: inline-block;
+    min-width: 100px;
+    height: 36px;
+    line-height: 34px;
+    margin: 0 6px 0 0;
+    padding: 0 10px;
+    font-size: .9333em;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    border: 1px solid #706f72;
+    border-radius: 4px;
+    background-color: transparent;
+}
+.movie-detail-page .movie-detail-cont .btn-util .btn .iconset {
+    margin-right: 4px;
+}
+.ico-heart-line {
+    width: 17px;
+    height: 15px;
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-heart-line.png);
+}
+.iconset {
+    overflow: hidden;
+    display: inline-block;
+    margin: -1px 0 0 0;
+    padding: 0;
+    font-size: 0;
+    line-height: 0;
+    vertical-align: middle;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+}
+/*실관람평, 예매율, 누적 관객수  */
+.movie-detail-page .movie-detail-cont .info {
+    position: absolute;
+    left: 0;
+    bottom: 45px;
+    padding: 0;
+}
+.movie-detail-page .movie-detail-cont .info:after,
+.movie-detail-page .movie-detail-cont .info:before {
+    content: '';
+    display: table;
+}
+.movie-detail-page .movie-detail-cont .info:after {
+    clear: both;
+}
+.movie-detail-page .movie-detail-cont .info .score {
+    float: left;
+    padding: 0;
+}
+.movie-detail-page .movie-detail-cont .info .tit {
+    display: block;
+    padding: 0 0 15px 0;
+    line-height: 1.1;
+    font-size: .9333em;
+}
+.movie-detail-page .movie-detail-cont .info .score .number {
+    padding: 0 0 0 30px;
+    background: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-megabox.png) no-repeat 0 center;
+    font-family: Roboto, Dotum, '돋움', sans-serif;
+    font-weight: 400;
+}
+
+.movie-detail-page .movie-detail-cont .info .score .number.gt .before {
+    font-size: 2.1333em;
+}
+.movie-detail-page .movie-detail-cont .info .score .number .before {
+    color: #59bec9;
+}
+.movie-detail-page .movie-detail-cont .info .score .number>p {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1.1;
+}
+
+em {
+    font-style: normal;
+}
+
+.movie-detail-page .movie-detail-cont .info .rate {
+    float: left;
+    padding: 0 0 0 35px;
+}
+.movie-detail-page .movie-detail-cont .info .rate .cont {
+    display: inline-block;
+    min-height: 35px;
+    padding: 0 0 0 30px;
+    vertical-align: middle;
+    line-height: 1.1;
+    background: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-ticket-gray.png) no-repeat 0 center;
+}
+.movie-detail-page .movie-detail-cont .info .rate .cont em {
+    margin: 0 4px 0 0;
+    color: #fff;
+    font-size: 2.1333em;
+    font-family: Roboto, Dotum, '돋움', sans-serif;
+    font-weight: 400;
+}
+
+.movie-detail-page .movie-detail-cont .info .audience {
+    float: left;
+    padding: 0 0 0 35px;
+}
+.movie-detail-page .movie-detail-cont .info .audience .cont {
+    display: inline-block;
+    padding: 0 0 0 30px;
+    vertical-align: middle;
+    line-height: 1.1;
+    background: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-person.png) no-repeat 0 center;
+}
+.movie-detail-page .movie-detail-cont .info .audience .cont em {
+    margin: 0 4px 0 0;
+    color: #fff;
+    font-size: 2.1333em;
+    font-family: Roboto, Dotum, '돋움', sans-serif;
+    font-weight: 400;
+}
+
+
+
+/* 포스터  */
+.movie-detail-page .movie-detail-cont .poster {
+    overflow: hidden;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 45px;
+    z-index: 2;
+    width: 260px;
+    height: 374px;
+}
+.movie-detail-page .movie-detail-cont .poster .wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    font-size: 0;
+    line-height: 0;
+}
+.movie-detail-page .movie-detail-cont .poster .wrap .movie-grade {
+    overflow: hidden;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    z-index: 4;
+    width: 23px;
+    height: 23px;
+}
+.movie-detail-page .movie-detail-cont .poster .wrap img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+img {
+    border: 0;
+}
+.movie-grade.age-12 {
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/12_46x46.png);
+    background-size: 23px 23px;
+}
+.movie-grade.age-all {
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/ALL_46x46.png);
+    background-size: 23px 23px;
+}
+.movie-grade.age-15 {
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/15_46x46.png);
+    background-size: 23px 23px;
+}
+.movie-grade.age-19 {
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/txt/18_46x46.png);
+    background-size: 23px 23px;
+}
+
+/* 포스터 아래 예매버튼  */
+.movie-detail-page .movie-detail-cont .screen-type {
+    overflow: hidden;
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: 45px;
+    width: 260px;
+}
+
+.movie-detail-page .movie-detail-cont .screen-type.col .btn:first-child {
+    border-radius: 5px 0 0 5px;
+}
+.movie-detail-page .movie-detail-cont .screen-type.col .btn {
+    width: 130px;
+    border-radius: 0 5px 5px 0;
+}
+.movie-detail-page .movie-detail-cont .screen-type .btn:first-child {
+    margin-left: 0;
+    width: 100%;
+}
+.movie-detail-page .movie-detail-cont .screen-type .btn.reserve {
+    background-color: #329eb1;
+}
+.movie-detail-page .movie-detail-cont .screen-type .btn {
+    display: block;
+    float: left;
+    height: 46px;
+    line-height: 44px;
+    font-size: 1.2em;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    text-align: center;
+    border: 0;
+    border-radius: 5px;
+    background-color: transparent;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+
+/* 하단 정보창  */
+.inner-wrap {
+    width: 1100px;
+    margin: 0 auto;
+}
+.tab-list {
+    position: static;
+    width: 100%;
+    background-color: rgba(255, 255, 255);
+}
+.tab-list:after, .tab-list:before {
+    content: '';
+    display: table;
+}
+.tab-list:after {
+    clear: both;
+}
+.tab-list>ul {
+    position: relative;
+    width: 100%;
+    height: 42px;
+}
+.tab-list>ul:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+    width: 100%;
+    height: 1px;
+    background-color: #503396;
+}
+ol, ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.tab-list>ul>li:first-child:nth-last-child(4), .tab-list>ul>li:first-child:nth-last-child(4)~li {
+    width: 25%;
+}
+.tab-list>ul>li.on {
+    border: 1px solid #503396;
+    border-bottom: 0;
+}
+.tab-list>ul>li {
+    float: left;
+    height: 42px;
+    margin: 0;
+    border: 1px solid #ebebeb;
+    border-width: 1px 0 1px 1px;
+}
+.tab-list>ul>li.on>a {
+    z-index: 3;
+    color: #503396;
+    background-color: #fff;
+}
+.tab-list>ul>li>a {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 41px;
+    line-height: 40px;
+    padding: 0;
+    text-align: center;
+    color: #222;
+    font-size: 1.0667em;
+    text-decoration: none;
+}
+.tab-list>ul>li:last-child {
+    border-right: 1px solid #ebebeb;
+}
+
+.movie-summary {
+    margin: 40px 0 0 0;
+}
+.movie-summary .txt {
+    overflow: hidden;
+    height: 140px;
+}
+
+.movie-summary .btn-more {
+    padding: 30px 0 0 0;
+}
+.btn-more {
+    position: relative;
+    padding: 40px 0 0 0;
+}
+

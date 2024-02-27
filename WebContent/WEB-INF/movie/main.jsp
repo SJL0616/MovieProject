@@ -10,14 +10,15 @@
 			<div class="tab-sorting">
 				<button type="button" class="on" sort="boxoRankList" name="btnSort">박스오피스</button>
 			</div>
-			<a href="/movie" class="more-movie" title="더 많은 영화보기"> 더 많은 영화보기
+			<a href="${ctx}/movie.do" class="more-movie" title="더 많은 영화보기"> 더 많은 영화보기
 				<i class="iconset ico-more-corss gray"></i>
 			</a>
 			<div class="main-movie-list">
 				<ol class="list">
 					<c:forEach var="vo" items="${list}">
 						<li name="li_boxoRankList" class="first">
-							<!-- javascript:gfn_moveDetail('24004100') --> <a href=""
+							<!-- javascript:gfn_moveDetail('24004100') --> 
+							<a href="${ctx}/movie-detail.do?id=${vo.getMovieID()}"
 							class="movie-list-info" title="영화상세 보기"> <!-- <div class="screen-type2">
 													<p><img src="/static/pc/images/common/btn/mov_top_tag_db.png" alt="dolby"></p>
 													<p><img src="/static/pc/images/common/btn/mov_top_tag_atmos.png" alt="atmos"></p>
@@ -32,7 +33,7 @@
 										<div class="preview">
 											<p class="tit">관람평</p>
 											<p class="number">
-												8.9<span class="ir">점</span>
+												<span class="ir">점</span>
 											</p>
 										</div>
 									</div>

@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import movie.controller.Controller;
 import movie.controller.IndexController;
+import movie.controller.movie.MovieInfoController;
+import movie.controller.movie.MovieListController;
 import movie.controller.user.KakaoController;
 import movie.controller.user.NaverController;
 import movie.controller.user.UserIdValidAjax;
@@ -23,6 +25,8 @@ public class HandlerMapping {
 		mappings.put("/userJoin.do", new UserJoinController());
 		mappings.put("/userIdValidAjax.do", new UserIdValidAjax());
 		mappings.put("/userUpdate.do", new UserUpdateController());
+		mappings.put("/movie.do", new MovieListController());
+		mappings.put("/movie-detail.do", new MovieInfoController());
 	}
 	public Controller getController(String key) {
 		return mappings.get(key);
