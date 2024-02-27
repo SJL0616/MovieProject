@@ -1,65 +1,65 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@ include file="./header.jsp"%>
-  <link rel="stylesheet" type="text/css" href="${ctx}/css/main.css">
-<h4>메인</h4>
-
+<link rel="stylesheet" type="text/css" href="${ctx}/css/main.css">
 <div class="main_movie">
-<div class="background">
-<div class="bg-pattern"></div>
-<div class= "content">
-<div class="tab-sorting">
-<button type="button" class="on" sort="boxoRankList" name="btnSort">박스오피스</button>
-</div>
-<a href="/movie" class="more-movie" title="더 많은 영화보기">
-더 많은 영화보기 <i class="iconset ico-more-corss gray"></i>
-</a>
-<div class="main-movie-list">
-						<ol class="list">
-							<c:forEach var="vo" items="${list}">
-								<li name="li_boxoRankList"  class="first">
-								<!-- javascript:gfn_moveDetail('24004100') -->
-											<a href="" class="movie-list-info" title="영화상세 보기">
-												<!-- <div class="screen-type2">
+	<div class="background">
+		<div class="bg-pattern"></div>
+		<div class="content">
+			<div class="tab-sorting">
+				<button type="button" class="on" sort="boxoRankList" name="btnSort">박스오피스</button>
+			</div>
+			<a href="/movie" class="more-movie" title="더 많은 영화보기"> 더 많은 영화보기
+				<i class="iconset ico-more-corss gray"></i>
+			</a>
+			<div class="main-movie-list">
+				<ol class="list">
+					<c:forEach var="vo" items="${list}">
+						<li name="li_boxoRankList" class="first">
+							<!-- javascript:gfn_moveDetail('24004100') --> <a href=""
+							class="movie-list-info" title="영화상세 보기"> <!-- <div class="screen-type2">
 													<p><img src="/static/pc/images/common/btn/mov_top_tag_db.png" alt="dolby"></p>
 													<p><img src="/static/pc/images/common/btn/mov_top_tag_atmos.png" alt="atmos"></p>
 												</div> -->
-												<p class="rank">${vo.getRank()}<span class="ir"></span></p>
-												<!-- to 개발 : alt 값에 영화 제목 출력 -->
-										      	<img src="https://image.tmdb.org/t/p/w500${vo.getImage() }" alt="파묘" class="poster" onerror="noImg(this, 'main');"/>
-							                    <div class="wrap">
-													<div class="summary">
-														${vo.getOverview()}
-													</div>
-													<div class="score">
-														<div class="preview">
-															<p class="tit">관람평</p>
-															<p class="number">8.9<span class="ir">점</span></p>
-														</div>
-													</div>
-												</div>
-											</a>
-											<div class="btn-util">
-                                                <button type="button" class="button btn-like" rpst-movie-no="24004100">
-													<i title="보고싶어 설정 안함" class="iconset ico-heart-toggle-gray"></i>
-														
-														</button>
-                                                <div class="case">
-                                                    <!-- 개봉 예매가능 기본-->
-                                                            <a href="javascript:moveBokdPage('24004100');" class="button gblue" title="영화 예매하기">예매</a>
-                                                        </div>
-                                            </div>
-                                    </li>
-							</c:forEach>
-		<!-- 3개의 list를  loop 한다-->
-							<!-- 박스오피스 시작 -->
-									<!-- 각 map 별 첫번째 li 에 first클래스 추가 -->
+								<p class="rank">${vo.getRank()}<span class="ir"></span>
+								</p> <!-- to 개발 : alt 값에 영화 제목 출력 --> <img
+								src="https://image.tmdb.org/t/p/w500${vo.getImage() }" alt="파묘"
+								class="poster" onerror="noImg(this, 'main');" />
+								<div class="wrap">
+									<div class="summary">${vo.getOverview()}</div>
+									<div class="score">
+										<div class="preview">
+											<p class="tit">관람평</p>
+											<p class="number">
+												8.9<span class="ir">점</span>
+											</p>
+										</div>
+									</div>
+								</div>
+						</a>
+							<div class="btn-util">
+								<button type="button" class="button btn-like"
+									rpst-movie-no="24004100">
+									<i title="보고싶어 설정 안함" class="iconset ico-heart-toggle-gray"></i>
 
-										<!-- 각 map 별 첫번째 li 에 first클래스 추가 -->
-										
-										
-									<!-- <!-- 	/*
+								</button>
+								<div class="case">
+									<!-- 개봉 예매가능 기본-->
+									<a href="javascript:moveBokdPage('24004100');"
+										class="button gblue" title="영화 예매하기">예매</a>
+								</div>
+							</div>
+						</li>
+					</c:forEach>
+					<!-- 3개의 list를  loop 한다-->
+					<!-- 박스오피스 시작 -->
+					<!-- 각 map 별 첫번째 li 에 first클래스 추가 -->
+
+					<!-- 각 map 별 첫번째 li 에 first클래스 추가 -->
+
+
+					<!-- <!-- 	/*
 									각 map 별 첫번째 li 에 first클래스 추가
 
 										각 map 별 첫번째 li 에 first클래스 추가
@@ -188,12 +188,24 @@
                                                         </div>
                                                 </div>
 										</li>*/ -->
-									<!-- 박스오피스 종료 -->
-								</ol>
-					</div>
-					</div>
-					</div>
-					</div>
-					</body>
+					<!-- 박스오피스 종료 -->
+				</ol>
+			</div>
+			<div class="search-link">
+						<div class="cell">
+							<div class="search">
+								<input type="text" placeholder="영화명을 입력해 주세요" title="영화 검색" class="input-text" id="movieName">
+								<button type="button" class="btn" id="btnSearch"><i class="iconset ico-search-w"></i> 검색</button>
+							</div>
+						</div>
+
+						<div class="cell"><a href="/booking/timetable" title="상영시간표 보기"><i class="iconset ico-schedule-main"></i> 상영시간표</a></div>
+						<div class="cell"><a href="/movie" title="박스오피스 보기"><i class="iconset ico-boxoffice-main"></i> 박스오피스</a></div>
+						<div class="cell"><a href="/booking" title="빠른예매 보기"><i class="iconset ico-quick-reserve-main"></i> 빠른예매</a></div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
 </html>
 <script type="text/javascript" src="${ctx}/js/main.js"></script>

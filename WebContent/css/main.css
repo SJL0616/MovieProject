@@ -86,6 +86,9 @@
     border-bottom: 2px solid transparent;
     background-color: transparent;
 }
+.main-movie-list{
+	height: auto;
+}
 .main-movie-list > ol{
 	display: block;
 	list-style-type: none;
@@ -222,16 +225,77 @@
     background-image: url(../img/ico-heart-toggle-main.png);
 }
 
-a:visited {
+.more-movie  a{
     color: #666;
-    text-decoration: none;
-    outline: 1px dotted #000;
+  
 }
 .content .more-movie {
+	text-decoration: none;
     display: block;
     position: absolute;
     right: 0;
     top: 177px;
     color: #aaa;
     line-height: 16px;
+}
+.ico-more-corss.gray{
+	display: inline-block;
+	    width: 16px;
+    height: 16px;
+	background-image: url(../img/ico-more-cross-gray.png);
+}
+
+
+.main_movie .content .search-link {
+    float: left;
+    overflow: hidden;
+    display: block;
+    height: 75px;
+    margin: 50px 0 0 0;
+    padding: 23px 0 0 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    width: 100%;
+}
+.main-movie .content .search-link .search {
+    position: relative;
+    display: inline-block;
+    width: 200px;
+    height: 30px;
+    padding: 0 30px 0 0;
+    border-bottom: 1px solid #423e3e;
+}
+.search-link .search .input-text {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background-color: transparent;
+    color: #fff;
+}
+.ico-search-w {
+	display:inline-block;
+    width: 18px;
+    height: 18px;
+    background-image: url(../img/ico-search-white.png);
+}
+.search-link .search .btn {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 30px;
+    height: 100%;
+    font-size: 0;
+    line-height: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+}
+.search-link .cell {
+    position: relative;
+    float: left;
+    width: 25%;
+    text-align: center;
+    border-left: 1px solid #423e3e;
 }
