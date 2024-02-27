@@ -3,6 +3,8 @@ package movie.frontcontroller;
 import java.util.HashMap;
 import movie.controller.Controller;
 import movie.controller.IndexController;
+import movie.controller.movie.MovieInfoController;
+import movie.controller.movie.MovieListController;
 import movie.controller.user.KakaoController;
 import movie.controller.user.KakaoResultController;
 import movie.controller.user.NaverController;
@@ -32,6 +34,8 @@ public class HandlerMapping {
 		mappings.put("/userMyMega.do", new UserMyMegaController());
 		mappings.put("/userUpdate.do", new UserUpdateController());
 		mappings.put("/disconnectToKakao.do", new DisconnectToKakao());
+		mappings.put("/movie.do", new MovieListController());
+		mappings.put("/movie-detail.do", new MovieInfoController());
 	}
 
 	public Controller getController(String key) {

@@ -1,5 +1,7 @@
 package movie.vo;
 
+import java.text.DecimalFormat;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -132,6 +134,9 @@ public class Movie {
 	public String getOpenDate() {
 		return openDate;
 	}
+	public String getOpenDotDate() {
+		return openDate.replaceAll("-", ".");
+	}
 	public void setOpenDate(String openDate) {
 		this.openDate = openDate;
 	}
@@ -147,9 +152,21 @@ public class Movie {
 	public void setAudiCum(int audiCum) {
 		this.audiCum = audiCum;
 	}
+	public String getAudiCumWithCom() {
+		DecimalFormat decFormat = new DecimalFormat("###,###");
+		String str = decFormat.format(this.audiCum);
+		return str;
+	}
 	public String getOverview() {
 		return overview;
 	}
+	public String getOverviewInLine() {
+		String str= overview.replace(".", ". <br>").replace("?", "? <br>");
+		System.out.println(str);
+		return str;
+	}
+	
+	
 	public void setOverview(String overview) {
 		this.overview = overview;
 	}
