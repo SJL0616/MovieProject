@@ -63,7 +63,7 @@ function init() {
 			wraplist[i - 1].style.color = "blue";
 		}
 		// day 값 넣기 및 date 값 data 에 담기
-		wraplist[i - 1].innerHTML = month+"<br>"+date + " " + days(day);
+		wraplist[i - 1].innerHTML = month+"월<br>"+date + " " + days(day);
 		wraplist[i - 1].setAttribute("data-date", year + "-" + month + "-" + date);
 		date += 1;
 		day += 1;
@@ -110,14 +110,17 @@ movielist.forEach((movie) => {
 			return;
 		}
 		movie.id = "on";
+		let img = movie.getAttribute("img-path")
 		let num = movie.getAttribute("movie-no");
 		document.querySelector(".choice-all").style.display = "none";
 		document.querySelector(".choice-list").style.display = "block";
 		let bg = bglist.find((bg) => bg.innerHTML == "");
 		bg.innerHTML = `<div class="wrap">
-                              <div class="img" data-num="${num}"></div>
-                              <button class="del" onclick=imgDeleteBtn('${num}')>X</button>
-                              </div>`;
+                           <div class="img">
+                              <img src="${img}" data-num="${num}">
+                            </div>
+                            <button class="del" onclick=imgDeleteBtn('${num}')>X</button>
+                         </div>`;
 		bgCnt += 1;
 	});
 });
@@ -128,7 +131,7 @@ function imgDeleteBtn(code) {
 			movie.id = "";
 		}
 	});
-	const num = document.querySelector(".img[data-num='" + code + "']");
+	const num = document.querySelector("img[data-num='" + code + "']");
 	const wrap = num.closest(".wrap");
 	wrap.remove();
 	if (document.querySelectorAll(".bg > .wrap").length == 0) {

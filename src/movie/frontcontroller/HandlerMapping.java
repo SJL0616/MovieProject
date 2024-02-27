@@ -3,6 +3,8 @@ package movie.frontcontroller;
 import java.util.HashMap;
 import movie.controller.Controller;
 import movie.controller.IndexController;
+import movie.controller.ticketing.MovieTheaterController;
+import movie.controller.ticketing.TicketingController;
 import movie.controller.movie.MovieInfoController;
 import movie.controller.movie.MovieListController;
 import movie.controller.user.KakaoController;
@@ -33,6 +35,8 @@ public class HandlerMapping {
 		mappings.put("/checkLog.do", new CheckLogController());
 		mappings.put("/userMyMega.do", new UserMyMegaController());
 		mappings.put("/userUpdate.do", new UserUpdateController());
+		mappings.put("/ticketing.do", new TicketingController());
+		mappings.put("/movietheater.do",new MovieTheaterController());
 		mappings.put("/disconnectToKakao.do", new DisconnectToKakao());
 		mappings.put("/movie.do", new MovieListController());
 		mappings.put("/movie-detail.do", new MovieInfoController());
