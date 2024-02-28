@@ -144,27 +144,216 @@
 			<div class="inner-wrap">
 				<div class="tab-list fixed">
 					<ul>
-						<li class="on"><a href="/on/oh/oha/Movie/selectMovieInfo.do"
-							title="주요정보 탭으로 이동">주요정보</a></li>
-						<li><a href="/on/oh/oha/Movie/selectMovieOneDetail.do"
-							title="실관람평 탭으로 이동">실관람평</a></li>
-						<li><a href="/on/oh/oha/Movie/selectMoviePostDetailC.do"
-							title="무비포스트 탭으로 이동">무비포스트</a></li>
-						<li><a href="/on/oh/oha/Movie/selectMovieStilDetail.do"
-							title="예고편/스틸컷 탭으로 이동">예고편/스틸컷</a></li>
+						<li class="on"><a href="javascript:void(0);"
+							onclick='showMain(event)' title="주요정보 탭으로 이동">주요정보</a></li>
+						<li><a href="javascript:void(0);"
+							onclick='showComments(event)' title="실관람평 탭으로 이동">실관람평</a></li>
+						<li><a href="#" title="무비포스트 탭으로 이동">무비포스트</a></li>
+						<li><a href="javascript:void(0);"
+							onclick='showTrailer(event)' title="예고편/스틸컷 탭으로 이동">예고편/스틸컷</a></li>
 					</ul>
 				</div>
 				<div class="movie-summary infoContent" id="info">
-        
-            <div class="txt">
-            ${vo.getOverviewInLine()}
-            </div>
-            
-            <div class="btn-more toggle">
-                <button type="button" class="btn"><span>더보기</span> <i class="iconset ico-btn-more-arr"></i></button>
-            </div>
-        
-    </div>
+
+					<div class="txt">${vo.getOverviewInLine()}</div>
+
+					<!-- <div class="btn-more toggle">
+						<button type="button" class="btn">
+							<span>더보기</span> <i class="iconset ico-btn-more-arr"></i>
+						</button>
+					</div> -->
+
+				</div>
+				<div class="movie-info infoContent">
+					<p>상영타입 : ${vo.getShowTypes() }</p>
+
+					<div class="line">
+						<p>감독&nbsp;: ${vo.getDirector() }</p>
+						<p>장르&nbsp;: ${vo.getGenre() } / ${vo.getShowTime() } 분</p>
+						<p>등급&nbsp;: ${vo.getWatchGrade() }</p>
+
+						<p>개봉일&nbsp;: ${vo.getOpenDotDate() }</p>
+
+
+						<!--           -->
+					</div>
+					<p>출연진&nbsp;: ${vo.getActors() }</p>
+				</div>
+				<div class="videoContainer">
+					<h2 class="tit">
+						<span id="movieTitle">티저 예고편</span>
+					</h2>
+					<div class="slide-btn">
+						<a href="javascript:void(0);" onclick='showPre()' title="이전 영상"
+							class="videoBtn btn-prev swiper-button-prev swiper-button-disabled"
+							tabindex="0" role="button" aria-label="Previous slide"
+							aria-disabled="true"> <i class="iconset ico-prev-circle"></i>
+							<span>이전 영상</span>
+						</a> <a href="javascript:void(0);" onclick='showNext()' title="다음 영상"
+							class="videoBtn btn-next swiper-button-next" tabindex="0"
+							role="button" aria-label="Next slide" aria-disabled="false">
+							<i class="iconset ico-next-circle"></i> <span>다음 영상</span>
+						</a>
+					</div>
+
+					<div
+						class="swiper-container gallery-top swiper-container-fade swiper-container-initialized swiper-container-horizontal">
+						<div class="swiper-wrapper">
+
+							<div class="swiper-slide swiper-slide-active"
+								style="width: 800px; opacity: 1; transform: translate3d(0px, 0px, 0px);">
+							
+								<c:forEach var="src" items="${vo.getTrailer()}" varStatus="status">
+									<input type="text" hidden="true" value="${src}"
+										class="videoKey">
+									<div id="player<c:out value="${status.count}"/>" class="player"></div>
+								</c:forEach>
+							</div>
+						</div>
+					</div>
+				
+					
+
+
+				</div>
+
+
+
+				<div class="tit-util mt70 mb15 oneContent">
+					<h2 class="tit small">
+						${vo.getTitle() }에 대한 <span class="font-gblue">0</span>개의 이야기가
+						있어요!
+					</h2>
+					<div class="right">
+						<a href="#saw_movie_regi" class="button btn-modal-open"
+							id="regBtn" w-data="600" h-data="470" title="본 영화 등록">본 영화 등록</a>
+					</div>
+				</div>
+				<div class="movie-list-util mt30 oneContent">
+					<div class="movie-sorting">
+						<span><button type="button" class="btn sortBtn on"
+								data-cd="">
+								전체 <em class="font-gblue" id="cnt1">11,420</em> 건
+							</button></span>
+					</div>
+
+					<div class="movie-sorting-right">
+						<span><button type="button" class="btn orderBtn on"
+								data-cd="">최신순</button></span> <span><button type="button"
+								class="btn orderBtn" data-cd="one">공감순</button></span> <span><button
+								type="button" class="btn orderBtn" data-cd="star">평점순</button></span>
+					</div>
+				</div>
+
+
+				<div class="movie-idv-story oneContent">
+					<ul>
+						<!-- 로그인이 안되있을시 -->
+						<li class="type03">
+							<div class="story-area">
+								<!-- 프로필영역 -->
+								<div class="user-prof">
+									<div class="prof-img">
+										<img
+											src="https://img.megabox.co.kr/static/pc/images/common/ico/ico-mega-profile.png"
+											alt="MEGABOX">
+									</div>
+									<p class="user-id">MEGABOX</p>
+								</div>
+								<!-- // 프로필영역 -->
+
+								<!-- 내용 영역 -->
+								<div class="story-box">
+									<div class="story-wrap">
+										<div class="story-cont">
+											<span class="font-gblue">${vo.getTitle() }</span> 재미있게 보셨나요?
+											영화의 어떤 점이 좋았는지 이야기해주세요.
+										</div>
+
+										<div class="story-write">
+											<a href="#tooltip-layer01" title="관람평쓰기"
+												class="tooltip-click oneWrtNonMbBtn"><i
+												class="iconset ico-story-write"></i> 관람평쓰기</a>
+											<div id="tooltip-layer01" class="tooltip-cont"
+												style="width: 225px; height: 80px;">
+												<div class="wrap loginTagClick">
+													로그인이 필요한 서비스 입니다.<br> <a
+														href="javaScript:fn_viewLoginPopup('default','pc');"
+														class="font-green" title="로그인 바로가기">로그인 바로가기 <i
+														class="iconset ico-arr-right-green"></i></a>
+													<button type="button" class="btn-close-tooltip">툴팁
+														닫기</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- // 내용 영역 -->
+							</div>
+						</li>
+						<li class="type01 oneContentTag">
+							<div class="story-area">
+								<div class="user-prof">
+									<div class="prof-img">
+										<img
+											src="https://www.megabox.co.kr/static/pc/images/mypage/bg-photo.png"
+											alt="프로필 사진" title="프로필 사진" onerror="noImg(this, 'human')">
+									</div>
+									<p class="user-id">invu3**</p>
+								</div>
+								<div class="story-box">
+									<div class="story-wrap review">
+										<div class="tit">관람평</div>
+										<div class="story-cont">
+											<div class="story-point">
+												<span>9</span>
+											</div>
+											<div class="story-txt">기억과 상처를 애니메이션으로 풀어내다니..</div>
+											<div class="story-like">
+												<button type="button" class="oneLikeBtn" title="댓글 추천"
+													data-no="2725453" data-is="N">
+													<i class="iconset ico-like-gray"></i> <span>0</span>
+												</button>
+											</div>
+											<div class="story-util">
+												<div class="post-funtion">
+													<!-- <div class="wrap">
+														<button type="button" class="btn-alert">옵션보기</button>
+														<div class="balloon-space user">
+															<div class="balloon-cont">
+																<div class="user">
+																	<p class="reset a-c">
+																		스포일러 및 욕설/비방하는<br>내용이 있습니까?
+																	</p>
+																	<button type="button" class="maskOne" data-no="2725453">
+																		댓글 신고 <i class="iconset ico-arr-right-green"></i>
+																	</button>
+																</div>
+																<div class="btn-close">
+																	<a href="#" title="닫기"><img
+																		src="/static/pc/images/common/btn/btn-balloon-close.png"
+																		alt="닫기"></a>
+																</div>
+															</div>
+														</div>
+													</div> -->
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+								</div>
+							</div>
+							<div class="story-date">
+								<div class="review on">
+									<span>1 시간전</span>
+								</div>
+							</div>
+						</li>
+					</ul>
+
+				</div>
 			</div>
 		</div>
 
@@ -173,4 +362,4 @@
 </div>
 </body>
 </html>
-<script type="text/javascript" src="${ctx}/js/main.js"></script>
+<script type="text/javascript" src="${ctx}/js/movie-detail.js"></script>

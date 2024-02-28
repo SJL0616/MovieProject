@@ -11,12 +11,14 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.protobuf.Type;
 
 import movie.vo.Movie;
 
@@ -77,11 +79,12 @@ public class MovieDAO {
 		setVisualInfoByTBDB(list);
 		
 		
-		  for(Movie m : list) {
-		  
-		  Gson gson = new Gson(); String show = gson.toJson(m);
-		  System.out.println("m "+ show); 
-		  }
+		/*
+		 * for(Movie m : list) {
+		 * 
+		 * Gson gson = new Gson(); String show = gson.toJson(m);
+		 * System.out.println("m "+ show); }
+		 */
 		 
 		 
 	}
@@ -129,7 +132,7 @@ public class MovieDAO {
 				System.out.println("12. 장르 :" + movieInfo.get("genres"));
 				System.out.println("13. 관람 등급 :" + movieInfo.get("audits"));*/
 				if(!movieInfo.isJsonNull()) {
-					System.out.println(movieInfo);
+					//System.out.println(movieInfo);
 					m = new Movie(
 							Integer.parseInt(movieData.get("movieCd").getAsString()),
 							movieData.get("movieNm").getAsString(),
@@ -164,7 +167,7 @@ public class MovieDAO {
 			m.setOverview(movieInfo[1]);
 			String tmdbMCode = movieInfo[0];
 			String imgSrc = null;
-			String trailerSrc = null;
+			List<String> trailerSrc = null;
 			if (tmdbMCode != null) {
 				imgSrc = getImageSrc(tmdbMCode);
 				trailerSrc = getTrailerSrc(tmdbMCode);
@@ -307,10 +310,10 @@ public class MovieDAO {
 		return imgSrc;
 	}
 
-	private String getTrailerSrc(String movieCode) {
+	private List<String> getTrailerSrc(String movieCode) {
 		// 인증키 (개인이 받아와야함)
 		//System.out.println("=== getTrailerSrc ===");
-		String trailerSrc = null;
+		List<String> videoList = null;
 		String language = "ko-KR";
 		String movieId = movieCode;
 		//String jpgSrc = "https://image.tmdb.org/t/p/w500/";
@@ -346,13 +349,26 @@ public class MovieDAO {
 			if (results.size() == 0) {
 				return null;
 			} else if (results.size() > 0) {
-				JsonObject oneTrailer = (JsonObject) results.get(0);
-				trailerSrc = oneTrailer.get("key").getAsString();
+				videoList = new ArrayList<String>();
+				for(Object obj : results) {
+					JsonObject oneTrailer = (JsonObject) obj;
+					videoList.add(oneTrailer.get("key").getAsString());
+				}
+				/*
+				 * for (String m : videoList) {
+				 * 
+				 * System.out.println(m); }
+				 */
+				System.out.println("-----");
+				/*
+				 * JsonObject oneTrailer = results.get(0).getAsJsonObject(); trailerSrc =
+				 * oneTrailer.get("key").getAsString();
+				 */
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return trailerSrc;
+		return videoList;
 	}
 
 	JsonObject getMovieInfo(String mvCd) {
