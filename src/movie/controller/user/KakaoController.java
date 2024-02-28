@@ -51,6 +51,7 @@ public class KakaoController implements Controller {
 		} else { // 로그인중일 때 (카카오와 연동하기)
 			UserDAO.getInstance().setKakaoIdToTheUser(user.getId(),kakaoId);
 			user = UserDAO.getInstance().getTheUserByKakaoId(kakaoId);
+			session.setAttribute("log", user.getId());
 			session.setAttribute("user", user);
 			response.getWriter().print("connected");
 			return null;

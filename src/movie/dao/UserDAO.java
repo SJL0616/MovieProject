@@ -90,4 +90,23 @@ public class UserDAO {
 		session.close();
 		return cnt;
 	}
+
+	public int disconnectToNaver(String id) {
+		SqlSession session = sqlSessionFactory.openSession();
+		int cnt = session.update("disconnectToNaver", id);
+		session.commit();
+		session.close();
+		return cnt;
+	}
+
+	public int setNaverIdToTheUser(String userId, String naverId) {
+		Map<String, String> params = new HashMap<>();
+		params.put("id", userId);
+		params.put("naverId", naverId);
+		SqlSession session = sqlSessionFactory.openSession();
+		int cnt = session.update("setNaverIdToTheUser", params);
+		session.commit();
+		session.close();
+		return cnt;
+	}
 }

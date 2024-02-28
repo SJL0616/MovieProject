@@ -30,7 +30,7 @@
 							src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg"
 							width="200" height="50" alt="카카오 로그인 버튼" />
 						</a> <a id="naver-login-btn"
-							href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=SrIGsH8XIxmfND4_eTEH&state=STATE_STRING&redirect_uri=http://localhost:8085/MovieProject/naverLoginResult.jsp">
+							href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=SrIGsH8XIxmfND4_eTEH&state=STATE_STRING&redirect_uri=http://localhost:8085/MovieProject/naverLoginResult.do">
 							<img src="./img/naver_login.png" width="200" height="50"
 							alt="네이버 로그인 버튼" />
 						</a>

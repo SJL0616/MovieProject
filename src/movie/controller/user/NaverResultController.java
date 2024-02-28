@@ -6,11 +6,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import movie.controller.Controller;
 
-public class UserUpdateController implements Controller {
+public class NaverResultController implements Controller {
 	@Override
 	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("개인정보를 수정했습니다.");
-		return "userMyMega";
+		return "naverLoginResult";
 	}
 }
