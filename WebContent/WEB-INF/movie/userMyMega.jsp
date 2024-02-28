@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@include file="./header.jsp"%>
 <link href="${ctx}/css/userMyMega.css" rel="stylesheet" type="text/css">
+<script defer="defer" type="text/javascript"
+	src="${ctx}/js/userMyMega.js"></script>
 <div align="center">
 	<div class="mymega">
 		<h1>나의 메가박스</h1>
@@ -63,28 +65,28 @@
 					</tr>
 					<tr>
 						<th scope="row"><label>휴대폰</label> <em>*</em></th>
-						<td><input type="text" name="inputPhone"
+						<td><input type="text" id="inputPhone"
 							placeholder="010-xxxx-xxxx" title="변경할 휴대폰 번호 입력" maxlength="11"
 							value="${user.getPhone()}" required="required" /></td>
 					</tr>
 					<tr>
 						<th scope="row"><label>이메일</label> <em>*</em></th>
-						<td><input type="email" name="inputEmail"
+						<td><input type="email" id="inputEmail"
 							value="${user.getEmail()}" placeholder="xxxx@xxxx.xxx"
 							required="required" /></td>
 					</tr>
 					<tr>
 						<th scope="row">현재 비밀번호를 입력하세요.<em>*</em></th>
-						<td><input type="password" name="inputPw"
+						<td><input type="password" id="currentPw"
 							placeholder="현재 비밀번호를 입력하세요." required="required" /></td>
 					</tr>
 					<tr>
 						<th scope="row">변경할 비밀번호를 입력하세요.<em>*</em></th>
-						<td><input type="password" name="inputPw"
+						<td><input type="password" id="inputPw"
 							placeholder="변경할 비밀번호를 입력하세요." required="required" /></td>
 					</tr>
 				</table>
-				<button>수정</button>
+				<button id="updateBtn" type="button" onclick="validCheck(form)">수정</button>
 			</form>
 		</div>
 
