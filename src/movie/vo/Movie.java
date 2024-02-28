@@ -1,6 +1,7 @@
 package movie.vo;
 
 import java.text.DecimalFormat;
+import java.util.List;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -28,13 +29,13 @@ public class Movie {
 	private String genre;
 	private String watchGrade;
 	private String image;
-	private String trailer;
+	private List<String> trailer;
 	
 	public Movie() {}
 	
 	public Movie(int movieID, String title, String titleEn, String openDate, int rank, int audiCum, String overview,
 			int showTime, String showTypes, String director, String actors, String genre, String watchGrade,
-			String image, String trailer) {
+			String image, List<String> trailer) {
 		this.movieID = movieID;
 		this.title = title;
 		this.titleEn = titleEn;
@@ -55,7 +56,7 @@ public class Movie {
 	
 	public Movie(int movieID, String title, String titleEn, String openDate, int rank, int audiCum, String overview,
 			int showTime, JsonArray showTypes, JsonArray director, JsonArray actors, JsonArray genre, JsonArray watchGrade,
-			String image, String trailer) {
+			String image, List<String> trailer) {
 		this.movieID = movieID;
 		this.title = title;
 		this.titleEn = titleEn;
@@ -212,10 +213,10 @@ public class Movie {
 	public void setImage(String image) {
 		this.image = image;
 	}
-	public String getTrailer() {
+	public List<String> getTrailer() {
 		return trailer;
 	}
-	public void setTrailer(String trailer) {
+	public void setTrailer(List<String> trailer) {
 		this.trailer = trailer;
 	}
 	public String getTmdbCd() {
