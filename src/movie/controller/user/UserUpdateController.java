@@ -10,6 +10,7 @@ public class UserUpdateController implements Controller {
 	@Override
 	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		return "userUpdate";
+		System.out.println("개인정보를 수정했습니다.");
+		return "userMyMega";
 	}
 }
