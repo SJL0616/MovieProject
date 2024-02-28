@@ -44,7 +44,20 @@
 
 	<update id="setKakaoIdToTheUser" parameterType="map">
 		UPDATE user
-		SET kakao = #{kakaoId}
+		SET
+		kakao = #{kakaoId}
+		WHERE id = #{id}
+	</update>
+
+	<update id="disconnectToNaver" parameterType="String">
+		UPDATE user SET
+		naver = null WHERE id = #{id};
+	</update>
+
+	<update id="setNaverIdToTheUser" parameterType="map">
+		UPDATE user
+		SET
+		naver = #{naverId}
 		WHERE id = #{id}
 	</update>
 

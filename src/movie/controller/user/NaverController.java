@@ -30,7 +30,7 @@ public class NaverController implements Controller {
 		String clientSecret = "cLaNxs3Tr3";// 애플리케이션 클라이언트 시크릿값";
 		String code = request.getParameter("code");
 		String state = request.getParameter("state");
-		String redirectURI = URLEncoder.encode("http://localhost:8085/MovieProject/naverLoginResult.jsp", "UTF-8");
+		String redirectURI = URLEncoder.encode("http://localhost:8085/MovieProject/naverLoginResult.do", "UTF-8");
 		String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code" + "&client_id=" + clientId
 				+ "&client_secret=" + clientSecret + "&redirect_uri=" + redirectURI + "&code=" + code + "&state="
 				+ state;
@@ -65,6 +65,35 @@ public class NaverController implements Controller {
 //		System.out.println("my token : " + accessToken);
 		showUserData(accessToken, request, response);
 
+		// 네이버 연결 해제
+		apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id=" + clientId + "&client_secret="
+				+ clientSecret
+				+ "&access_token=c8ceMEJisO4Se7uGCEYKK1p52L93bHXLnaoETis9YzjfnorlQwEisqemfpKHUq2gY&service_provider=NAVER";
+		try {
+			URL url = new URL(apiURL);
+			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			con.setRequestMethod("GET");
+			int responseCode = con.getResponseCode();
+			BufferedReader br;
+			if (responseCode == 200) { // 정상 호출
+				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			} else { // 에러 발생
+				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+			}
+			String inputLine;
+			StringBuilder res = new StringBuilder();
+			while ((inputLine = br.readLine()) != null) {
+				res.append(inputLine);
+			}
+			br.close();
+			if (responseCode == 200) {
+				accessToken = res.toString();
+				System.out.println(res.toString());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		return null;
 	}
 
@@ -83,7 +112,7 @@ public class NaverController implements Controller {
 		}
 		System.out.println("naver id : " + temp[13]);
 
-		setNaverIdToUser(temp[13], request, response);
+		processWithNaver(temp[13], request, response);
 	}
 
 	private static String get(String apiUrl, Map<String, String> requestHeaders) {
@@ -135,20 +164,33 @@ public class NaverController implements Controller {
 		}
 	}
 
-	private static void setNaverIdToUser(String naverId, HttpServletRequest request, HttpServletResponse response) {
-		UserVO user = UserDAO.getInstance().getTheUserByNaverId(naverId);
-		if (user == null) {
-			try {
-				response.getWriter().print("notValid");
-			} catch (IOException e) {
-				e.printStackTrace();
+	private static void processWithNaver(String naverId, HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		UserVO user = (UserVO) session.getAttribute("user");
+		if (user == null) { // 현재 로그인중이 아닐 때 (네이버로 로그인하기)
+			user = UserDAO.getInstance().getTheUserByNaverId(naverId);
+			if (user == null) {
+				try {
+					response.getWriter().print("notValid");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else {
+				session.setAttribute("log", user.getId());
+				session.setAttribute("user", user);
+				try {
+					response.getWriter().print("valid");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
-		} else {
-			HttpSession session = request.getSession();
+		} else { // 현재 로그인중일 때 (네이버 연동하기)
+			UserDAO.getInstance().setNaverIdToTheUser(user.getId(), naverId);
+			user = UserDAO.getInstance().getTheUserById(user.getId());
 			session.setAttribute("log", user.getId());
 			session.setAttribute("user", user);
 			try {
-				response.getWriter().print("valid");
+				response.getWriter().print("connected");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

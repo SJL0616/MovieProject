@@ -48,7 +48,8 @@
 					<td>카카오</td>
 					<c:if test="${user.getKakao() eq null }">
 						<td>연결된 계정정보가 없습니다.</td>
-						<td><button class="connect_to_kakao" onclick="location.href='https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=21ab5b4db87c2754b7ad5637ffdc7eb3&redirect_uri=http://localhost:8085/MovieProject/kakaoLoginResult.jsp'">연동</button></td>
+						<td><button class="connect_to_kakao"
+								onclick="location.href='https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=21ab5b4db87c2754b7ad5637ffdc7eb3&redirect_uri=http://localhost:8085/MovieProject/kakaoLoginResult.do'">연동</button></td>
 					</c:if>
 					<c:if test="${user.getKakao() ne null }">
 						<td>id : ${user.getKakao()}</td>
@@ -60,11 +61,13 @@
 					<td>네이버</td>
 					<c:if test="${user.getNaver() eq null }">
 						<td>연결된 계정정보가 없습니다.</td>
-						<td><button class="connect_to_naver">연동</button></td>
+						<td><button class="connect_to_naver"
+								onclick="location.href='https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=SrIGsH8XIxmfND4_eTEH&state=STATE_STRING&redirect_uri=http://localhost:8085/MovieProject/naverLoginResult.do'">연동</button></td>
 					</c:if>
 					<c:if test="${user.getNaver() ne null }">
 						<td>id : ${user.getNaver()}</td>
-						<td><button class="disconnect_to_naver">해제</button></td>
+						<td><button class="disconnect_to_naver"
+								onclick="location.href='${ctx}/disconnectToNaver.do'">해제</button></td>
 					</c:if>
 				</tr>
 			</table>
