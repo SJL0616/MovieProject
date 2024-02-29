@@ -43,3 +43,5 @@
 </div>
 
 <script src="${ctx}/js/userLogin.js"></script>
+<%@include file="./footer.jsp"%>
+

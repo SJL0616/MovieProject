@@ -28,3 +28,4 @@
 		}
 	}
 </script>
+<%@include file="./footer.jsp"%>

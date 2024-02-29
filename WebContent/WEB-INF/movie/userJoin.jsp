@@ -32,3 +32,4 @@
 	</form>
 </div>
 <script src="${ctx}/js/userJoin.js"></script>
+<%@include file="./footer.jsp"%>

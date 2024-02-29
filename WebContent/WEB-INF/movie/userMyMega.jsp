@@ -114,10 +114,6 @@
 					onclick="resignValidCheck(form)">탈퇴 비밀번호 확인</button>
 			</form>
 		</div>
-
-		<br> <br> <br> <br> <br> <br> <br>
-		<br> <br> <br> <br> <br> <br> <br>
-		<br>
-
 	</div>
 </div>
+<%@include file="./footer.jsp"%>
