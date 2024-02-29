@@ -36,7 +36,7 @@
 				<div class="right-links">
 					<c:if test="${log ne null and log  ne 'admin'}">
 						<a href="${ctx}/myReserve.do?id=${log}">내 예매</a>
-						<a href="#" onclick="resign()">회원탈퇴</a>
+						<a href="${ctx}/userMyMega.do">회원탈퇴</a>
 						<a href="${ctx}/logout.do">로그아웃</a>
 					</c:if>
 					<c:if test="${log  eq 'admin'}">

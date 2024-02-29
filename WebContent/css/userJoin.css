@@ -1,1 +1,47 @@
 @charset "UTF-8";
+
+#userJoinForm table {
+	width: 850px;
+}
+
+#userJoinForm table #joinTitle {
+	background-color: #503396;
+	color: white;
+}
+
+#userJoinForm table tr {
+	height: 45px;
+}
+
+#userJoinForm table th {
+	padding-left: 10px;
+	text-align: left;
+	background-color: #e9e9e9;
+	width: 150px;
+}
+
+#userJoinForm table th em {
+	color: red;
+}
+
+#userJoinForm table td {
+	padding-left: 10px;
+	border-bottom: 1px solid #e9e9e9;
+}
+
+#userJoinForm table input {
+	width: 575px;
+}
+
+#userJoinForm button {
+	background-color: #503396;
+	color: white;
+	padding: 7px;
+	border: 1px solid #503396;
+	border-radius: 5px;
+}
+
+#userJoinForm #reset {
+	background-color: white;
+	color: #503396;
+}

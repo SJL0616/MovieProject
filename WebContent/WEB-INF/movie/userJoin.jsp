@@ -3,32 +3,38 @@
 <%@include file="./header.jsp"%>
 <link href="${ctx}/css/userJoin.css" rel="stylesheet" type="text/css">
 <div align="center">
-	<h1 class="py-3">회원 가입</h1>
-	<form action="${ctx}/userJoin.do" method="post">
-		<table class="table table-bordered">
-			<tr>
-				<td>아이디</td>
-				<td><input type="text" name="id" id="id" required="required" />
-					<input type="button" value="중복체크" id="checkId"></td>
+	<form id="userJoinForm" action="${ctx}/userJoin.do" method="post">
+		<table>
+			<tr id="joinTitle">
+				<td colspan="2">회원가입</td>
 			</tr>
-			<tr align="center">
-				<td>패스워드</td>
+			<tr>
+				<th>아이디 <em>*</em></th>
+				<td><input type="text" name="id" id="id" required="required" />
+					<button id="checkId">중복확인</button></td>
+			</tr>
+			<tr>
+				<th>패스워드 <em>*</em></th>
 				<td><input type="password" name="pw" id="pw"
 					required="required" /></td>
 			</tr>
 			<tr>
-				<td>이메일</td>
-				<td><input type="text" name="email" id="email" /></td>
+				<th>이메일 <em>*</em></th>
+				<td><input type="text" name="email" id="email"
+					required="required" /></td>
 			</tr>
 			<tr>
-				<td>전화번호</td>
-				<td><input type="text" name="phone" id="phone" /></td>
-			</tr>
-			<tr>
-				<td align="center"><input type="button" value="가입"
-					onclick="validCheck(form)" /> <input type="reset" value="취소" /></td>
+				<th>전화번호 <em>*</em></th>
+				<td><input type="text" name="phone" id="phone"
+					required="required" /></td>
 			</tr>
 		</table>
+		<br>
+		<div align="center">
+			<button type="reset" id="reset">취소</button>
+			<button type="button" onclick="validCheck(form)">가입</button>
+		</div>
+		<br>
 	</form>
 </div>
 <script src="${ctx}/js/userJoin.js"></script>
