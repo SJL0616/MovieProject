@@ -70,4 +70,10 @@
 		WHERE id = #{id};
 	</update>
 
+	<delete id="userResign" parameterType="String">
+		DELETE FROM user
+		WHERE id =
+		#{id};
+	</delete>
+
 </mapper>

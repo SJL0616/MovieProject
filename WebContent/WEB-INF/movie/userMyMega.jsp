@@ -101,7 +101,7 @@
 		<h2>회원탈퇴</h2>
 		<a>회원님의 비밀번호를 입력하시고 [탈퇴 비밀번호 확인] 버튼을 클릭해주세요.</a>
 		<div class="mymega_resign">
-			<form id="resignForm">
+			<form action="${ctx}/userResign.do" id="resignForm">
 				<table>
 					<tr>
 						<th scope="row">비밀번호<em>*</em></th>

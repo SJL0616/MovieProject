@@ -122,4 +122,12 @@ public class UserDAO {
 		session.close();
 		return cnt;
 	}
+
+	public int resignUser(String id) {
+		SqlSession session = sqlSessionFactory.openSession();
+		int cnt = session.delete("userResign", id);
+		session.commit();
+		session.close();
+		return cnt;
+	}
 }
