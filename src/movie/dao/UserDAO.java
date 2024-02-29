@@ -109,4 +109,17 @@ public class UserDAO {
 		session.close();
 		return cnt;
 	}
+
+	public int updateUser(String id, String inputPhone, String inputEmail, String newPw) {
+		Map<String, String> params = new HashMap<>();
+		params.put("id", id);
+		params.put("inputPhone", inputPhone);
+		params.put("inputEmail", inputEmail);
+		params.put("newPw", newPw);
+		SqlSession session = sqlSessionFactory.openSession();
+		int cnt = session.update("updateUser", params);
+		session.commit();
+		session.close();
+		return cnt;
+	}
 }
