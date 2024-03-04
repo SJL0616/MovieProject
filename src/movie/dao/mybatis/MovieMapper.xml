@@ -17,7 +17,7 @@
         <result property="title" column="title"/>
         <result property="titleEn" column="title_en"/>
         <result property="openDate" column="open_date"/>
-        <result property="rank" column="rank"/>
+        <result property="rank" column="movie_rank"/>
         <result property="audiCum" column="audi_cum"/>
         <result property="overview" column="overview"/>
         <result property="showTime" column="show_time"/>
@@ -32,11 +32,11 @@
     </resultMap>
     <!-- Select statement to retrieve a movie by its ID -->
     <select id="selectAllMovies" resultMap="movieResultMap">
-        SELECT * FROM movie order by rank
+        SELECT * FROM movie order by movie_rank
     </select>
     
     <select id="selectTopMovies" resultMap="movieResultMap">
-        SELECT * FROM movie order by rank limit 4;
+        SELECT * FROM movie order by movie_rank limit 4;
     </select>
     <!-- Select statement to retrieve a movie by its ID -->
     <select id="selectMovieById" parameterType="int" resultMap="movieResultMap">
@@ -47,11 +47,10 @@
            SELECT count(*) FROM movie WHERE reg_date = CURDATE();
     </select>
 
-
     <!-- Insert statement to add a new movie -->
     <insert id="insertMovie" parameterType="movie">
         INSERT INTO movie 
-        (movie_ID, title, title_en, open_date, rank, audi_cum, overview, show_time, show_types, director, actors, genre, watch_grade, image, trailer, reg_date)
+        (movie_ID, title, title_en, open_date, movie_rank, audi_cum, overview, show_time, show_types, director, actors, genre, watch_grade, image, trailer, reg_date)
         VALUES 
         (#{movieID}, #{title}, #{titleEn}, #{openDate}, #{rank}, #{audiCum}, #{overview}, #{showTime}, #{showTypes}, #{director}, #{actors}, #{genre}, #{watchGrade}, #{image}, #{trailerStr}, #{regDate})
     </insert>
@@ -63,7 +62,7 @@
         title = #{title},
         titleEn = #{titleEn},
         openDate = #{openDate},
-        rank = #{rank},
+        movie_rank = #{rank},
         audiCum = #{audiCum},
         overview = #{overview},
         showTime = #{showTime},
