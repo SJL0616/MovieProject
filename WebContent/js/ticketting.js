@@ -22,6 +22,7 @@ const wraplist = [...document.querySelectorAll("#date-list")];
 const timelist = [...document.querySelectorAll("#btn-time")];
 const movielist = [...document.querySelectorAll(".disabled")];
 const bglist = [...document.querySelectorAll(".bg")];
+const btnlist = [...document.querySelectorAll(".btn")];
 let bgCnt = 0;
 init();
 // 날짜 초기값
@@ -63,7 +64,7 @@ function init() {
 			wraplist[i - 1].style.color = "blue";
 		}
 		// day 값 넣기 및 date 값 data 에 담기
-		wraplist[i - 1].innerHTML = month+"월<br>"+date + " " + days(day);
+		wraplist[i - 1].innerHTML = month + "월<br>" + date + " " + days(day);
 		wraplist[i - 1].setAttribute("data-date", year + "-" + month + "-" + date);
 		date += 1;
 		day += 1;
@@ -165,4 +166,54 @@ function smoothScroll(id) {
 	if (scroll) {
 		scroll.scrollIntoView({ behavior: "smooth" });
 	}
+}
+// 비동기로 페이지 바꾸기
+function getMovieTheater(ctx) {
+	$.ajax({
+		url: "movietheater.do",
+		type: "GET",
+		dataType: "json",
+		success: function(data) {
+			let list = data;
+
+			let body = document.querySelector(".body-iframe");
+			setBodyChange(body,list,ctx);
+			getScriptSetting(body,ctx);
+		},
+		error: function(xhr, status, error) {
+			console.error(error);
+		}
+	});
+}
+// movietheater html 가지고오기
+function setBodyChange(body,list,ctx) {
+	body.innerHTML = `<div class="map-container">
+							<div class="map-header">
+								<h1>영화관</h1>
+							</div>
+							<div class="mapinner">
+								<div class="map-navi">
+				</div>
+						<div id="map"></div>
+					</div>
+					<div class="movie-result">
+						<button class="movie-button" data-url="${ctx}/js/seat.js">선택완료</button>
+					</div>`;
+	let navi = document.querySelector(".map-navi");
+	list.forEach(list => {
+		navi.innerHTML += `<div class="movietheater" data-code="${list.movieThcd}" data-x="${list.locationX}"
+							data-y="${list.locationY}" data-address="${list.movieAddress}"
+							data-name="${list.movieName}">${list.movieName}</div>`;
+	})
+}
+// script 적용
+function getScriptSetting(body,ctx) {
+	setTimeout(() => {
+		let script = document.createElement("script");
+
+		script.src = `${ctx+'/js/movietheater.js'}`;
+
+		body.appendChild(script);
+
+	}, 1000);
 }

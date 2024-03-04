@@ -3,7 +3,6 @@
   box-sizing: border-box;
 }
 .body-iframe {
-  overflow: auto;
   letter-spacing: 0;
   line-height: 1.5;
   font-size: 15px;
@@ -12,6 +11,7 @@
 }
 .body-iframe .tit-util{
   padding: 25px;
+  text-align: center;
 }
 .body-iframe .tit-util .tit{
   font-size: 1.8666em;
@@ -32,7 +32,7 @@ ul,li{
   box-sizing: border-box;
 }
 /*header 날짜 */
-.wrap{
+.wraps{
   display: flex;
   margin: 0 auto;
 }

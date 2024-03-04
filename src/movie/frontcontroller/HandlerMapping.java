@@ -6,6 +6,7 @@ import movie.controller.Controller;
 import movie.controller.IndexController;
 import movie.controller.movie.MovieInfoController;
 import movie.controller.movie.MovieListController;
+import movie.controller.ticketing.SeatController;
 import movie.controller.ticketing.MovieTheaterController;
 import movie.controller.ticketing.TicketingController;
 import movie.controller.user.CheckLogController;
@@ -45,6 +46,7 @@ public class HandlerMapping {
 		mappings.put("/movietheater.do", new MovieTheaterController());
 		mappings.put("/movie.do", new MovieListController());
 		mappings.put("/movie-detail.do", new MovieInfoController());
+		mappings.put("/seat.do",new SeatController());
 	}
 
 	public Controller getController(String key) {

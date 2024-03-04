@@ -9,22 +9,23 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import movie.vo.MovieTheater;
+import movie.vo.Seat;
 
-public class MovieTheaterDAO {
-	
-	private static MovieTheaterDAO instance;
+public class SeatDAO {
+	private static SeatDAO instance;
 	private static SqlSessionFactory sqlSessionFactory;
 	
-	public MovieTheaterDAO() {
+	public SeatDAO(){
+		
 	}
 	
-	public static MovieTheaterDAO getInstance() {
+	public static SeatDAO getInstance() {
 		if(instance == null) {
-			instance = new MovieTheaterDAO();
+			instance = new SeatDAO();
 		}
 		return instance;
 	}
+	
 	static {
 		String resource = "movie/dao/mybatis/config.xml";
 		InputStream inputStream;
@@ -35,13 +36,12 @@ public class MovieTheaterDAO {
 			e.printStackTrace();
 		}
 	}
-	// movieTheaterList 뽑기
-	public List<MovieTheater> movieTheaterList(){
+	// 해당하는 영화관 채워진 좌석 찾기
+	public List<Seat> seatCheckList(int movieThcd){
 		SqlSession session = sqlSessionFactory.openSession();
-		List<MovieTheater> list = session.selectList("movieTheaterList");
+		List<Seat> list = session.selectList("seatCheckList",movieThcd);
 		session.close();
 		return list;
 	}
 	
-	// movieTheater
 }

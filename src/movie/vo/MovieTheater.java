@@ -24,32 +24,22 @@ public class MovieTheater {
 	public int getMovieThcd() {
 		return movieThcd;
 	}
-	public void setMovieThcd(int movieThcd) {
-		this.movieThcd = movieThcd;
-	}
 	public String getMovieName() {
 		return movieName;
-	}
-	public void setMovieName(String movieName) {
-		this.movieName = movieName;
 	}
 	public String getMovieAddress() {
 		return movieAddress;
 	}
-	public void setMovieAddress(String movieAddress) {
-		this.movieAddress = movieAddress;
-	}
 	public double getLocationX() {
 		return locationX;
-	}
-	public void setLocationX(double locationX) {
-		this.locationX = locationX;
 	}
 	public double getLocationY() {
 		return locationY;
 	}
-	public void setLocationY(double locationY) {
-		this.locationY = locationY;
+	@Override
+	public String toString() {
+		return "[movieThcd=" + movieThcd + ", movieName=" + movieName + ", movieAddress=" + movieAddress
+				+ ", locationX=" + locationX + ", locationY=" + locationY + "]";
 	}
 	
 	

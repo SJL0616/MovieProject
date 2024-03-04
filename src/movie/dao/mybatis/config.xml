@@ -12,6 +12,8 @@
 	<typeAliases>
 		<typeAlias type="movie.vo.UserVO" alias="user" />
 		<typeAlias type="movie.vo.MovieTheater" alias="movietheater"/>
+		<typeAlias type="movie.vo.Ticket" alias="ticket"/>
+		<typeAlias type="movie.vo.Seat" alias="seat"/>
 	</typeAliases>
 
 	<environments default="development">
@@ -29,6 +31,8 @@
 	<mappers>
 		<mapper resource="movie/dao/mybatis/UserMapper.xml" />
 		<mapper resource="movie/dao/mybatis/MovieTheaterMapper.xml" />
+		<mapper resource="movie/dao/mybatis/TicKetMapper.xml" />
+		<mapper resource="movie/dao/mybatis/SeatMapper.xml" />
 	</mappers>
 
 </configuration>
