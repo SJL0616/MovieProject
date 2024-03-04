@@ -1,13 +1,8 @@
 package movie.controller.ticketing;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,26 +12,28 @@ import com.google.gson.Gson;
 
 import movie.controller.Controller;
 import movie.dao.MovieTheaterDAO;
+import movie.dao.SeatDAO;
 import movie.vo.MovieTheater;
+import movie.vo.Seat;
 
-public class MovieTheaterController implements Controller{
+public class SeatController implements Controller {
 
 	@Override
 	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		int thcd = Integer.parseInt(request.getParameter("btn"));
+		
 		response.setContentType("application/json; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		
-		List<MovieTheater> list = MovieTheaterDAO.getInstance().movieTheaterList();
+		List<Seat> list = SeatDAO.getInstance().seatCheckList(thcd);
 		
-		request.setAttribute("list",list);
 		Gson gson = new Gson();
 	
 		String json = gson.toJson(list);
-		
+		System.out.println(json);
 		out.print(json);
-		
-		
 		return null;
 	}
 

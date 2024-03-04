@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 작성자 : 김진수 -->
+<!-- 내용 : movieTheater DB -->
+<!-- 최초 작성일 : 24-02-29 -->
+<!-- 마지막 수정일 : 24-02-29(김진수) -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="movie.dao.mybatis.TicKetMapper">
+<resultMap id="ticketResultMap" type="Ticket">
+    <result property="movieID" column="movie_id"/>
+    <result property="userID" column="user_id"/>
+    <result property="numberPeople" column="number_people"/>
+    <result property="previewDate" column="preview_date"/>
+    <result property="movieName" column="movie_name"/>
+    <result property="title" column="title"/>
+    <result property="paymentDate" column="payment_date"/>
+    <result property="seat" column="seat"/>
+    <result property="ticketPrice" column="ticket_price"/>
+</resultMap>
+</mapper>

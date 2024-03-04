@@ -6,6 +6,7 @@ import movie.controller.Controller;
 import movie.controller.IndexController;
 import movie.controller.movie.MovieInfoController;
 import movie.controller.movie.MovieListController;
+import movie.controller.ticketing.SeatController;
 import movie.controller.movie.review.ReviewListController;
 import movie.controller.movie.review.ReviewRegController;
 import movie.controller.ticketing.MovieTheaterController;
@@ -50,6 +51,7 @@ public class HandlerMapping {
 		mappings.put("/movietheater.do", new MovieTheaterController());
 		mappings.put("/movie.do", new MovieListController());
 		mappings.put("/movie-detail.do", new MovieInfoController());
+		mappings.put("/seat.do",new SeatController());
 		mappings.put("/userPwValidAjax.do", new UserPwValidAjax());
 		mappings.put("/userResignValidAjax.do", new UserResignValidAjax());
 		mappings.put("/userResign.do", new UserResignController());

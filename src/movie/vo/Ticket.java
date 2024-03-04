@@ -29,56 +29,29 @@ public class Ticket {
 	public String getMovieName() {
 		return movieName;
 	}
-	public void setMovieName(String movieName) {
-		this.movieName = movieName;
-	}
 	public int getMovieID() {
 		return movieID;
-	}
-	public void setMovieID(int movieID) {
-		this.movieID = movieID;
 	}
 	public String getUserID() {
 		return userID;
 	}
-	public void setUserID(String userID) {
-		this.userID = userID;
-	}
 	public int getNumberPeople() {
 		return numberPeople;
-	}
-	public void setNumberPeople(int numberPeople) {
-		this.numberPeople = numberPeople;
 	}
 	public String getPreviewDate() {
 		return previewDate;
 	}
-	public void setPreviewDate(String previewDate) {
-		this.previewDate = previewDate;
-	}
 	public String getTitle() {
 		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
 	}
 	public String getPaymentDate() {
 		return paymentDate;
 	}
-	public void setPaymentDate(String paymentDate) {
-		this.paymentDate = paymentDate;
-	}
 	public String getSeat() {
 		return seat;
 	}
-	public void setSeat(String seat) {
-		this.seat = seat;
-	}
 	public int getTicketPrice() {
 		return ticketPrice;
-	}
-	public void setTicketPrice(int ticketPrice) {
-		this.ticketPrice = ticketPrice;
 	}
 	
 }
