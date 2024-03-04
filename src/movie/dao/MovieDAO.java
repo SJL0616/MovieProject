@@ -234,18 +234,27 @@ public class MovieDAO {
 	
 	private void setVisualInfoByTBDB( ArrayList<Movie> list){
 		for(Movie m : list) {
+			
 			String[] movieInfo = getMCByTMDB(String.valueOf(m.getTitle()), m.getOpenDate());
-			m.setTmdbCd(movieInfo[0]);
-			m.setOverview(movieInfo[1]);
-			String tmdbMCode = movieInfo[0];
-			String imgSrc = null;
-			List<String> trailerSrc = null;
-			if (tmdbMCode != null) {
-				imgSrc = getImageSrc(tmdbMCode);
-				trailerSrc = getTrailerSrc(tmdbMCode);
+			
+			try{
+				m.setTmdbCd(movieInfo[0]);
+				m.setOverview(movieInfo[1]);
+				String tmdbMCode = movieInfo[0];
+				String imgSrc = null;
+				List<String> trailerSrc = null;
+				if (tmdbMCode != null) {
+					imgSrc = getImageSrc(tmdbMCode);
+					trailerSrc = getTrailerSrc(tmdbMCode);
+				}
+				m.setImage(imgSrc);
+				m.setTrailer(trailerSrc);
+			}catch(Exception e) {
+				System.out.println(m.getTitle());
+				e.printStackTrace();
+				continue;
 			}
-			m.setImage(imgSrc);
-			m.setTrailer(trailerSrc);
+			
 		}
 	}
 	
@@ -258,6 +267,11 @@ public class MovieDAO {
 	 * 리턴: String 최초 작성일: 2024.02.22 마지막 수정일: 2024.02.22
 	 */
 	private String[] getMCByTMDB(String movieName, String openDt) {
+		
+		if(movieName.equals("듄: 파트2")) {
+			movieName = "듄: 파트 2";
+		}
+		
 		String[] movieInfo = null;
 		String replacedName = movieName.trim().replaceAll(" ", "+");
 		String language = "ko-KR";
@@ -286,6 +300,7 @@ public class MovieDAO {
 			JsonArray movieListResult = (JsonArray) jsonObject.get("results");
 //System.out.println(movieListResult.toString());
 			int size = movieListResult.size();
+			
 			if (size == 0) {
 				return null;
 			} else if (movieListResult.size() == 1) {
