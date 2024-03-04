@@ -90,33 +90,13 @@ function setBodyChange(body,list,ctx){
 			<div class="seat-area">
 				<div class="seat-count">
 					<div class="cell">
-						<p class="txt">성인</p>
+						<p class="txt">총 인원수</p>
 						<div class="count">
-							<button class="down" title="성인 좌석 감소">-</button>
+							<button class="down" title="좌석 감소">-</button>
 							<div class="number">
 								<p>0</p>
 							</div>
-							<button class="up" title="성인 좌석 증가">+</button>
-						</div>
-					</div>
-					<div class="cell">
-						<p class="txt">청소년</p>
-						<div class="count">
-							<button class="down" title="청소년 좌석 감소">-</button>
-							<div class="number">
-								<p>0</p>
-							</div>
-							<button class="up" title="청소년 좌석 증가">+</button>
-						</div>
-					</div>
-					<div class="cell">
-						<p class="txt">우대</p>
-						<div class="count">
-							<button class="down" title="우대 좌석 감소">-</button>
-							<div class="number">
-								<p>0</p>
-							</div>
-							<button class="up" title="우대 좌석 증가">+</button>
+							<button class="up" title="좌석 증가">+</button>
 						</div>
 					</div>
 				</div>
@@ -161,7 +141,7 @@ function setBodyChange(body,list,ctx){
 						<div class="seat-num">
 							<p class="tit">선택좌석</p>
 							<div class="my-seat">
-								<div class="seats choice">-</div>
+								<div class="seats all">-</div>
 								<div class="seats all">-</div>
 								<div class="seats all">-</div>
 								<div class="seats all">-</div>
@@ -174,19 +154,18 @@ function setBodyChange(body,list,ctx){
 					</div>
 					<div class="pay-area">
 						<p class="count">
-							<span> 청소년 <em>1</em>
+							<span> 인원수 <em>0</em>
 							</span>
 						</p>
 						<div class="pay">
 							<p class="tit">최종결제금액</p>
 							<div class="money">
-								<em>7000</em> <span>원</span>
+								<em>0</em> <span>원</span>
 							</div>
 						</div>
 					</div>
 					<div class="btn-group">
-						<a href="" class="button" id="pageprevious">이전</a> <a href=""
-							class="button active" id="pageNext">다음</a>
+						<a href="" class="button" id="pageprevious">결제</a>
 					</div>
 				</div>
 			</div>
@@ -203,5 +182,5 @@ function getScriptSetting(body,ctx) {
 
 		body.appendChild(script);
 
-	}, 1000);
+	}, 100);
 }

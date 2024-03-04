@@ -123,7 +123,7 @@ h3.tit.small{
 .seat-wrapper .seat .on:hover{
   background-color: #503396;
 }
-.seat-wrapper .seat:first-child{
+.seat-wrapper .seatline{
   width: 20px;
   background-color: #fff;
   border: 1px solid #747474;
@@ -308,11 +308,8 @@ h3.tit.small{
   align-items: center;
   text-decoration: none;
 }
-.btn-group .button:nth-child(1){
-  border-radius: 0 0 0 5px;
-}
-.btn-group .button:nth-child(2){
-  border-radius: 0 0 5px 0;
+.btn-group .button{
+  border-radius: 0 0 5px 5px;
 }
 .btn-group .button.disabled{
   color: #aaa;
