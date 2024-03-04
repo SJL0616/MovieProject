@@ -32,7 +32,8 @@ function validCheck(form) {
 		alert('id 중복체크 다시하세요');
 		return false;
 	}
-	form.submit();
+	if (check == 1)
+		form.submit();
 }
 
 // id 중복 체크하는 버튼 이벤트
@@ -68,11 +69,4 @@ function getResult(data) {
 		document.getElementById("id").style.border = "3px red solid";
 		check = -1;
 	}
-	console.log(check);
 }
-document.getElementById(`id`).addEventListener(`keyup`, (e) => {
-	if (e.KeyCode === 8) {
-		check = 0;
-		document.getElementById("id").style.border = "";
-	}
-});

@@ -3,8 +3,10 @@ package movie.vo;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
 /**
  작성자 : 이상준
@@ -30,12 +32,15 @@ public class Movie {
 	private String watchGrade;
 	private String image;
 	private List<String> trailer;
+	private String trailerStr;
+	private String regDate;
 	
+
 	public Movie() {}
 	
 	public Movie(int movieID, String title, String titleEn, String openDate, int rank, int audiCum, String overview,
 			int showTime, String showTypes, String director, String actors, String genre, String watchGrade,
-			String image, List<String> trailer) {
+			String image, List<String> trailer,String regDate) {
 		this.movieID = movieID;
 		this.title = title;
 		this.titleEn = titleEn;
@@ -51,12 +56,13 @@ public class Movie {
 		this.watchGrade = watchGrade;
 		this.image = image;
 		this.trailer = trailer;
+		this.regDate = regDate;
 	}
 	
 	
 	public Movie(int movieID, String title, String titleEn, String openDate, int rank, int audiCum, String overview,
 			int showTime, JsonArray showTypes, JsonArray director, JsonArray actors, JsonArray genre, JsonArray watchGrade,
-			String image, List<String> trailer) {
+			String image, List<String> trailer,String regDate) {
 		this.movieID = movieID;
 		this.title = title;
 		this.titleEn = titleEn;
@@ -72,6 +78,17 @@ public class Movie {
 		this.watchGrade = watchGrade.get(0).getAsJsonObject().get("watchGradeNm").getAsString();
 		this.image = image;
 		this.trailer = trailer;
+		this.trailerStr = toStringByGson(trailer);
+		this.regDate = regDate;
+	}
+	
+	public String toStringByGson(List<String> str) {
+		Gson gson = new Gson();
+		return gson.toJson(str);
+	}
+	public List<String> toListByGson(String str) {
+		Gson gson = new Gson();
+		return gson.fromJson(str, new TypeToken<List<String>>(){}.getType());
 	}
 	public String getDirFromJArr(JsonArray jsonArray) {
 		int length = jsonArray.size();
@@ -163,7 +180,6 @@ public class Movie {
 	}
 	public String getOverviewInLine() {
 		String str= overview.replace(".", ". <br>").replace("?", "? <br>");
-		System.out.println(str);
 		return str;
 	}
 	
@@ -218,6 +234,7 @@ public class Movie {
 	}
 	public void setTrailer(List<String> trailer) {
 		this.trailer = trailer;
+		this.trailerStr = toStringByGson(trailer);
 	}
 	public String getTmdbCd() {
 		return tmdbCd;
@@ -226,5 +243,24 @@ public class Movie {
 	public void setTmdbCd(String tmdbCd) {
 		this.tmdbCd = tmdbCd;
 	}
+	
+	public String getTrailerStr() {
+		return trailerStr;
+	}
+
+	public void setTrailerStr(String trailerStr) {
+		this.trailerStr = trailerStr;
+		this.trailer = toListByGson(trailerStr);
+	}
+	
+
+	public String getRegDate() {
+		return regDate;
+	}
+
+	public void setRegDate(String regDate) {
+		this.regDate = regDate;
+	}
+
 	
 }

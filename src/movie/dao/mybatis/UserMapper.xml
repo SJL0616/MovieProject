@@ -61,4 +61,19 @@
 		WHERE id = #{id}
 	</update>
 
+	<update id="updateUser" parameterType="map">
+		UPDATE user
+		SET phone =
+		#{inputPhone},
+		email = #{inputEmail},
+		pw = #{newPw}
+		WHERE id = #{id};
+	</update>
+
+	<delete id="userResign" parameterType="String">
+		DELETE FROM user
+		WHERE id =
+		#{id};
+	</delete>
+
 </mapper>
