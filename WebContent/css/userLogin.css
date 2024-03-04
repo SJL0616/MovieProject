@@ -1,15 +1,14 @@
 @charset "UTF-8";
 
 .loginPage {
-	border: 1px solid red;
 	display: flex;
 	justify-content: center;
 }
 
 .loginForm {
-	border: 2px solid green;
 	width: 850px;
-	height: 556px;
+	height: 484px;
+	border: 1px solid #d8d9db;
 }
 
 .loginForm .title {
@@ -22,6 +21,31 @@
 	font-weight: bold;
 	display: flex;
 	align-items: center;
+}
+
+.loginForm input {
+	height: 46px;
+	padding: 0 10px;
+	line-height: 30px;
+	color: #444;
+	border: 1px solid #d8d9db;
+	vertical-align: middle;
+	font-family: NanumBarunGothic, Dotum, '돋움', sans-serif;
+}
+
+.loginForm #loginBtn {
+	border-color: #e0e0e0 !important;
+	height: 46px;
+	padding: 0 30px;
+	font-weight: 400;
+	border-radius: 4px;
+	font-family: NanumBarunGothic, Dotum, '돋움', sans-serif;
+	text-decoration: none;
+	cursor: pointer;
+	color: #fff;
+	line-height: 36px;
+	border: 0;
+	background-color: #503396;
 }
 
 .loginForm .formBody {
@@ -39,39 +63,73 @@
 }
 
 .loginForm .rightSection {
-	background-color: gold;
-	width: 100%;
 	height: calc(100% - 45px);
 	flex: 1;
 }
 
 .leftSection .realForm {
-	background-color: navy;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
-	flex: 6;
+	flex: 5;
 	padding: 25px;
 	margin: 0;
 }
 
 .leftSection .otherWays {
-	background-color: red;
-	height: 100%;
-	flex: 4;
-}
-
-#id {
-	height: 50px;
-}
-
-#pw {
-	height: 50px;
-}
-
-.APIs {
+	flex: 5;
 	display: flex;
 	flex-direction: column;
-	align-content: center;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.loginPage .link {
+	text-align: center;
+	letter-spacing: 0;
+	font-size: 15px;
+	color: #444;
+	font-weight: 400;
+	font-family: NanumBarunGothic, Dotum, '돋움', sans-serif;
+	text-decoration: none;
+}
+
+.loginPage .link a {
+	display: inline-block;
+	position: relative;
+	vertical-align: middle;
+	margin: 0 0 0 27px;
+	padding: 0;
+	font-size: .9333em;
+	color: #666;
+	text-decoration: none;
+}
+
+.loginPage .link a:hover {
+	text-decoration: underline;
+}
+
+.loginPage .link a:before {
+	content: '';
+	display: block;
+	position: absolute;
+	left: -15px;
+	top: 50%;
+	width: 1px;
+	height: 16px;
+	margin-top: -8px;
+	background-color: #d8d9db;
+	pointer-events: none;
+}
+
+.loginPage .rightSection {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.loginPage .rightSection img {
+	width: 90%;
+	height: 90%;
 }

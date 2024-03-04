@@ -22,6 +22,9 @@ import movie.controller.user.UserJoinController;
 import movie.controller.user.UserLoginController;
 import movie.controller.user.UserLogoutController;
 import movie.controller.user.UserMyMegaController;
+import movie.controller.user.UserPwValidAjax;
+import movie.controller.user.UserResignController;
+import movie.controller.user.UserResignValidAjax;
 import movie.controller.user.UserUpdateController;
 
 public class HandlerMapping {
@@ -47,6 +50,9 @@ public class HandlerMapping {
 		mappings.put("/movietheater.do", new MovieTheaterController());
 		mappings.put("/movie.do", new MovieListController());
 		mappings.put("/movie-detail.do", new MovieInfoController());
+		mappings.put("/userPwValidAjax.do", new UserPwValidAjax());
+		mappings.put("/userResignValidAjax.do", new UserResignValidAjax());
+		mappings.put("/userResign.do", new UserResignController());
 		mappings.put("/regReview.do", new ReviewRegController());
 		mappings.put("/showReview.do", new ReviewListController());
 	}

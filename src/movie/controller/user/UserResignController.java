@@ -11,26 +11,21 @@ import movie.controller.Controller;
 import movie.dao.UserDAO;
 import movie.vo.UserVO;
 
-public class UserUpdateController implements Controller {
+public class UserResignController implements Controller {
 	@Override
 	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		UserVO user = (UserVO) session.getAttribute("user");
-		String id = user.getId();
-		String inputPhone = request.getParameter("inputPhone");
-		String inputEmail = request.getParameter("inputEmail");
-		String newPw = request.getParameter("newPw");
-		int cnt = UserDAO.getInstance().updateUser(id, inputPhone, inputEmail, newPw);
+		int cnt = UserDAO.getInstance().resignUser(user.getId());
 		if (cnt > 0) {
-			System.out.println("개인정보를 수정했습니다.");
-			user = UserDAO.getInstance().getTheUserById(id);
-			session.setAttribute("user", user);
-			return "userMyMega";
-		} else {
-			System.out.println("개인정보 수정에 실패했습니다.");
-			return null;
+			session.invalidate();
+			String ctx = request.getContextPath();
+			System.out.println("회원탈퇴 성공");
+			return "redirect:" + ctx + "/index.jsp";
 		}
+		System.out.println("회원탈퇴 실패");
+		return null;
 	}
 }

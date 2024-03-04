@@ -1,0 +1,302 @@
+@charset "UTF-8";
+
+#footer {
+	position: relative;
+	min-width: 1100px;
+	width: 100%;
+	height: 200px;
+	margin: 0;
+	padding: 0;
+	background-color: #f8f8fa
+}
+
+#footer p {
+	margin: 0;
+	padding: 0
+}
+
+#footer .footer-top {
+	overflow: hidden;
+	width: 1100px;
+	margin: 0 auto;
+	padding: 30px 0
+}
+
+#footer .footer-top .fnb {
+	float: left
+}
+
+#footer .footer-top .fnb li {
+	float: left;
+	margin-left: 14px
+}
+
+#footer .footer-top .fnb li:first-child {
+	margin-left: 0
+}
+
+#footer .footer-top .fnb li a {
+	display: block;
+	color: #666;
+	line-height: 30px;
+	font-size: .8667em
+}
+
+#footer .footer-top .fnb li.privacy a {
+	color: #222;
+	font-weight: 700
+}
+
+#footer .footer-top .btn-looking-theater {
+	overflow: hidden;
+	float: right;
+	display: block;
+	width: 106px;
+	height: 30px;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	line-height: 28px;
+	color: #666;
+	font-size: .8667em;
+	border: 1px solid #d8d9db;
+	border-radius: 30px;
+	text-decoration: none
+}
+
+#footer .footer-top .btn-looking-theater:focus, #footer .footer-top .btn-looking-theater:hover,
+	#footer .footer-top .btn-looking-theater:visited {
+	color: #666
+}
+
+#footer .footer-top .btn-looking-theater i {
+	margin-right: 4px
+}
+
+#footer .footer-bottom {
+	overflow: hidden;
+	width: 1100px;
+	margin: 0 auto;
+	padding: 0
+}
+
+#footer .footer-bottom .ci {
+	overflow: hidden;
+	display: block;
+	float: left;
+	width: 150px;
+	height: 50px;
+	margin: 0 20px 0 0;
+	padding: 0;
+	text-indent: -9999px;
+	background:
+		url(https://img.megabox.co.kr/static/pc/images/common/ci/logo-opacity_new2.png)
+		no-repeat center
+}
+
+#footer .footer-bottom .footer-info {
+	float: left;
+	font-size: .8667em;
+	letter-spacing: 0
+}
+
+#footer .footer-bottom .footer-info address {
+	display: inline-block;
+	vertical-align: top
+}
+
+#footer .footer-bottom .footer-info p {
+	display: inline-block;
+	vertical-align: top
+}
+
+#footer .footer-bottom .footer-info p.copy {
+	display: block
+}
+
+#footer .footer-bottom .footer-sns {
+	float: right
+}
+
+#footer .footer-bottom .footer-sns a {
+	display: block;
+	float: left;
+	width: 32px;
+	height: 30px;
+	margin-left: 5px;
+	font-size: 0;
+	line-height: 0
+}
+
+#footer .footer-bottom .footer-sns a i {
+	display: block;
+	margin: 0
+}
+
+#footer .layer-looking-theater {
+	display: none;
+	position: absolute;
+	left: 0;
+	bottom: 200px;
+	width: 100%;
+	background-color: #333;
+	z-index: 98
+}
+
+#footer .layer-looking-theater a:focus {
+	outline: 1px dotted #fff
+}
+
+#footer .layer-looking-theater.on {
+	display: block
+}
+
+#footer .layer-looking-theater .wrap {
+	position: relative;
+	width: 1100px;
+	margin: 0 auto;
+	padding: 50px 0
+}
+
+#footer .layer-looking-theater .wrap .link-acc {
+	overflow: hidden;
+	position: absolute;
+	left: -9999px;
+	top: 0;
+	width: 0;
+	height: 0;
+	font-size: 0;
+	line-height: 0
+}
+
+#footer .layer-looking-theater .wrap p {
+	margin: 0;
+	padding: 0
+}
+
+#footer .layer-looking-theater .wrap .tit {
+	padding: 0 0 30px 0;
+	font-size: 1.4666em;
+	color: #fff;
+	line-height: 1.1
+}
+
+#footer .layer-looking-theater .wrap .list {
+	overflow: hidden;
+	padding: 39px 30px;
+	border: 1px solid #3c3c3c
+}
+
+#footer .layer-looking-theater .wrap .list li {
+	position: relative;
+	padding: 20px 0 0 153px;
+	line-height: 1.1
+}
+
+#footer .layer-looking-theater .wrap .list li:first-child {
+	padding-top: 0
+}
+
+#footer .layer-looking-theater .wrap .list li:first-child .loca {
+	top: 0
+}
+
+#footer .layer-looking-theater .wrap .list li .loca {
+	position: absolute;
+	left: 0;
+	top: 19px;
+	padding: 0;
+	color: #fff
+}
+
+#footer .layer-looking-theater .wrap .list li .cont a {
+	display: inline-block;
+	margin: 0 24px 10px 0;
+	color: #bbb;
+	text-decoration: none;
+	font-size: .9333em;
+	vertical-align: top
+}
+
+#footer .layer-looking-theater .wrap .list li .cont a:hover {
+	color: #339eb2;
+	text-decoration: underline
+}
+
+#footer .layer-looking-theater .wrap .list li:last-child .cont a {
+	margin-bottom: 0
+}
+
+#footer .layer-looking-theater .wrap .btn-footer-layer-close {
+	overflow: hidden;
+	display: block;
+	position: absolute;
+	right: 0;
+	top: 42px;
+	width: 36px;
+	height: 36px;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	text-indent: -9999px;
+	background:
+		url(https://img.megabox.co.kr/static/pc/images/common/btn/btn-footer-theater-close.png)
+		no-repeat center
+}
+
+#footer ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+#footer ul a {
+	text-decoration: none;
+}
+
+.ico-footer-search {
+	width: 15px;
+	height: 15px;
+	background-image:
+		url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-footer-search.png);
+}
+
+.iconset {
+	overflow: hidden;
+	display: inline-block;
+	margin: -1px 0 0 0;
+	padding: 0;
+	font-size: 0;
+	line-height: 0;
+	vertical-align: middle;
+	background-position: 0 0;
+	background-repeat: no-repeat;
+}
+
+.ico-youtubeN {
+	width: 30px;
+	height: 30px;
+	background-image:
+		url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-youtubeN.png);
+}
+
+.ico-instagramN {
+	width: 30px;
+	height: 30px;
+	background-image:
+		url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-instagramN.png);
+}
+
+.ico-facebookN {
+	width: 30px;
+	height: 30px;
+	background-image:
+		url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-facebookN.png);
+}
+
+.ico-twitterN {
+	width: 30px;
+	height: 30px;
+	background-image:
+		url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-twitterN.png);
+}
