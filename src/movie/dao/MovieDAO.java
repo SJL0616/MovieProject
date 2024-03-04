@@ -86,13 +86,15 @@ public class MovieDAO {
         ArrayList<Movie> list = getMovieListByKobis();
 		setVisualInfoByTBDB(list);
 		addMovieIntoDB(list);
-		
 		/*
-		 * for(Movie m : list) {
-		 * 
-		 * Gson gson = new Gson(); String show = gson.toJson(m);
-		 * System.out.println("m "+ show); }
-		 */
+								 * 
+								 * 
+								 * for(Movie m : list) {
+								 * 
+								 * Gson gson = new Gson(); String show = gson.toJson(m);
+								 * System.out.println("m "+ show); }
+								 */
+		 
 	}
 	
 	//rank 탑4 영화리스트를 받아오는 함수
@@ -145,7 +147,6 @@ public class MovieDAO {
 		SqlSession session = sqlSessionFactory.openSession();
 		int sum = 0;
 		for(Movie m :list) {
-			System.out.println(m.getTrailerStr());
 			int cnt = session.insert("insertMovie", m);
 			sum +=cnt;
 		}
