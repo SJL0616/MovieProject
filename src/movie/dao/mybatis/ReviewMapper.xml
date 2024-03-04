@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+	  작성자 : 이상준 내용
+	  내용 : ReviewMapper.xml
+	  파라미터: 없음 
+	  최초 작성일: 2024.02.29
+	  마지막 수정일: 2024.02.29
+	  -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="movie.dao.mybatis.ReviewMapper">
+
+    <resultMap id="reviewResultMap" type="review">
+        <id property="movieID" column="movie_ID"/>
+        <result property="userID" column="user_ID"/>
+        <result property="content" column="content"/>
+        <result property="regDate" column="reg_date"/>
+        <result property="point" column="point"/>
+        <result property="viewPoint" column="view_point"/>
+        <result property="like" column="like_count"/>
+    </resultMap>
+
+    <select id="selectReviewById" parameterType="map" resultMap="reviewResultMap">
+        SELECT * FROM review WHERE movie_id = #{movieID} 
+        order by reg_date desc
+         LIMIT #{start}, #{pageSize}
+    </select>
+    
+    <select id="selectCountById" parameterType="int" resultType="integer">
+        SELECT count(*) FROM review WHERE movie_id = #{movieID};
+    </select>
+    
+    <insert id="insertReview" parameterType="review">
+	INSERT INTO review
+	(movie_ID,
+	user_ID,
+	content,
+	reg_date,
+	point,
+	view_point)
+	VALUES
+	(#{movieID},
+	#{userID},
+	#{content},
+	#{regDate},
+	#{point},
+	#{viewPoint});
+    </insert>
+
+    <update id="updateReview" parameterType="review">
+        UPDATE review
+        SET movie_thcd = #{movieThcd}, content = #{content}, reg_date = #{regDate}, point = #{point}, like_count = #{like}
+        WHERE movie_id = #{movieID}
+    </update>
+
+    <delete id="deleteReview" parameterType="int">
+        DELETE FROM review WHERE movie_id = #{movieID}
+    </delete>
+
+</mapper>

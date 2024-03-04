@@ -12,6 +12,8 @@
 	<typeAliases>
 		<typeAlias type="movie.vo.UserVO" alias="user" />
 		<typeAlias type="movie.vo.MovieTheater" alias="movietheater"/>
+		<typeAlias type="movie.vo.Movie" alias="movie"/>
+		<typeAlias type="movie.vo.Review" alias="review"/>
 	</typeAliases>
 
 	<environments default="development">
@@ -29,6 +31,8 @@
 	<mappers>
 		<mapper resource="movie/dao/mybatis/UserMapper.xml" />
 		<mapper resource="movie/dao/mybatis/MovieTheaterMapper.xml" />
+		<mapper resource="movie/dao/mybatis/MovieMapper.xml" />
+		<mapper resource="movie/dao/mybatis/ReviewMapper.xml" />
 	</mappers>
 
 </configuration>
