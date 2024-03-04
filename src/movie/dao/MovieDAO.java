@@ -1,7 +1,8 @@
 package movie.dao;
 
 import java.io.BufferedReader;
-
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.text.ParseException;
@@ -13,6 +14,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -21,6 +27,7 @@ import com.google.gson.JsonParser;
 import com.google.protobuf.Type;
 
 import movie.vo.Movie;
+import movie.vo.UserVO;
 
 /**
  * 작성자 : 이상준 내용: 영화 DTO 최초 작성일: 2024.02.22 마지막 수정일: 2024.02.22
@@ -30,10 +37,12 @@ public class MovieDAO {
 	private static MovieDAO instance;
 	private final String kobisKey = "64ca2aeb06dc83995c52593480291dc2";
 	private final String tmdbKey = "4bbd8a79baa451e755477a68934a9110";
-	private static ArrayList<Movie> list = null;
-	
+
 	private MovieDAO() {
-		saveMovieData();
+		if(!isLtstData()) {
+			deleteData();
+			saveMovieData();
+		}
 	}
 	
 	public static MovieDAO getInstance() {
@@ -42,25 +51,28 @@ public class MovieDAO {
 		}
 		return instance;
 	}
-
-	public ArrayList<Movie> getTotalList() {
-		return list;
-	}
-	
-	public ArrayList<Movie> getTopFour(){
-		return new ArrayList<Movie>(list.subList(0, 4));
-	}
-	
-	public Movie getOne(int movieId) {
-		for(Movie m : list) {
-			if(m.getMovieID() == movieId) {
-				return m;
-			}
+	private static SqlSessionFactory sqlSessionFactory;
+	static {
+		String resource = "movie/dao/mybatis/config.xml";
+		InputStream inputStream;
+		try {
+			inputStream = Resources.getResourceAsStream(resource);
+			sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		return null;
 	}
-
-
+	
+	/*
+	 * public ArrayList<Movie> getTotalList() { return list; }
+	 * 
+	 * public ArrayList<Movie> getTopFour(){ return new
+	 * ArrayList<Movie>(list.subList(0, 4)); }
+	 * 
+	 * public Movie getOne(int movieId) { for(Movie m : list) { if(m.getMovieID() ==
+	 * movieId) { return m; } } return null; }
+	 */
+	
 	
 	/**
 	 * 작성자 : 이상준 내용: API를 사용해서 일일 박스오피스를 DB에 저장하는 합수 
@@ -69,15 +81,11 @@ public class MovieDAO {
 	 * 마지막 수정일: 2024.02.22
 	 */
 	public void saveMovieData() {
-		LocalDate now = LocalDate.now();
 		
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");        
-        String formatedNow = now.minusDays(1).format(formatter);       
-        //System.out.println(formatedNow);  
         
-		list = getMovieListByKobis(formatedNow);
+        ArrayList<Movie> list = getMovieListByKobis();
 		setVisualInfoByTBDB(list);
-		
+		addMovieIntoDB(list);
 		
 		/*
 		 * for(Movie m : list) {
@@ -85,15 +93,77 @@ public class MovieDAO {
 		 * Gson gson = new Gson(); String show = gson.toJson(m);
 		 * System.out.println("m "+ show); }
 		 */
-		 
-		 
+	}
+	
+	//rank 탑4 영화리스트를 받아오는 함수
+	public ArrayList<Movie> getTopFour(){
+		List<Movie> mainList = null;
+		SqlSession session = sqlSessionFactory.openSession();
+		mainList = session.selectList("selectTopMovies");
+		session.close();
+		return new ArrayList<Movie>(mainList);
+	}
+	
+	//전체 영화리스트를 받아오는 함수
+	public ArrayList<Movie> getTotalList(){
+		List<Movie> mainList = null;
+		SqlSession session = sqlSessionFactory.openSession();
+		mainList = session.selectList("selectAllMovies");
+		session.close();
+		return new ArrayList<Movie>(mainList);
+	}
+	
+	//전체 영화리스트를 받아오는 함수
+	public Movie getOneMovie(int id){
+		Movie m = null;
+		SqlSession session = sqlSessionFactory.openSession();
+		m = session.selectOne("selectMovieById", id);
+		session.close();
+		return m;
+	}
+	
+	// regDate가 오늘인지 확인하는 함수
+	private boolean isLtstData() {
+		SqlSession session = sqlSessionFactory.openSession();
+		int count = session.selectOne("checkRegDate");
+		session.close();
+		System.out.println(count > 0 ? "DB가 최신입니다." :"DB가 최신이 아닙니다.");
+		return count > 0;
+	}
+	
+	// 모든 영화 데이터 삭제 함수
+	private boolean deleteData() {
+		SqlSession session = sqlSessionFactory.openSession();
+		int count = session.delete("deleteAllMovies");
+		session.commit();
+		session.close();
+		return count > 0;
+	}
+		
+	// regDate가 오늘인지 확인하는 로직
+	private boolean addMovieIntoDB(ArrayList<Movie> list) {
+		SqlSession session = sqlSessionFactory.openSession();
+		int sum = 0;
+		for(Movie m :list) {
+			System.out.println(m.getTrailerStr());
+			int cnt = session.insert("insertMovie", m);
+			sum +=cnt;
+		}
+		session.commit();
+		session.close();
+		return sum == list.size();
 	}
 
-	private ArrayList<Movie> getMovieListByKobis(String now) {
-
+	private ArrayList<Movie> getMovieListByKobis() {
+		LocalDate localDate = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");        
+		DateTimeFormatter DBformat = DateTimeFormatter.ofPattern("yyyy.MM.dd");        
+        String DottedNow = localDate.format(DBformat);    
+        String formatedNow = localDate.minusDays(1).format(formatter);      
+        
 		ArrayList<Movie> list = new ArrayList<Movie>();
 		// 인증키 (개인이 받아와야함)
-		String date = "&targetDt="+now;
+		String date = "&targetDt="+formatedNow;
 		// 파싱한 데이터를 저장할 변수
 		String result = "";
 
@@ -130,7 +200,8 @@ public class MovieDAO {
 				System.out.println("10. 감독 :" + movieInfo.get("directors"));
 				System.out.println("11. 출연진 :" + movieInfo.get("actors"));
 				System.out.println("12. 장르 :" + movieInfo.get("genres"));
-				System.out.println("13. 관람 등급 :" + movieInfo.get("audits"));*/
+				System.out.println("13. 관람 등급 :" + movieInfo.get("audits"));*/    
+				
 				if(!movieInfo.isJsonNull()) {
 					//System.out.println(movieInfo);
 					m = new Movie(
@@ -147,7 +218,8 @@ public class MovieDAO {
 							(JsonArray)movieInfo.get("actors"),
 							(JsonArray)movieInfo.get("genres"),
 							(JsonArray)movieInfo.get("audits"),
-							null, null);
+							null, null,
+							DottedNow);
 					
 					list.add(m);
 				}
@@ -359,7 +431,7 @@ public class MovieDAO {
 				 * 
 				 * System.out.println(m); }
 				 */
-				System.out.println("-----");
+				//System.out.println("-----");
 				/*
 				 * JsonObject oneTrailer = results.get(0).getAsJsonObject(); trailerSrc =
 				 * oneTrailer.get("key").getAsString();

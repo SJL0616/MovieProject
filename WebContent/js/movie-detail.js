@@ -97,9 +97,9 @@ function showTrailer(event) {
 }
 
 function onYouTubeIframeAPIReady() {
-let keys = Array.from(document.querySelectorAll(".videoKey"));
+	let keys = Array.from(document.querySelectorAll(".videoKey"));
 
-let keyNum = 0;
+	let keyNum = 0;
 	keys.forEach(e => {
 		let num = keyNum;
 		let id = 'player' + (num + 1);
@@ -113,32 +113,153 @@ let keyNum = 0;
 				}
 			}
 		});
-		keyNum+=1;
+		keyNum += 1;
 	});
-players = Array.from(document.querySelectorAll(".player"));
-videoOffSet();
+	players = Array.from(document.querySelectorAll(".player"));
+	if (players.length == 1) {
+		document.querySelector(".swiper-button-next").classList.add("swiper-button-disabled");
+		document.querySelector(".swiper-button-prev").classList.add("swiper-button-disabled");
+	}
+	videoOffSet();
 }
 
-function videoOffSet(){
+function videoOffSet() {
 	let num = 0;
-	players.forEach(e =>{
-		if(num == trailderNum){
-			e.style.display ="block";
-		}else{
-			e.style.display ="none";
+	players.forEach(e => {
+		if (num == trailderNum) {
+			e.style.display = "block";
+		} else {
+			e.style.display = "none";
 		}
 		num++;
 	});
-	
+
 }
 function showPre() {
 	console.log("showNext");
-	trailderNum = trailderNum-1 >-1 ? trailderNum-1  : players.length-1;
+	trailderNum = trailderNum - 1 > -1 ? trailderNum - 1 : players.length - 1;
 	videoOffSet();
 }
 function showNext() {
 	console.log("showNext");
-	trailderNum = trailderNum+1 < players.length ? trailderNum+1  : 0;
+	trailderNum = trailderNum + 1 < players.length ? trailderNum + 1 : 0;
 	videoOffSet();
 }
 
+
+function showReview(event ,id) {
+	console.log(event.target);
+	console.log(event.target.getAttribute("pagenum"));
+	console.log(id);
+	let pageNum = event.target.getAttribute("pagenum");
+	fetch("showReview.do", {
+			method: "POST",
+			headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", },
+			body:  "currentPage=" +  pageNum +"&"
+			+ "id= "+id
+		}) 
+		.then(response => response.text())
+		.then((data) => {
+			if (data === `fail`) {
+			alert(`실패했습니다.`);
+			} else {
+				let list = JSON.parse(data);
+				console.log(data);
+				console.log(list);
+			}
+	})
+}
+
+function controlReviewForm(){
+	let form = document.getElementById("layer_regi_reply_review");
+	if(!form.classList.contains("on")){
+		form.classList.add("on");
+	}else{
+		form.classList.remove("on");
+	}
+}
+
+var selectCIdx;
+var selectPIdx;
+var totalPoint;
+var vPoint;
+//한줄평 분야 설정
+$('.point .box .btn').on('click', function() {
+	$('.point .box .btn').removeClass('on');
+	$(this).addClass('on');
+	vPoint =  $(this).text();
+});
+
+// 한줄평 별점 마우스 이벤트
+$('.box-star-score .star button').on('mouseover', function() {
+	var cIdx = $(this).index();
+	var pIdx = $(this).parent().index();
+
+	fn_bindStart(cIdx, pIdx);
+}).on('mouseout', function() {
+	$('.box-star-score .star button').removeClass('on');
+
+	fn_bindStart(selectCIdx, selectPIdx);
+}).on('click', function() {
+	selectCIdx = $(this).index();
+	selectPIdx = $(this).parent().index();
+
+	fn_bindStart(selectCIdx, selectPIdx);
+});
+
+// 한줄평 별점 설정
+function fn_bindStart(cIdx, pIdx) {
+	totalPoint = 0;
+
+	$('.box-star-score .star button').removeClass('on');
+
+	for (var i = 0; i <= pIdx; ++i) {
+		if (i < pIdx) {
+			$('.box-star-score .group').eq(i).find('button').addClass('on');
+
+			totalPoint += 2;
+		} else if (i >= pIdx) {
+			for (var j = 0; j <= cIdx; ++j) {
+				$('.box-star-score .group').eq(i).find('button').eq(j).addClass('on');
+
+				totalPoint += 1;
+			}
+		}
+	}
+
+	$('.box-star-score .num em').html(totalPoint);
+};
+
+$('#textarea').on('keyup', function() {
+	if (this.value.length > 100) this.value = this.value.substr(0, 100);
+
+	$('.textarea .count span').html(this.value.length);
+	
+});
+
+$('#regOneBtn').on('click', function() {
+	let mid = $(this).attr("data-mno");
+	let uid = 'qwer'
+	let content = $('#textarea').val();
+	console.log("아이디 : "+mid +", 점수 : "+totalPoint +", 내용 "+ content +", 분야 "+vPoint);
+	
+	fetch("regReview.do", {
+		method: "POST",
+		headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", },
+		body:  "uid=" +  uid + "&"
+	    +"mid=" + mid + "&"
+        +"point=" + totalPoint+ "&"
+        +"vPoint="+ vPoint+ "&"
+	    +"content="+ content
+	}) 
+	.then(response => response.text())
+	.then((data) => {
+		if (data === `fail`) {
+		alert(`로그인이 필요한 메뉴입니다.`);
+		} else {
+			alert(`성공했습니다.`);
+			controlReviewForm();
+		}
+	})
+	
+});

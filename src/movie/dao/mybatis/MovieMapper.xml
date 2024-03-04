@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 
+	  작성자 : 이상준 내용
+	  내용 : MovieMapper.xml
+	  파라미터: 없음 
+	  최초 작성일: 2024.02.29
+	  마지막 수정일: 2024.02.29
+	  -->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="movie.dao.mybatis.MovieMapper">
+ 
+    <resultMap id="movieResultMap" type="movie">
+        <id property="movieID" column="movie_ID"/>
+        <result property="title" column="title"/>
+        <result property="titleEn" column="title_en"/>
+        <result property="openDate" column="open_date"/>
+        <result property="rank" column="rank"/>
+        <result property="audiCum" column="audi_cum"/>
+        <result property="overview" column="overview"/>
+        <result property="showTime" column="show_time"/>
+        <result property="showTypes" column="show_types"/>
+        <result property="director" column="director"/>
+        <result property="actors" column="actors"/>
+        <result property="genre" column="genre"/>
+        <result property="watchGrade" column="watch_grade"/>
+        <result property="image" column="image"/>
+        <result property="trailerStr" column="trailer"/>
+        <result property="regDate" column="reg_date"/>
+    </resultMap>
+    <!-- Select statement to retrieve a movie by its ID -->
+    <select id="selectAllMovies" resultMap="movieResultMap">
+        SELECT * FROM movie order by rank
+    </select>
+    
+    <select id="selectTopMovies" resultMap="movieResultMap">
+        SELECT * FROM movie order by rank limit 4;
+    </select>
+    <!-- Select statement to retrieve a movie by its ID -->
+    <select id="selectMovieById" parameterType="int" resultMap="movieResultMap">
+        SELECT * FROM movie WHERE movie_ID = #{movieID}
+    </select>
+    
+    <select id="checkRegDate" resultType="integer">
+           SELECT count(*) FROM movie WHERE reg_date = CURDATE();
+    </select>
+
+
+    <!-- Insert statement to add a new movie -->
+    <insert id="insertMovie" parameterType="movie">
+        INSERT INTO movie 
+        (movie_ID, title, title_en, open_date, rank, audi_cum, overview, show_time, show_types, director, actors, genre, watch_grade, image, trailer, reg_date)
+        VALUES 
+        (#{movieID}, #{title}, #{titleEn}, #{openDate}, #{rank}, #{audiCum}, #{overview}, #{showTime}, #{showTypes}, #{director}, #{actors}, #{genre}, #{watchGrade}, #{image}, #{trailerStr}, #{regDate})
+    </insert>
+
+    <!-- Update statement to update an existing movie -->
+    <update id="updateMovie" parameterType="movie">
+        UPDATE movie SET
+        tmdbCd = #{tmdbCd},
+        title = #{title},
+        titleEn = #{titleEn},
+        openDate = #{openDate},
+        rank = #{rank},
+        audiCum = #{audiCum},
+        overview = #{overview},
+        showTime = #{showTime},
+        showTypes = #{showTypes},
+        director = #{director},
+        actors = #{actors},
+        genre = #{genre},
+        watchGrade = #{watchGrade},
+        image = #{image}
+        WHERE movieID = #{movieID}
+    </update>
+
+    <!-- Delete statement to remove a movie by its ID -->
+    <delete id="deleteMovieById">
+        DELETE FROM movie WHERE movieID = #{movieID}
+    </delete>
+    
+	<delete id="deleteAllMovies">
+		DELETE FROM movie;
+	</delete>
+</mapper>

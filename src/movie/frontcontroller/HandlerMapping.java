@@ -6,6 +6,8 @@ import movie.controller.Controller;
 import movie.controller.IndexController;
 import movie.controller.movie.MovieInfoController;
 import movie.controller.movie.MovieListController;
+import movie.controller.movie.review.ReviewListController;
+import movie.controller.movie.review.ReviewRegController;
 import movie.controller.ticketing.MovieTheaterController;
 import movie.controller.ticketing.TicketingController;
 import movie.controller.user.CheckLogController;
@@ -51,6 +53,8 @@ public class HandlerMapping {
 		mappings.put("/userPwValidAjax.do", new UserPwValidAjax());
 		mappings.put("/userResignValidAjax.do", new UserResignValidAjax());
 		mappings.put("/userResign.do", new UserResignController());
+		mappings.put("/regReview.do", new ReviewRegController());
+		mappings.put("/showReview.do", new ReviewListController());
 	}
 
 	public Controller getController(String key) {
