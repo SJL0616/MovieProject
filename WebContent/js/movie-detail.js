@@ -147,47 +147,149 @@ function showNext() {
 }
 
 
-function showReview(event ,id) {
-	console.log(event.target);
-	console.log(event.target.getAttribute("pagenum"));
-	console.log(id);
+// 최신순/ 공감순 / 평점순 변경 버튼으로 리뷰 출력
+$('.movie-sorting-right .btn.orderBtn').on('click', function() {
+	$('.movie-sorting-right .btn.orderBtn').removeClass('on');
+	$(this).addClass('on');
+	submit(1, $(this).attr('data-cd'), $(this).text());
+});
+// 페이지 버튼 클릭으로 리뷰 출력
+function showReview(event, id) {
 	let pageNum = event.target.getAttribute("pagenum");
+	let order = document.querySelector('.orderBtn.on').textContent;
+	submit(pageNum, id, order);
+}
+
+function submit(pageNum, id, order){
+	let rBox = Array.from(document.querySelector('.reviewBox').children);
 	fetch("showReview.do", {
-			method: "POST",
-			headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", },
-			body:  "currentPage=" +  pageNum +"&"
-			+ "id= "+id
-		}) 
+		method: "POST",
+		headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", },
+		body: "currentPage=" + pageNum + "&"
+			+ "id=" + id + "&"
+			+ "order="+order
+	})
 		.then(response => response.text())
 		.then((data) => {
 			if (data === `fail`) {
-			alert(`실패했습니다.`);
+				alert(`실패했습니다.`);
 			} else {
 				let list = JSON.parse(data);
-				console.log(data);
-				console.log(list);
+				let pageCxt = JSON.parse(list[0]);
+				removeReviews(rBox);
+				let rlist = list[1];
+				for (let i = 0; i < rlist.length; i++) {
+					let review = JSON.parse(rlist[i]);
+					appendReviews(review);
+				}
+				setPaging(pageCxt, id);
 			}
-	})
+		})
 }
 
-function controlReviewForm(){
+function removeReviews(rBox) {
+	rBox.forEach(e => {
+		if (e.classList.contains("type01")) {
+			document.querySelector('.reviewBox').removeChild(e);
+		}
+
+	});
+}
+
+
+function appendReviews(vo) {
+	var html = ''
+		+ '<li class="type01 oneContentTag">'
+		+ '<div class="story-area">'
+		+ '<div class="user-prof">'
+		+ '<div class="prof-img">'
+		+ '<img src="https://www.megabox.co.kr/static/pc/images/mypage/bg-photo.png" alt="프로필 사진" title="프로필 사진" >'
+		+ '</div>'
+		+ '<p class="user-id">' + vo.userID + '</p>'
+		+ '</div>'
+		+ '<div class="story-box">'
+		+ '<div class="story-wrap review">'
+		+ '<div class="tit">관람평</div>'
+		+ '<div class="story-cont">'
+		+ '<div class="story-point">'
+		+ '<span>' + vo.point + '</span>'
+		+ '</div>'
+		+ '<div class="story-recommend"><em>' + vo.viewPoint + '</em></div>'
+		+ '<div class="story-txt">' + vo.content + '</div>'
+		+ '<div class="story-like">';
+		if(vo.myLike == true){
+		html +='<button type="button" class="oneLikeBtn" title="댓글 추천">'
+		+ '<i class="iconset ico-like-purple"></i> <span>' + vo.like + '</span>'
+		+ '</button>';
+		}else{
+		html +='<button type="button" class="oneLikeBtn" onclick="like('+vo.reviewID+')" title="댓글 추천" data-no="' + vo.movieID + '" data-is="N">'
+		+ '<i class="iconset ico-like-gray"></i> <span>' + vo.like + '</span>'
+		+ '</button>';	
+		}
+		
+		html += '</div>'
+		+ '<div class="story-util">'
+		+ '<div class="post-funtion">'
+		+ '</div></div></div></div></div></div><div class="story-date"><div class="review on">'
+		+ '<span>' + vo.elapsedTime + '</span></div></div></li>';
+	document.querySelector('.reviewBox').insertAdjacentHTML("beforeend", html);
+
+}
+
+
+function setPaging(pageCxt, id) {
+	const pagination = document.querySelector('.pagination');
+	pagination.innerHTML = '';
+
+
+	var paging = '';
+	if (pageCxt.startPage > 10) {
+		paging += '<a title="이전 페이지 보기" href="javascript:void(0)"'
+			+ 'onclick="showReview(event,' + id + ')"'
+			+ 'class="control next" pagenum="' + (pageCxt.startPage - 1) + '">prev</a>';
+	}
+	for (let i = pageCxt.startPage; i <= pageCxt.endPage; i++) {
+		if (i == pageCxt.currentPage) {
+			paging += '<strong class="active">' + i + '</strong>';
+		} else {
+			paging += '<a title="' + i + '페이지보기" href="javascript:void(0)" onclick="showReview(event ,' + id + ')" pagenum="' + i + '">' + i + '</a>';
+		}
+	}
+	if (pageCxt.endPage < pageCxt.totalPages) {
+		paging += '<a title="이후 페이지 보기" href="javascript:void(0)"'
+			+ 'onclick="showReview(event,' + id + ')"'
+			+ 'class="control next" pagenum="' + (pageCxt.endPage + 1) + '">next</a>';
+	}
+	paging += '<a title="마지막 페이지 보기" href="javascript:void(0)"'
+		+ 'onclick="showReview(event,' + id + ')"'
+		+ 'class="control next" pagenum="' + (pageCxt.totalPages) + '">last</a>';
+	pagination.innerHTML = paging;
+
+}
+
+
+
+
+
+function controlReviewForm() {
 	let form = document.getElementById("layer_regi_reply_review");
-	if(!form.classList.contains("on")){
+	if (!form.classList.contains("on")) {
 		form.classList.add("on");
-	}else{
+	} else {
 		form.classList.remove("on");
+		resetReviewForm();
 	}
 }
 
 var selectCIdx;
 var selectPIdx;
-var totalPoint;
-var vPoint;
+var totalPoint = 0;
+var vPoint = '';
 //한줄평 분야 설정
 $('.point .box .btn').on('click', function() {
 	$('.point .box .btn').removeClass('on');
 	$(this).addClass('on');
-	vPoint =  $(this).text();
+	vPoint = $(this).text();
 });
 
 // 한줄평 별점 마우스 이벤트
@@ -198,6 +300,7 @@ $('.box-star-score .star button').on('mouseover', function() {
 	fn_bindStart(cIdx, pIdx);
 }).on('mouseout', function() {
 	$('.box-star-score .star button').removeClass('on');
+
 
 	fn_bindStart(selectCIdx, selectPIdx);
 }).on('click', function() {
@@ -234,32 +337,92 @@ $('#textarea').on('keyup', function() {
 	if (this.value.length > 100) this.value = this.value.substr(0, 100);
 
 	$('.textarea .count span').html(this.value.length);
-	
+
 });
 
 $('#regOneBtn').on('click', function() {
 	let mid = $(this).attr("data-mno");
 	let uid = 'qwer'
 	let content = $('#textarea').val();
-	console.log("아이디 : "+mid +", 점수 : "+totalPoint +", 내용 "+ content +", 분야 "+vPoint);
+	console.log("아이디 : " + mid + ", 점수 : " + totalPoint + ", 내용 " + content + ", 분야 " + vPoint);
+	if (totalPoint == 0) {
+		$('.errText').html('이 영화에 대한 별점을 선택해주세요.');
+		$('.errText').show();
+	} else if (isEmpty(content)) {
+		$('.errText').html('이 영화에 대한 실관람평을 작성해주세요.');
+		$('.errText').show();
+	} else if (isEmpty(vPoint)) {
+		$('.errText').html('이 영화에 대한 관람 포인트를 1개 선택해주세요.');
+		$('.errText').show();
+	} else if (content.length < 10) {
+		$('.errText').html('관람평을 최소 10글자 이상 입력해주세요');
+		$('.errText').show();
+	} else {
+		fetch("regReview.do", {
+			method: "POST",
+			headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", },
+			body: "uid=" + uid + "&"
+				+ "mid=" + mid + "&"
+				+ "point=" + totalPoint + "&"
+				+ "vPoint=" + vPoint + "&"
+				+ "content=" + content
+		})
+			.then(response => response.text())
+			.then((data) => {
+				if (data === `fail`) {
+					alert(`로그인이 필요한 메뉴입니다.`);
+				} else {
+					alert(`성공했습니다.`);
+					controlReviewForm();
+				}
+			})
+	}
+
+
+
+
+});
+
+function isEmpty(val) {
+	if (val == '' || val == undefined || val == null) {
+		return true;
+	}
+	return false;
+}
+
+function resetReviewForm() {
+	$('.box-star-score .star button').removeClass('on');
+	totalPoint = 0;
+	$('.box-star-score .num em').html('0');
+	$('#textarea').val('');
+	$('.point .box .btn').removeClass('on');
+	vPoint = '';
+	content = '';
+	$('.textarea .count span').html('0');
 	
-	fetch("regReview.do", {
+	$('.errText').html('');
+	$('.errText').hide();
+}
+
+// 좋아요 증가 테이블
+function like(reviewID){
+	console.log(reviewID);
+	
+	fetch("likeReview.do", {
 		method: "POST",
 		headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", },
-		body:  "uid=" +  uid + "&"
-	    +"mid=" + mid + "&"
-        +"point=" + totalPoint+ "&"
-        +"vPoint="+ vPoint+ "&"
-	    +"content="+ content
-	}) 
-	.then(response => response.text())
-	.then((data) => {
-		if (data === `fail`) {
-		alert(`로그인이 필요한 메뉴입니다.`);
-		} else {
-			alert(`성공했습니다.`);
-			controlReviewForm();
-		}
+		body: "reviewID=" + reviewID
 	})
-	
-});
+		.then(response => response.text())
+		.then((data) => {
+			if (data == 0) {
+				alert(`실패했습니다.`);
+			} else {
+				alert(`좋아요 했습니다.`);
+				submit($(".pagination .active").text(), $(".movie-sorting-right .btn.orderBtn.on").attr('data-cd'), $(".movie-sorting-right .btn.orderBtn.on").text());
+			}
+		})
+
+}
+
+

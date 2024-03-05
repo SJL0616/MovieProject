@@ -3,6 +3,10 @@ package movie.controller.movie.review;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -15,8 +19,10 @@ import com.google.gson.JsonObject;
 
 import movie.controller.Controller;
 import movie.dao.ReviewDAO;
+import movie.dao.ReviewLikesDAO;
 import movie.vo.PageContext;
 import movie.vo.Review;
+import movie.vo.ReviewLikes;
 
 public class ReviewListController implements Controller {
 
@@ -25,17 +31,15 @@ public class ReviewListController implements Controller {
 			throws ServletException, IOException {
 		String currentPage = request.getParameter("currentPage");
 		String id = request.getParameter("id").trim();
+		String order = request.getParameter("order");
+		int sqlOrder = order.equals("공감순") ? 1 :  order.equals("평점순") ? 2 : 0;
+		System.out.println(order);
 	
 		int reviewCnt = ReviewDAO.getInstance().getCount(Integer.parseInt(id));
 		if( reviewCnt > 0) {
 			PageContext pageCxt = new PageContext(Integer.parseInt(currentPage), reviewCnt);
-
-			System.out.println("id : "+ id + " startIdex = "+ pageCxt.getStartIndex());
-			ArrayList<Review> rlist = ReviewDAO.getInstance().getTotalList(Integer.parseInt(id),pageCxt.getStartIndex() ,pageCxt.getPageSize());
-		
-			for(Review r : rlist) {
-				System.out.println(r.getContent());
-			}
+			ArrayList<Review> rlist = ReviewDAO.getInstance().getTotalList("qwer",Integer.parseInt(id),pageCxt.getStartIndex() ,pageCxt.getPageSize(),sqlOrder);
+			
 			Gson gson = new Gson();
 			JsonArray ja = new JsonArray ();
 			ja.add(gson.toJson(pageCxt));
@@ -44,13 +48,11 @@ public class ReviewListController implements Controller {
 			for(Review r : rlist) { 
 				jsonRList.add(gson.toJson(r));
 			};
+			
 			ja.add(jsonRList);
-			 
 			response.setContentType("text/html; charset=utf-8");
 			response.getWriter().print(ja.toString());
 			response.getWriter().close();
-			//request.setAttribute("rlist", rlist);
-			//request.setAttribute("pageCxt", pageCxt);
 		}
 		return null;
 	}

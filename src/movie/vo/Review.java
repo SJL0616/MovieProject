@@ -13,18 +13,22 @@ import java.util.Date;
 마지막 수정일: 2024.02.29
 */
 public class Review {
+	private int reviewID; // 리뷰 아이디
 	private int movieID; // 영화 코드
 	private String userID; // 영화관코드
 	private String content; // 내용
 	private String regDate; // 등록일
+	private String elapsedTime; // 경과 시간(작성일 ~> 출력일 까지 시간)
 	private int point; // 점수
 	private String viewPoint; // 관람평 요소
+	
 	private int like; // 좋아요(공감)수
+	private boolean myLike; // 좋아요(공감)수
 
 	public Review() {
 	};
 
-	public Review(int movieID, String userID, String content, String regDate, int point,String viewPoint, int like) {
+	public Review( int movieID, String userID, String content, String regDate, int point,String viewPoint, int like) {
 
 		this.movieID = movieID;
 		this.userID = userID;
@@ -33,6 +37,16 @@ public class Review {
 		this.point = point;
 		this.viewPoint = viewPoint;
 		this.like = like;
+	}
+
+	
+	
+	public int getReviewID() {
+		return reviewID;
+	}
+
+	public void setReviewID(int reviewID) {
+		this.reviewID = reviewID;
 	}
 
 	public int getMovieID() {
@@ -61,10 +75,11 @@ public class Review {
 	public String getRegDate() {
 		return regDate;
 	}
-	public String getElapsedTime() {
-       
-        Date now = new Date();
+	
+	public String calcElapsedTime() {
+		Date now = new Date();
         Date regTime = null;
+        String result = "";
 		try {
 			regTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(this.regDate);
 		} catch (ParseException e) {
@@ -91,10 +106,20 @@ public class Review {
 	        	 return diffSec + "초 전";
 	        }
 		}
-		return "";
+		return result;
+	}
+
+	public void setElapsedTime(String elapsedTime) {
+		this.elapsedTime = elapsedTime;
+	}
+
+	public String getElapsedTime() {
+		return this.elapsedTime;
 	}
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
+		String result = calcElapsedTime();
+		this.elapsedTime = result;
 	}
 
 	public int getPoint() {
@@ -120,4 +145,13 @@ public class Review {
 	public void setLike(int like) {
 		this.like = like;
 	}
+
+	public boolean isMyLike() {
+		return myLike;
+	}
+
+	public void setMyLike(boolean myLike) {
+		this.myLike = myLike;
+	}
+
 }
