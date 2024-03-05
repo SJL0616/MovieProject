@@ -162,6 +162,7 @@ ol, ul {
     padding: 0;
     border: 0;
     background-color: transparent;
+    cursor: pointer;
 }
 .btn-search-input {
 	
@@ -182,6 +183,13 @@ ol, ul {
 }
 .movie-list ol {
     /* //margin-left: -60px; */
+}
+
+.movie-list-no-result {
+    padding: 50px 0 0 0;
+    color: #222;
+    text-align: center;
+    font-size: 1.3333em;
 }
 ol, ul {
     list-style-type: none;

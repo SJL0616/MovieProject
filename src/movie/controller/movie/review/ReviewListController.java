@@ -2,11 +2,6 @@ package movie.controller.movie.review;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -15,14 +10,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 import movie.controller.Controller;
 import movie.dao.ReviewDAO;
-import movie.dao.ReviewLikesDAO;
 import movie.vo.PageContext;
 import movie.vo.Review;
-import movie.vo.ReviewLikes;
 
 public class ReviewListController implements Controller {
 

@@ -116,6 +116,15 @@ public class MovieDAO {
 	}
 	
 	//전체 영화리스트를 받아오는 함수
+	public ArrayList<Movie> searchMovie(List<String> keywords){
+		List<Movie> mainList = null;
+		SqlSession session = sqlSessionFactory.openSession();
+		mainList = session.selectList("searchByKeywords",keywords);
+		session.close();
+		return new ArrayList<Movie>(mainList);
+	}
+		
+	//전체 영화리스트를 받아오는 함수
 	public Movie getOneMovie(int id){
 		Movie m = null;
 		SqlSession session = sqlSessionFactory.openSession();
