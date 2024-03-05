@@ -1,8 +1,9 @@
 package movie.vo;
+
 //작성자 : 김진수
 //내용 : Ticket(예매) vo
 //최초 작성일 : 24-02-27
-//최종 수정일 : 24-02-27 (김진수)
+//최종 수정일 : 24-03-05 (서원우 : 기본생성자를 추가했습니다.)
 public class Ticket {
 	private int movieID; // 영화 코드
 	private String userID; // 유저 아이디
@@ -13,6 +14,9 @@ public class Ticket {
 	private String paymentDate; // 결제날짜
 	private String seat; // 좌석
 	private int ticketPrice; // 티켓 총금액
+
+	public Ticket() {
+	}
 
 	public Ticket(int movieID, String userID, int numberPeople, String previewDate, String movieName, String title,
 			String paymentDate, String seat, int ticketPrice) {
@@ -26,32 +30,40 @@ public class Ticket {
 		this.seat = seat;
 		this.ticketPrice = ticketPrice;
 	}
+
 	public String getMovieName() {
 		return movieName;
 	}
+
 	public int getMovieID() {
 		return movieID;
 	}
+
 	public String getUserID() {
 		return userID;
 	}
+
 	public int getNumberPeople() {
 		return numberPeople;
 	}
+
 	public String getPreviewDate() {
 		return previewDate;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public String getPaymentDate() {
 		return paymentDate;
 	}
+
 	public String getSeat() {
 		return seat;
 	}
+
 	public int getTicketPrice() {
 		return ticketPrice;
 	}
-	
 }

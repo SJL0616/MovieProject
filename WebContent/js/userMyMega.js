@@ -27,6 +27,7 @@ function validCheck(form) {
 	}
 	if (check == false) return false;
 	form.submit();
+	alert(`개인벙보를 수정했습니다.`);
 }
 
 document.getElementById("updateBtn").addEventListener("click", () => {
@@ -53,7 +54,7 @@ function getResult(data) {
 		$p.classList.add("pwInvalidAlert");
 		$p.innerHTML = `현재 비밀번호가 일치하지 않습니다.`;
 		userUpdateForm.appendChild($p);
-		setInterval(() => {
+		setTimeout(() => {
 			$p.remove();
 		}, 2000);
 		check = false;
@@ -75,19 +76,22 @@ function resignValidCheck(form) {
 	form.submit();
 }
 
-document.getElementById("resignBtn").addEventListener("click", () => {
-	const resignPw = document.getElementById("resignPw").value;
-	fetch("userResignValidAjax.do", {
-		method: "POST",
-		headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", },
-		body: "resignPw=" + resignPw,
+const resignBtn = document.getElementById("resignBtn");
+if (resignBtn != null) {
+	resignBtn.addEventListener("click", () => {
+		const resignPw = document.getElementById("resignPw").value;
+		fetch("userResignValidAjax.do", {
+			method: "POST",
+			headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", },
+			body: "resignPw=" + resignPw,
+		})
+			.then(response => response.text())
+			.then(getResignResult)
+			.catch(error => console.log("error= ", error));
 	})
-		.then(response => response.text())
-		.then(getResult)
-		.catch(error => console.log("error= ", error));
-});
+}
 
-function getResult(data) {
+function getResignResult(data) {
 	if (data === `resignValid`) {
 		const updateBtn = document.getElementById("resignBtn");
 		updateBtn.innerHTML = "탈퇴";
@@ -99,7 +103,7 @@ function getResult(data) {
 		$p.classList.add("pwInvalidAlert");
 		$p.innerHTML = `비밀번호가 일치하지 않습니다.`;
 		resignForm.appendChild($p);
-		setInterval(() => {
+		setTimeout(() => {
 			$p.remove();
 		}, 2000);
 		resignCheck = false;

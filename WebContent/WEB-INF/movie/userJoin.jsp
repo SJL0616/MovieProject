@@ -26,7 +26,7 @@
 			<tr>
 				<th>전화번호 <em>*</em></th>
 				<td><input type="text" name="phone" id="phone"
-					required="required" /></td>
+					required="required" maxlength="13" /></td>
 			</tr>
 		</table>
 		<br>

@@ -15,8 +15,7 @@ public class UserLogoutController implements Controller {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		session.removeAttribute("log");
-		session.removeAttribute("user");
+		session.invalidate();
 		String ctx = request.getContextPath();
 		return "redirect:" + ctx + "/index.jsp";
 	}
