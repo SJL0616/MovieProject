@@ -3,14 +3,13 @@ package movie.vo;
 public class Seat {
 	private int seatID; // 좌석코드
 	private int movieThcd; // 영화관코드
+	private int movieID; // 영화코드
 	private int seatNumber; // 좌석 열
 	private int seatGroup; // 좌석 행
 	
-	public Seat(int seatID, int movieThcd, int seatNumber, int seatGroup) {
-		this.seatID = seatID;
-		this.movieThcd = movieThcd;
-		this.seatNumber = seatNumber;
-		this.seatGroup = seatGroup;
+	
+	public int getMovieID() {
+		return movieID;
 	}
 	public int getSeatID() {
 		return seatID;

@@ -35,6 +35,7 @@ public class UserLoginController implements Controller {
 		} else {
 			HttpSession session = request.getSession();
 			System.out.println("성공");
+			System.out.println(user.getId());
 			session.setAttribute("log", user.getId());
 			session.setAttribute("user", user);
 			response.getWriter().print("valid");

@@ -23,6 +23,7 @@ const timelist = [...document.querySelectorAll("#btn-time")];
 const movielist = [...document.querySelectorAll(".btn")];
 const bglist = [...document.querySelectorAll(".bg")];
 const btnlist = [...document.querySelectorAll(".btn")];
+const overlay = document.querySelector(".overlay");
 let bgCnt = 0;
 init();
 // 날짜 초기값
@@ -66,9 +67,13 @@ function init() {
 		// day 값 넣기 및 date 값 data 에 담기
 		wraplist[i - 1].innerHTML = month + "월<br>" + date + " " + days(day);
 		wraplist[i - 1].setAttribute("data-date", year + "-" + month + "-" + date);
-		wraplist[i - 1].setAttribute("data-day",days(day));
+		wraplist[i - 1].setAttribute("data-day", days(day));
 		date += 1;
 		day += 1;
+	}
+	if (document.querySelector(".move").value != 'exist') {
+		let on = movielist.find((movie) => movie.getAttribute("movie-no") == document.querySelector(".move").value);
+		movieOn(on);
 	}
 }
 // 날짜 클릭이벤트 추가
@@ -121,35 +126,36 @@ function timeOncheck() {
 		}
 	});
 }
-// 무비 이벤트 추가
-movielist.forEach((movie) => {
-	movie.addEventListener("click", () => {
-		if (movie.className.includes("on")) {
-			return;
-		}
-		if (bgCnt >= 3) {
-			alert("3개이상 체크 불가능합니다.");
-			return;
-		}
-		movie.classList.remove("disabled");
-		movie.classList.add("on");
-		let img = movie.getAttribute("img-path")
-		let num = movie.getAttribute("movie-no");
-		document.querySelector(".choice-all").style.display = "none";
-		document.querySelector(".choice-list").style.display = "block";
-		let bg = bglist.find((bg) => bg.innerHTML == "");
-		bg.innerHTML = `<div class="wrap">
+function movieOn(movie) {
+	if (movie.className.includes("on")) {
+		return;
+	}
+	if (bgCnt >= 3) {
+		alert("3개이상 체크 불가능합니다.");
+		return;
+	}
+	movie.classList.remove("disabled");
+	movie.classList.add("on");
+	let img = movie.getAttribute("img-path")
+	let num = movie.getAttribute("movie-no");
+	document.querySelector(".choice-all").style.display = "none";
+	document.querySelector(".choice-list").style.display = "block";
+	let bg = bglist.find((bg) => bg.innerHTML == "");
+	bg.innerHTML = `<div class="wrap">
                            <div class="img">
                               <img src="${img}" data-num="${num}">
                             </div>
                             <button class="del" onclick=imgDeleteBtn('${num}')>X</button>
                          </div>`;
-		bgCnt += 1;
-		if (document.querySelector(".btn.on")) {
-			let on = [...document.querySelectorAll(".btn.on")];
-			getTimeSetting(on);
-		}
-	});
+	bgCnt += 1;
+	if (document.querySelector(".btn.on")) {
+		let on = [...document.querySelectorAll(".btn.on")];
+		getTimeSetting(on);
+	}
+}
+// 무비 이벤트 추가
+movielist.forEach((movie) => {
+	movie.addEventListener("click", () => { movieOn(movie) });
 });
 // 영화 이미지 버튼 삭제
 function imgDeleteBtn(code) {
@@ -193,10 +199,52 @@ function days(day) {
 		return "토";
 	}
 }
+// 로그인 체크
+function validCheck(form) {
+	if (!form.id.value.trim()) {
+		alert(`아이디를 입력하세요.`);
+		form.id.focus();
+		return false;
+	}
+	if (!form.pw.value.trim()) {
+		alert("패스워드를 입력하세요.");
+		form.pw.focus();
+		return false;
+	}
+	let id = document.getElementById(`id`).value.trim();
+	let pw = document.getElementById(`pw`).value.trim();
+	fetch("login.do", {
+		method: "POST",
+		headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", },
+		body: "id=" + id + "&" + "pw=" + pw,
+	})
+		.then(response => response.text())
+		.then((data) => { getResult(data, id) })
+		.catch(error => console.log("error : ", error))
+}
+function getResult(data, id) {
+	if (data === "valid") {
+		alert("로그인 성공.");
+		$('.modal, .overlay').removeClass('active');
+		document.querySelector(".userID").value = id;
+		console.log(id);
+	} else if (data === "notValid") {
+		alert("아이디와 비밀번호를 확인하세요.");
+	}
+}
+overlay.addEventListener("click", () => {
+	$('.modal, .overlay').removeClass('active');
+});
 
 // 비동기로 페이지 바꾸기
-function getMovieTheater(ctx, playStartTime, name, showtime, type,imgPath,age) {
-	if (!getDataSave(playStartTime, name, showtime, type,imgPath,age)) {
+function getMovieTheater(ctx, playStartTime, name, showtime, type, imgPath, age, code) {
+	//login 체크
+	if (document.querySelector(".userID").value == 'exist') {
+		$('.modal, .overlay').addClass('active');
+		return;
+	}
+	// 시간체크
+	if (!getDataSave(playStartTime, name, showtime, type, imgPath, age, code)) {
 		return false;
 	}
 	$.ajax({
@@ -215,6 +263,7 @@ function getMovieTheater(ctx, playStartTime, name, showtime, type,imgPath,age) {
 		}
 	});
 }
+
 // movietheater html 가지고오기
 function setBodyChange(body, list, ctx) {
 	body.innerHTML = `<div class="map-container">
@@ -263,6 +312,7 @@ function getTimeSetting(on) {
 		let imgPath = on[rand].getAttribute("img-path");
 		let ctx = on[rand].getAttribute("movie-ctx");
 		let age = on[rand].getAttribute("movie-age");
+		let code = on[rand].getAttribute("movie-no");
 
 		let curhours = Math.floor(parseInt(showtime) / 60);
 		let curminutes = parseInt(showtime) % 60;
@@ -324,7 +374,7 @@ function getTimeSetting(on) {
 
 		let playStartTime = button.getAttribute("play-start-time");
 		button.onclick = function() {
-			getMovieTheater(ctx, playStartTime, name, showtime, type,imgPath,age);
+			getMovieTheater(ctx, playStartTime, name, showtime, type, imgPath, age, code);
 		}
 		minutes += curminutes;
 		if (minutes >= 60) {
@@ -359,7 +409,7 @@ function timeSet(minutes, curminutes, i, em, curhours, strong) {
 
 }
 
-function getDataSave(time, name, showtime, type,imgPath,age) {
+function getDataSave(time, name, showtime, type, imgPath, age, code) {
 	console.log(document.querySelector(".wrap-list #on"));
 	if (!document.querySelector(".wrap-list #on")) {
 		alert("날짜를 선택후 이용해주세요!");
@@ -374,6 +424,7 @@ function getDataSave(time, name, showtime, type,imgPath,age) {
 	let movieAge = document.querySelector(".userDt .movie-age");
 	let movieImg = document.querySelector(".userDt .movie-img");
 	let selectDay = document.querySelector(".userDt .select-day");
+	let movieCode = document.querySelector(".userDt .movie-code");
 
 	selectDate.value = date.getAttribute("data-date");
 	movieTime.value = time;
@@ -383,5 +434,6 @@ function getDataSave(time, name, showtime, type,imgPath,age) {
 	selectDay.value = date.getAttribute("data-day");
 	movieImg.value = imgPath;
 	movieAge.value = age;
+	movieCode.value = code;
 	return true;
 }

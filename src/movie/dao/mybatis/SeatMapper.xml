@@ -10,10 +10,11 @@
 <resultMap id="seatResultMap" type="Seat">
     <result property="seatID" column="seat_id"/>
     <result property="movieThcd" column="movie_thcd"/>
+    <result property="movieID" column="movie_ID"/>
     <result property="seatNumber" column="seat_number"/>
     <result property="seatGroup" column="seat_group"/>
 </resultMap>
-<select id="seatCheckList" parameterType="Integer" resultType="seat">
+<select id="seatCheckList" parameterType="Integer" resultMap="seatResultMap">
 	select * from seat where movie_thcd = #{movieThcd};
 </select>
 </mapper>

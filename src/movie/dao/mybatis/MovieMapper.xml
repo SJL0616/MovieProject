@@ -46,6 +46,16 @@
     <select id="checkRegDate" resultType="integer">
            SELECT count(*) FROM movie WHERE reg_date = CURDATE();
     </select>
+    
+     <select id="searchByKeywords" parameterType="java.util.List" resultMap="movieResultMap">
+        SELECT *
+        FROM movie
+        WHERE
+        REPLACE(title,' ','') like
+        <foreach item="keyword" collection="list" separator="" open="'%'" close="'%'">
+            #{keyword}
+        </foreach>
+    </select>
 
     <!-- Insert statement to add a new movie -->
     <insert id="insertMovie" parameterType="movie">
