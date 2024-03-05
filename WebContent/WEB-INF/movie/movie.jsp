@@ -203,13 +203,13 @@
 								<p class="txt movieStat5" style="display: none">개봉예정</p>
 								<p class="txt movieStat6" style="display: none">상영종료</p>
 								<div class="case col-2 movieStat3" style="">
-									<a href="#" class="button purple bokdBtn" data-no="23095500"
+									<a href="javascript:moveticketting('${vo.getMovieID()}')" class="button purple bokdBtn" data-no="23095500"
 										title="영화 예매하기">예매</a> <a href="#"
 										class="button purple img splBtn" data-no="23095500"> <!-- <img src="/static/pc/images/common/btn/mov_list_db_btn.png" alt="dolby 버튼"> -->
 									</a>
 								</div>
 								<div class="case movieStat4" style="display: none">
-									<a href="#" class="button purple bokdBtn" data-no="23095500"
+									<a href="javascript:moveticketting('${vo.getMovieID()}')" class="button purple bokdBtn" data-no="23095500"
 										title="영화 예매하기">예매</a>
 								</div>
 							</div></li>

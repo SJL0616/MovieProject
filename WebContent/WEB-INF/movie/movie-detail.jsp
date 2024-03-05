@@ -133,7 +133,7 @@
 				</div>
 				<div class="reserve screen-type col">
 					<div class="reserve">
-						<a href="javascript:fn_bookingForm('24001400','basic');"
+						<a href="javascript:moveticketting('${vo.getMovieID()}');"
 							class="btn reserve" title="영화 예매하기">예매</a>
 					</div>
 				</div>

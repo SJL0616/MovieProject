@@ -17,15 +17,19 @@ public class TicketingController implements Controller{
 	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		//영화 리스트를 뽑아 가지고오기
-		
 		ArrayList<Movie> list = MovieDAO.getInstance().getTotalList();
-		
+		String move = "";
+		if(request.getParameter("move") != null) {
+			move = request.getParameter("move");
+			request.setAttribute("move", move);
+		}
 		request.setAttribute("list", list);
 		
 		for(Movie m : list) {
 			System.out.println(m);
 		}
-		
+
+		System.out.println(move);
 		return "reservation/ticketing";
 	}
 

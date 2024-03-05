@@ -41,13 +41,13 @@
 						</a>
 							<div class="btn-util">
 								<button type="button" class="button btn-like"
-									rpst-movie-no="24004100">
+									rpst-movie-no="${vo.getMovieID()}">
 									<i title="보고싶어 설정 안함" class="iconset ico-heart-toggle-gray"></i>
 
 								</button>
 								<div class="case">
 									<!-- 개봉 예매가능 기본-->
-									<a href="javascript:moveBokdPage('24004100');"
+									<a href="javascript:moveticketting('${vo.getMovieID()}')"
 										class="button gblue" title="영화 예매하기">예매</a>
 								</div>
 							</div>

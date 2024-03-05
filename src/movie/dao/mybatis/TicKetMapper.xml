@@ -20,7 +20,7 @@
 	</resultMap>
 
 	<select id="getTicketListById" parameterType="String"
-		resultType="ticket">
+		resultMap="ticketResultMap">
 		select * from ticket where user_id = #{user_id};
 	</select>
 </mapper>

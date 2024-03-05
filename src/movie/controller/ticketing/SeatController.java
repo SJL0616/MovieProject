@@ -30,7 +30,7 @@ public class SeatController implements Controller {
 		List<Seat> list = SeatDAO.getInstance().seatCheckList(thcd);
 		
 		Gson gson = new Gson();
-	
+		
 		String json = gson.toJson(list);
 		System.out.println(json);
 		out.print(json);

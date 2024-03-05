@@ -20,6 +20,7 @@
 <link rel="stylesheet" type="text/css"
 	href="${ctx}/css/header.css?after" />
 <script type="text/javascript" src="${ctx}/js/header.js"></script>
+<script  type="text/javascript" defer src="${ctx}/js/moveticketing.js"></script>
 </head>
 
 <body>

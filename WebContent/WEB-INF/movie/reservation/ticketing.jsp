@@ -10,6 +10,7 @@
 <!-- ticketing.jsp -->
 <link rel="stylesheet" href="${ctx}/css/ticketing.css" />
 <script defer src="${ctx}/js/ticketting.js"></script>
+<link rel="stylesheet" href="${ctx}/css/modallogin.css" />
 
 <!-- NAVER Maps API -->
 <script type="text/javascript"
@@ -25,6 +26,8 @@
 <link rel="stylesheet" href="${ctx}/css/seat.css" />
 
 <div class="body-iframe" align="center">
+<input class="move" type="hidden" value="${move ne null? move : 'exist'}">
+<input class="userID" type="hidden" value="${log ne null? log : 'exist'}">
 	<div class="tit-util">
 		<h2 class="tit">빠른예매</h2>
 	</div>
@@ -126,6 +129,82 @@
 			</div>
 		</div>
 	</div>
+	<div class="modal">
+      <div class="loginPage">
+        <div class="loginForm">
+          <div class="title">로그인</div>
+          <div class="formBody">
+            <div class="leftSection">
+              <form class="realForm" action="${ctx}/login.do" method="post">
+                <input
+                  id="id"
+                  maxlength="20"
+                  type="text"
+                  placeholder="아이디"
+                  required="required"
+                />
+                <input
+                  id="pw"
+                  maxlength="20"
+                  type="password"
+                  placeholder="비밀번호"
+                  required="required"
+                />
+                <br />
+                <button id="loginBtn" type="button" onclick="validCheck(form)">
+                  로그인
+                </button>
+              </form>
+              <div class="otherWays">
+                <div class="link">
+                  <a href="#" title="ID/PW 찾기 선택"
+                    >ID/PW 찾기<!--ID/PW 찾기--></a
+                  >
+                  <a
+                    href="${ctx}/userJoin.do"
+                    title="회원가입 선택"
+                    id="userJoinBtn"
+                    >회원가입<!--회원가입--></a
+                  >
+                  <a href="#" title="비회원 예매확인 선택"
+                    >비회원 예매확인<!--비회원 예매확인--></a
+                  >
+                </div>
+                <a
+                  id="kakao-login-btn"
+                  href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=21ab5b4db87c2754b7ad5637ffdc7eb3&redirect_uri=http://localhost:8085/MovieProject/kakaoLoginResult.do"
+                >
+                  <img
+                    src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg"
+                    width="200"
+                    height="50"
+                    alt="카카오 로그인 버튼"
+                  />
+                </a>
+                <a
+                  id="naver-login-btn"
+                  href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=SrIGsH8XIxmfND4_eTEH&state=STATE_STRING&redirect_uri=http://localhost:8085/MovieProject/naverLoginResult.do"
+                >
+                  <img
+                    src="./img/naver_login.png"
+                    width="200"
+                    height="50"
+                    alt="네이버 로그인 버튼"
+                  />
+                </a>
+              </div>
+            </div>
+            <div class="rightSection">
+              <img
+                alt="광고 이미지"
+                src="${ctx}/img/login_page_advertisement.jpg"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="overlay"></div>
 </div>
 <form class="userDt" method="post">
 <input class="select-date" name="select-date" type="hidden">
@@ -137,5 +216,6 @@
 <input class="movie-img" name="movie-img" type="hidden">
 <input class="movie-show-time" name="movie-show-time" type="hidden">
 <input class="movie-theater" name="movie-theater" type="hidden">
+<input class="movie-code" name="movie-code" type="hidden">
 </form>
-</html>
+<%@include file="/WEB-INF/movie/footer.jsp"%>
