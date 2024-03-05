@@ -22,6 +22,10 @@ public class TicketingController implements Controller{
 		
 		request.setAttribute("list", list);
 		
+		for(Movie m : list) {
+			System.out.println(m);
+		}
+		
 		return "reservation/ticketing";
 	}
 

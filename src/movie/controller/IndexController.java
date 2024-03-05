@@ -26,6 +26,7 @@ public class IndexController implements Controller{
 		  System.out.println("m "+ show); 
 		  }
 		  */
+		
 		  
 		 request.setAttribute("list", topFour);
 		 

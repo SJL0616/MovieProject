@@ -7,6 +7,7 @@ import movie.controller.IndexController;
 import movie.controller.movie.MovieInfoController;
 import movie.controller.movie.MovieListController;
 import movie.controller.ticketing.SeatController;
+import movie.controller.movie.review.ReviewLikeController;
 import movie.controller.movie.review.ReviewListController;
 import movie.controller.movie.review.ReviewRegController;
 import movie.controller.ticketing.MovieTheaterController;
@@ -57,6 +58,7 @@ public class HandlerMapping {
 		mappings.put("/userResign.do", new UserResignController());
 		mappings.put("/regReview.do", new ReviewRegController());
 		mappings.put("/showReview.do", new ReviewListController());
+		mappings.put("/likeReview.do", new ReviewLikeController());
 	}
 
 	public Controller getController(String key) {

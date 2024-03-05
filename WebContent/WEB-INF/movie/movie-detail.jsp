@@ -221,7 +221,7 @@
 
 				<div class="tit-util mt70 mb15 oneContent">
 					<h2 class="tit small">
-						${vo.getTitle() }에 대한 <span class="font-gblue">${rlist.size()}</span>개의 이야기가
+						${vo.getTitle() }에 대한 <span class="font-gblue reviewCnt">${reviewCnt}</span>개의 이야기가
 						있어요!
 					</h2>
 					<!-- <div class="right">
@@ -233,22 +233,21 @@
 					<div class="movie-sorting">
 						<span><button type="button" class="btn sortBtn on"
 								data-cd="">
-								전체 <em class="font-gblue" id="cnt1">${rlist.size()}</em> 건
+								전체 <em class="font-gblue reviewCnt" id="cnt1">${reviewCnt}</em> 건
 							</button></span>
 					</div>
 
 					<div class="movie-sorting-right">
-						<span><button type="button" class="btn orderBtn on"
-								data-cd="">최신순</button></span> <span><button type="button"
-								class="btn orderBtn" data-cd="one">공감순</button></span> <span><button
-								type="button" class="btn orderBtn" data-cd="star">평점순</button></span>
+						<span><button type="button" class="btn orderBtn on" data-cd="${vo.getMovieID()}">최신순</button></span> 
+						<span><button type="button" class="btn orderBtn" data-cd="${vo.getMovieID()}">공감순</button></span> 
+						<span><button type="button" class="btn orderBtn" data-cd="${vo.getMovieID()}">평점순</button></span>
 					</div>
 				</div>
 
 				
 
 					<div class="movie-idv-story oneContent">
-						<ul>
+						<ul class="reviewBox">
 							<!-- 로그인이 안되있을시 -->
 							<li class="type03">
 								<div class="story-area">
@@ -315,10 +314,23 @@
 											    <div class="story-recommend"><em>${vo.getViewPoint() }</em></div>
 												<div class="story-txt">${vo.getContent() }</div>
 												<div class="story-like">
-													<button type="button" class="oneLikeBtn" title="댓글 추천"
-														data-no="2725453" data-is="N">
-														<i class="iconset ico-like-gray"></i> <span>${vo.getLike()}</span>
-													</button>
+												
+													<c:choose>
+														<c:when test="${vo.isMyLike() == true }">
+															<button type="button" class="oneLikeBtn" title="댓글 추천">
+															<i class="iconset ico-like-purple"></i><span>${vo.getLike()}</span>
+															</button>
+														</c:when>
+														<c:otherwise>
+															<button type="button" class="oneLikeBtn" title="댓글 추천"
+																onclick="like(${vo.getReviewID()})"
+																data-no="" data-is="N">
+																<i class="iconset ico-like-gray"></i> <span>${vo.getLike()}</span>
+															</button>
+														</c:otherwise>
+													</c:choose>
+													
+													
 												</div>
 												<div class="story-util">
 													<div class="post-funtion">
@@ -382,7 +394,7 @@
 						<c:if test="${pageCxt.getEndPage() < pageCxt.getTotalPages() }">
 							<a title="이후 페이지 보기" href="javascript:void(0)"
 							    onclick="showReview(event,${vo.getMovieID()})" 
-								class="control next" pagenum="${pageCxt.getStartPage()-1}">next</a>
+								class="control next" pagenum="${pageCxt.getEndPage()+1}">next</a>
 						</c:if>
 						<a title="마지막 페이지 보기" href="javascript:void(0)"
 						    onclick="showReview(event,${vo.getMovieID()})" 

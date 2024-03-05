@@ -16,6 +16,7 @@
 		<typeAlias type="movie.vo.Seat" alias="seat"/>
 		<typeAlias type="movie.vo.Movie" alias="movie"/>
 		<typeAlias type="movie.vo.Review" alias="review"/>
+		<typeAlias type="movie.vo.ReviewLikes" alias="reviewLikes"/>
 	</typeAliases>
 
 	<environments default="development">
@@ -37,6 +38,7 @@
 		<mapper resource="movie/dao/mybatis/SeatMapper.xml" />
 		<mapper resource="movie/dao/mybatis/MovieMapper.xml" />
 		<mapper resource="movie/dao/mybatis/ReviewMapper.xml" />
+		<mapper resource="movie/dao/mybatis/ReviewLikesMapper.xml" />
 	</mappers>
 
 </configuration>
