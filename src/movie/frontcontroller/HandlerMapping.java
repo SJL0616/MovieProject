@@ -6,11 +6,11 @@ import movie.controller.Controller;
 import movie.controller.IndexController;
 import movie.controller.movie.MovieInfoController;
 import movie.controller.movie.MovieListController;
-import movie.controller.ticketing.SeatController;
 import movie.controller.movie.review.ReviewLikeController;
 import movie.controller.movie.review.ReviewListController;
 import movie.controller.movie.review.ReviewRegController;
 import movie.controller.ticketing.MovieTheaterController;
+import movie.controller.ticketing.SeatController;
 import movie.controller.ticketing.TicketingController;
 import movie.controller.user.CheckLogController;
 import movie.controller.user.DisconnectToKakao;
@@ -19,6 +19,7 @@ import movie.controller.user.KakaoController;
 import movie.controller.user.KakaoResultController;
 import movie.controller.user.NaverController;
 import movie.controller.user.NaverResultController;
+import movie.controller.user.ReserveCancelController;
 import movie.controller.user.UserIdValidAjax;
 import movie.controller.user.UserJoinController;
 import movie.controller.user.UserLoginController;
@@ -59,6 +60,7 @@ public class HandlerMapping {
 		mappings.put("/regReview.do", new ReviewRegController());
 		mappings.put("/showReview.do", new ReviewListController());
 		mappings.put("/likeReview.do", new ReviewLikeController());
+		mappings.put("/reserveCancel.do", new ReserveCancelController());
 	}
 
 	public Controller getController(String key) {
