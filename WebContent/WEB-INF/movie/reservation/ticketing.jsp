@@ -77,9 +77,12 @@
 					<ul>
 						<c:forEach var="list" items="${list}">
 							<li>
-								<button class="btn disabled" movie-nm="${list.title}"
+								<button class="btn" movie-nm="${list.title}"
 									movie-no="${list.movieID}"
-									img-path="https://image.tmdb.org/t/p/w500${list.image}">
+									img-path="https://image.tmdb.org/t/p/w500${list.image}"
+									movie-type="${list.showTypes}" movie-time="${list.showTime}"
+									movie-ctx= "${ctx}" movie-age="${fn:substring(list.watchGrade,0,2) == '전체'? 'all' : fn:substring(list.watchGrade,0,2)}"
+									>
 									<span
 										class="movie-grade age-${fn:substring(list.watchGrade,0,2) == '전체'? 'all' : fn:substring(list.watchGrade,0,2)}">${fn:substring(list.watchGrade,0,2) == '전체'? 'All' : fn:substring(list.watchGrade,0,2)}</span>
 									<span class="txt">${list.title}</span>
@@ -118,23 +121,21 @@
 				</div>
 				<div class="movie-shedule-area">
 					<ul>
-						<li>
-							<button class="btn" play-start-time="1615" onclick="getMovieTheater('${ctx}')">
-								<div class="legend"></div>
-								<span class="time"> <strong title="상영 시작">16:15</strong>
-									<em title="상영 종료">~19:08</em>
-								</span> <span class="title"> <strong title="블레이드 러너">블레이드
-										러너 2049</strong> <em>2D Doldy(자막)</em>
-								</span>
-								<div class="info">
-									<span class="theater" title="극장"> </span>
-								</div>
-							</button>
-						</li>
 					</ul>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+<form class="userDt" method="post">
+<input class="select-date" name="select-date" type="hidden">
+<input class="select-day" name="select-day" type="hidden">
+<input class="movie-type" name="movie-type" type="hidden">
+<input class="movie-time" name="movie-time" type="hidden">
+<input class="movie-name" name="movie-name" type="hidden">
+<input class="movie-age" name="movie-age" type="hidden">
+<input class="movie-img" name="movie-img" type="hidden">
+<input class="movie-show-time" name="movie-show-time" type="hidden">
+<input class="movie-theater" name="movie-theater" type="hidden">
+</form>
 </html>

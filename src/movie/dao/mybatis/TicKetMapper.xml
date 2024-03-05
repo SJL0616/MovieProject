@@ -8,8 +8,8 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="movie.dao.mybatis.TicKetMapper">
 <resultMap id="ticketResultMap" type="Ticket">
-    <result property="movieID" column="movie_id"/>
-    <result property="userID" column="user_id"/>
+    <result property="movieID" column="movie_ID"/>
+    <result property="userID" column="user_ID"/>
     <result property="numberPeople" column="number_people"/>
     <result property="previewDate" column="preview_date"/>
     <result property="movieName" column="movie_name"/>

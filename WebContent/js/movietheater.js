@@ -47,9 +47,10 @@ moviethlist.forEach((movie) => {
 
 		infowindow.open(map, marker);
 		moviebutton.setAttribute("data-code", code);
+		moviebutton.setAttribute("data-name", name);
 	});
 });
-
+// 영화관 선택후 다른페이지 비동기 처리
 moviebutton.addEventListener("click", () => {
 	if (moviebutton.getAttribute("data-code") == null) {
 		alert("영화관 선택해주세요!");
@@ -57,6 +58,8 @@ moviebutton.addEventListener("click", () => {
 	}
 	let btn = moviebutton.getAttribute("data-code");
 	let ctx = moviebutton.getAttribute("data-url");
+	let name = moviebutton.getAttribute("data-name");
+	let form = [...document.querySelectorAll(".userDt input")];
 	$.ajax({
 		url:"seat.do",
 		type: "GET",
@@ -67,7 +70,7 @@ moviebutton.addEventListener("click", () => {
 				list = data;
 			}
 			let body = document.querySelector(".body-iframe");
-			setBodyChange(body,list);
+			setBodyChange(body,list,form,name);
 			getScriptSetting(body,ctx);
 		},
 		error:	function(xhr, status, error) {
@@ -75,7 +78,9 @@ moviebutton.addEventListener("click", () => {
 		}
 	})
 });
-function setBodyChange(body,list,ctx){
+//페이지 만들기
+function setBodyChange(body,list,form,name){
+	form[8].value = name;
 	body.innerHTML = `<div class="seat-select-section">
 	<div class="seat-section">
 		<div class="tit-seat">
@@ -90,33 +95,13 @@ function setBodyChange(body,list,ctx){
 			<div class="seat-area">
 				<div class="seat-count">
 					<div class="cell">
-						<p class="txt">성인</p>
+						<p class="txt">총 인원수</p>
 						<div class="count">
-							<button class="down" title="성인 좌석 감소">-</button>
+							<button class="down" title="좌석 감소">-</button>
 							<div class="number">
 								<p>0</p>
 							</div>
-							<button class="up" title="성인 좌석 증가">+</button>
-						</div>
-					</div>
-					<div class="cell">
-						<p class="txt">청소년</p>
-						<div class="count">
-							<button class="down" title="청소년 좌석 감소">-</button>
-							<div class="number">
-								<p>0</p>
-							</div>
-							<button class="up" title="청소년 좌석 증가">+</button>
-						</div>
-					</div>
-					<div class="cell">
-						<p class="txt">우대</p>
-						<div class="count">
-							<button class="down" title="우대 좌석 감소">-</button>
-							<div class="number">
-								<p>0</p>
-							</div>
-							<button class="up" title="우대 좌석 증가">+</button>
+							<button class="up" title="좌석 증가">+</button>
 						</div>
 					</div>
 				</div>
@@ -135,33 +120,33 @@ function setBodyChange(body,list,ctx){
 				<div class="wrap">
 					<div class="tit-area">
 						<div class="movie-grade">
-							<span class="age-12">12</span>
+							<span class="age age-${form[5].value}">${form[5].value}</span>
 						</div>
 						<div class="title">
-							<p class="tit">파묘</p>
-							<p class="cate">2D</p>
+							<p class="tit">${form[4].value}</p>
+							<p class="cate">${form[2].value}</p>
 						</div>
 					</div>
 					<div class="info-area">
 						<div class="info">
-							<p class="theater">광명</p>
+							<p class="theater">${form[8].value}</p>
 							<!--해당하는 영화관-->
-							<p class="special">뭐어쩌고저쩌고</p>
+							<p class="special">1관</p>
 							<p class="date">
-								<span>2024.02.28</span> <em>(수)</em>
+								<span>${form[0].value}</span> <em>(${form[1].value})</em>
 							</p>
 						</div>
 						<div class="poster">
 							<img
-								src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
-								alt="" />
+								src="https://image.tmdb.org/t/p/w500${form[6].value}"
+								alt="${form[4].value}" />
 						</div>
 					</div>
 					<div class="choice-seat-area">
 						<div class="seat-num">
 							<p class="tit">선택좌석</p>
 							<div class="my-seat">
-								<div class="seats choice">-</div>
+								<div class="seats all">-</div>
 								<div class="seats all">-</div>
 								<div class="seats all">-</div>
 								<div class="seats all">-</div>
@@ -174,19 +159,18 @@ function setBodyChange(body,list,ctx){
 					</div>
 					<div class="pay-area">
 						<p class="count">
-							<span> 청소년 <em>1</em>
+							<span> 인원수 <em>0</em>
 							</span>
 						</p>
 						<div class="pay">
 							<p class="tit">최종결제금액</p>
 							<div class="money">
-								<em>7000</em> <span>원</span>
+								<em>0</em> <span>원</span>
 							</div>
 						</div>
 					</div>
 					<div class="btn-group">
-						<a href="" class="button" id="pageprevious">이전</a> <a href=""
-							class="button active" id="pageNext">다음</a>
+						<a href="" class="button" id="pageprevious">결제</a>
 					</div>
 				</div>
 			</div>
@@ -203,5 +187,5 @@ function getScriptSetting(body,ctx) {
 
 		body.appendChild(script);
 
-	}, 1000);
+	}, 100);
 }
