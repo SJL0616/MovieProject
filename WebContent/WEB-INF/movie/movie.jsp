@@ -137,22 +137,7 @@
 								<img
 									src="https://image.tmdb.org/t/p/w500${vo.getImage() }" 
 									alt="듄: 파트2" class="poster lozad" onerror="noImg(this)">
-								<div class="curation">
-									<p class="film" style="display: none">필름 소사이어티</p>
-									<p class="classic" style="display: none">클래식 소사이어티</p>
-								</div>
-								<div class="screen-type2">
-									<p name="dbcScrean" style="">
-										<img
-											src="https://img.megabox.co.kr/static/pc/images/common/btn/mov_top_tag_db.png"
-											alt="dolby">
-									</p>
-									<p name="mxScreen" style="">
-										<img
-											src="https://img.megabox.co.kr/static/pc/images/common/btn/mov_top_tag_atmos.png"
-											alt="dolbyatmos">
-									</p>
-								</div>
+
 								<div class="movie-score">
 									<a href="${ctx}/movie-detail.do?id=${vo.getMovieID()}" class="wrap movieBtn" 
 										title="${vo.getTitle()} 상세보기">
@@ -212,7 +197,8 @@
 									<a href="javascript:moveticketting('${vo.getMovieID()}')" class="button purple bokdBtn" data-no="23095500"
 										title="영화 예매하기">예매</a>
 								</div>
-							</div></li>
+							</div>
+							</li>
 
 					</c:forEach>
 
@@ -249,4 +235,4 @@
 </div>
 </body>
 </html>
-<script type="text/javascript" src="${ctx}/js/main.js"></script>
+<script type="text/javascript" src="${ctx}/js/movie.js"></script>

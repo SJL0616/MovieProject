@@ -374,13 +374,10 @@ $('#regOneBtn').on('click', function() {
 				} else {
 					alert(`성공했습니다.`);
 					controlReviewForm();
+					submit(1, $(".movie-sorting-right .btn.orderBtn.on").attr('data-cd'), "최신순");
 				}
 			})
 	}
-
-
-
-
 });
 
 function isEmpty(val) {
