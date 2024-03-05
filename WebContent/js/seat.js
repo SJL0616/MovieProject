@@ -48,8 +48,10 @@ buttonUp.addEventListener("click", () => {
   seatList.forEach((s) => {
     if (s.getAttribute("data-true") == "true") {
       s.innerHTML = "X";
+      s.classList.add("X");
+    }else{
+    	s.classList.add("on");
     }
-    s.classList.add("on");
   });
 });
 // button Down 했을때
@@ -87,7 +89,16 @@ for (let i = 0; i < 7; i += 1) {
       button.style = "margin-right: 30px";
       continue;
     }
-
+    // 좌석 체크
+	if(document.querySelector(".seatCheck")){
+		let check = [...document.querySelectorAll(".seatCheck")];
+		check.forEach((check) =>{
+			let btnSeat = button.innerHTML + "" + button.value; 
+			if(check.value == btnSeat){
+				button.setAttribute("data-true","true");
+			}
+		})
+	}
     if (j == 3) {
       button.style = "margin-left: 30px";
     }
@@ -95,9 +106,14 @@ for (let i = 0; i < 7; i += 1) {
     if (j == 6) {
       button.style = "margin-left: 30px";
     }
-    seatChoice(button);
   }
 }
+let seatOn = [...document.querySelectorAll(".seat")];
+seatOn.forEach((button) =>{
+	if(!button.className.includes("X")){
+    	seatChoice(button);
+	}
+})
 function mapping(button, i, j) {
   if (i == 0) {
     button.value = "A";
@@ -149,6 +165,10 @@ function sortMapping(button, i, j) {
 // button 이벤트 seat
 function seatChoice(button) {
   button.addEventListener("click", () => {
+	if(button.className.includes("cho") || button.className.includes("X")){
+		return;
+	}
+	button.classList.add("cho");
     // 총인원수, 돈, 구매할 인원수
     let number = document.querySelector(".number > p");
     let money = document.querySelector(".money > em");
@@ -160,8 +180,6 @@ function seatChoice(button) {
     if (number.textContent == count.textContent) {
       return;
     }
-    console.log(button);
-
     let seats = document.querySelector(".all");
     seats.classList.remove("all");
     seats.classList.add("choice");

@@ -61,25 +61,27 @@ moviebutton.addEventListener("click", () => {
 	let name = moviebutton.getAttribute("data-name");
 	let form = [...document.querySelectorAll(".userDt input")];
 	$.ajax({
-		url:"seat.do",
+		url: "seat.do",
 		type: "GET",
-		data: {btn: btn},
-		success: function(data){
-			let list = null;
-			if(data != null){
-				list = data;
-			}
+		data: { btn: btn,
+				code: form[9].value},
+		success: function(data) {
 			let body = document.querySelector(".body-iframe");
-			setBodyChange(body,list,form,name);
-			getScriptSetting(body,ctx);
+			setBodyChange(body, form, name);
+			getScriptSetting(body, ctx);
+			let list = null;
+			if (data != null) {
+				list = data;
+				getSeatCheck(list);
+			}
 		},
-		error:	function(xhr, status, error) {
+		error: function(xhr, status, error) {
 			console.error(error);
 		}
 	})
 });
 //페이지 만들기
-function setBodyChange(body,list,form,name){
+function setBodyChange(body, form, name) {
 	form[8].value = name;
 	body.innerHTML = `<div class="seat-select-section">
 	<div class="seat-section">
@@ -131,7 +133,7 @@ function setBodyChange(body,list,form,name){
 						<div class="info">
 							<p class="theater">${form[8].value}</p>
 							<!--해당하는 영화관-->
-							<p class="special">1관</p>
+							<p class="special"></p>
 							<p class="date">
 								<span>${form[0].value}</span> <em>(${form[1].value})</em>
 							</p>
@@ -178,8 +180,19 @@ function setBodyChange(body,list,form,name){
 	</div>
 </div>`;
 }
+// 해당하는 관에서 좌석이 자리가있는지 확인
+function getSeatCheck(list){
+	list.forEach((seat) =>{
+		let input = $('<input>').attr({
+					'type': 'hidden',
+					'class':'seatCheck',
+					'value': `${seat.seatGroup + "" + seat.seatNumber}`,
+		})
+		$(".seat-section").append(input);
+	})
+}
 // script 적용
-function getScriptSetting(body,ctx) {
+function getScriptSetting(body, ctx) {
 	setTimeout(() => {
 		let script = document.createElement("script");
 
