@@ -10,7 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import movie.vo.Ticket;
+import movie.vo.UserReservationView;
 
 public class TicKetDAO {
 	private static TicKetDAO instance;
@@ -36,11 +36,11 @@ public class TicKetDAO {
 		}
 	}
 
-	public ArrayList<Ticket> getTicketListById(String user_id) {
+	public ArrayList<UserReservationView> getTicketListById(String user_id) {
 		SqlSession session = sqlSessionFactory.openSession();
-		List<Ticket> list = session.selectList("getTicketListById", user_id);
+		List<UserReservationView> list = session.selectList("getTicketListById", user_id);
 		session.commit();
 		session.close();
-		return (ArrayList<Ticket>) list;
+		return (ArrayList<UserReservationView>) list;
 	}
 }

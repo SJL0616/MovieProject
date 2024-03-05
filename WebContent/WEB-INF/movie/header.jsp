@@ -59,7 +59,7 @@
 					<img
 						src="https://img.megabox.co.kr/static/pc/images/common/ico/ico-search-white.png" />
 				</div>
-				<div title="영화">영화</div>
+				<div title="영화" onclick="location.href='${ctx}/movie.do'">영화</div>
 				<div title="예매" onclick="location.href='${ctx}/ticketing.do'">예매</div>
 				<div title="극장">극장</div>
 

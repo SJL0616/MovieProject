@@ -1,10 +1,7 @@
 package movie.vo;
 
-//작성자 : 김진수
-//내용 : Ticket(예매) vo
-//최초 작성일 : 24-02-27
-//최종 수정일 : 24-03-05 (서원우 : 기본생성자를 추가했습니다. 변수 seat_id 와 ticketCode 를 추가했습니다.)
-public class Ticket {
+public class UserReservationView {
+	private String image; // 영화 이미지
 	private int ticketCode; // 예매 코드
 	private int movieID; // 영화 코드
 	private String userID; // 유저 아이디
@@ -16,6 +13,14 @@ public class Ticket {
 	private String seat; // 좌석
 	private int seat_id;
 	private int ticketPrice; // 티켓 총금액
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
 
 	public int getTicketCode() {
 		return ticketCode;
@@ -107,9 +112,9 @@ public class Ticket {
 
 	@Override
 	public String toString() {
-		return "Ticket [ticketCode=" + ticketCode + ", movieID=" + movieID + ", userID=" + userID + ", numberPeople="
-				+ numberPeople + ", previewDate=" + previewDate + ", movieName=" + movieName + ", title=" + title
-				+ ", paymentDate=" + paymentDate + ", seat=" + seat + ", seat_id=" + seat_id + ", ticketPrice="
-				+ ticketPrice + "]";
+		return "UserReservationView [image=" + image + ", ticketCode=" + ticketCode + ", movieID=" + movieID
+				+ ", userID=" + userID + ", numberPeople=" + numberPeople + ", previewDate=" + previewDate
+				+ ", movieName=" + movieName + ", title=" + title + ", paymentDate=" + paymentDate + ", seat=" + seat
+				+ ", seat_id=" + seat_id + ", ticketPrice=" + ticketPrice + "]";
 	}
 }
