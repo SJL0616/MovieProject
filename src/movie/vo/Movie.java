@@ -26,6 +26,15 @@ public class Movie {
 	private String overview;
 	private int showTime;
 	private String showTypes;
+	@Override
+	public String toString() {
+		return "Movie [movieID=" + movieID + ", tmdbCd=" + tmdbCd + ", title=" + title + ", titleEn=" + titleEn
+				+ ", openDate=" + openDate + ", rank=" + rank + ", audiCum=" + audiCum + ", overview=" + overview
+				+ ", showTime=" + showTime + ", showTypes=" + showTypes + ", director=" + director + ", actors="
+				+ actors + ", genre=" + genre + ", watchGrade=" + watchGrade + ", image=" + image + ", trailer="
+				+ trailer + ", trailerStr=" + trailerStr + ", regDate=" + regDate + "]";
+	}
+
 	private String director;
 	private String actors;
 	private String genre;

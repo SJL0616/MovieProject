@@ -27,8 +27,7 @@ public class TicKetDAO {
 		InputStream inputStream;
 		try {
 			inputStream = Resources.getResourceAsStream(resource);
-			SqlSessionFactory sqlSessionFactory =
-					  new SqlSessionFactoryBuilder().build(inputStream);
+			sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

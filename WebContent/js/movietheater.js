@@ -47,9 +47,10 @@ moviethlist.forEach((movie) => {
 
 		infowindow.open(map, marker);
 		moviebutton.setAttribute("data-code", code);
+		moviebutton.setAttribute("data-name", name);
 	});
 });
-
+// 영화관 선택후 다른페이지 비동기 처리
 moviebutton.addEventListener("click", () => {
 	if (moviebutton.getAttribute("data-code") == null) {
 		alert("영화관 선택해주세요!");
@@ -57,6 +58,8 @@ moviebutton.addEventListener("click", () => {
 	}
 	let btn = moviebutton.getAttribute("data-code");
 	let ctx = moviebutton.getAttribute("data-url");
+	let name = moviebutton.getAttribute("data-name");
+	let form = [...document.querySelectorAll(".userDt input")];
 	$.ajax({
 		url:"seat.do",
 		type: "GET",
@@ -67,7 +70,7 @@ moviebutton.addEventListener("click", () => {
 				list = data;
 			}
 			let body = document.querySelector(".body-iframe");
-			setBodyChange(body,list);
+			setBodyChange(body,list,form,name);
 			getScriptSetting(body,ctx);
 		},
 		error:	function(xhr, status, error) {
@@ -75,7 +78,9 @@ moviebutton.addEventListener("click", () => {
 		}
 	})
 });
-function setBodyChange(body,list,ctx){
+//페이지 만들기
+function setBodyChange(body,list,form,name){
+	form[8].value = name;
 	body.innerHTML = `<div class="seat-select-section">
 	<div class="seat-section">
 		<div class="tit-seat">
@@ -115,26 +120,26 @@ function setBodyChange(body,list,ctx){
 				<div class="wrap">
 					<div class="tit-area">
 						<div class="movie-grade">
-							<span class="age-12">12</span>
+							<span class="age age-${form[5].value}">${form[5].value}</span>
 						</div>
 						<div class="title">
-							<p class="tit">파묘</p>
-							<p class="cate">2D</p>
+							<p class="tit">${form[4].value}</p>
+							<p class="cate">${form[2].value}</p>
 						</div>
 					</div>
 					<div class="info-area">
 						<div class="info">
-							<p class="theater">광명</p>
+							<p class="theater">${form[8].value}</p>
 							<!--해당하는 영화관-->
-							<p class="special">뭐어쩌고저쩌고</p>
+							<p class="special">1관</p>
 							<p class="date">
-								<span>2024.02.28</span> <em>(수)</em>
+								<span>${form[0].value}</span> <em>(${form[1].value})</em>
 							</p>
 						</div>
 						<div class="poster">
 							<img
-								src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg"
-								alt="" />
+								src="https://image.tmdb.org/t/p/w500${form[6].value}"
+								alt="${form[4].value}" />
 						</div>
 					</div>
 					<div class="choice-seat-area">

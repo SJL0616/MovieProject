@@ -36,5 +36,4 @@ public class SeatController implements Controller {
 		out.print(json);
 		return null;
 	}
-
 }

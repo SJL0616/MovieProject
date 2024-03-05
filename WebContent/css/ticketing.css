@@ -165,7 +165,7 @@ ul,li{
 }.movie-choice .list .btn .age-all{
   background-color: green;
 }
-.movie-choice .list #on{
+.movie-choice .list .btn.on{
   color: #fff;
   font-weight: 400;
   background-color: #666;

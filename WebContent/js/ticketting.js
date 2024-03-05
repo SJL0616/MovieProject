@@ -20,7 +20,7 @@ $(".time-list").slick({
 
 const wraplist = [...document.querySelectorAll("#date-list")];
 const timelist = [...document.querySelectorAll("#btn-time")];
-const movielist = [...document.querySelectorAll(".disabled")];
+const movielist = [...document.querySelectorAll(".btn")];
 const bglist = [...document.querySelectorAll(".bg")];
 const btnlist = [...document.querySelectorAll(".btn")];
 let bgCnt = 0;
@@ -66,6 +66,7 @@ function init() {
 		// day 값 넣기 및 date 값 data 에 담기
 		wraplist[i - 1].innerHTML = month + "월<br>" + date + " " + days(day);
 		wraplist[i - 1].setAttribute("data-date", year + "-" + month + "-" + date);
+		wraplist[i - 1].setAttribute("data-day",days(day));
 		date += 1;
 		day += 1;
 	}
@@ -90,8 +91,28 @@ timelist.forEach((time) => {
 	time.addEventListener("click", () => {
 		timeOncheck();
 		time.id = "on";
+		// 해당하는 스크롤 하기
+		let list = [...document.querySelectorAll(".movie-shedule-area > ul > li .btn")];
+
+		for (let i = 0; i < list.length; i += 1) {
+			let id = list[i].id.substring(0, 2);
+			let ti = parseInt(time.getAttribute("data-time")) < 10 ? "0" + time.getAttribute("data-time").toString() : time.getAttribute("data-time");
+
+			console.log(ti, ":", id);
+			if (ti == id) {
+				smoothScroll(list[i].id);
+				return;
+			}
+		};
 	});
 });
+// 스크롤 위치에 맞게 보내기
+function smoothScroll(id) {
+	let scroll = document.getElementById(id);
+	if (scroll) {
+		scroll.scrollIntoView({ behavior: "smooth" });
+	}
+}
 // 시간 이벤트 초기화
 function timeOncheck() {
 	timelist.forEach((time) => {
@@ -103,14 +124,15 @@ function timeOncheck() {
 // 무비 이벤트 추가
 movielist.forEach((movie) => {
 	movie.addEventListener("click", () => {
-		if (movie.id == "on") {
+		if (movie.className.includes("on")) {
 			return;
 		}
 		if (bgCnt >= 3) {
 			alert("3개이상 체크 불가능합니다.");
 			return;
 		}
-		movie.id = "on";
+		movie.classList.remove("disabled");
+		movie.classList.add("on");
 		let img = movie.getAttribute("img-path")
 		let num = movie.getAttribute("movie-no");
 		document.querySelector(".choice-all").style.display = "none";
@@ -123,15 +145,27 @@ movielist.forEach((movie) => {
                             <button class="del" onclick=imgDeleteBtn('${num}')>X</button>
                          </div>`;
 		bgCnt += 1;
+		if (document.querySelector(".btn.on")) {
+			let on = [...document.querySelectorAll(".btn.on")];
+			getTimeSetting(on);
+		}
 	});
 });
 // 영화 이미지 버튼 삭제
 function imgDeleteBtn(code) {
 	movielist.forEach((movie) => {
 		if (movie.getAttribute("movie-no") == code) {
-			movie.id = "";
+			movie.classList.remove("on");
+			movie.classList.add("disabled");
 		}
 	});
+
+	if (document.querySelector(".btn.on")) {
+		let on = [...document.querySelectorAll(".btn.on")];
+		getTimeSetting(on);
+	} else {
+		document.querySelector(".movie-shedule-area > ul").innerHTML = "";
+	}
 	const num = document.querySelector("img[data-num='" + code + "']");
 	const wrap = num.closest(".wrap");
 	wrap.remove();
@@ -159,16 +193,12 @@ function days(day) {
 		return "토";
 	}
 }
-// 스크롤 위치에 맞게 보내기
-function smoothScroll(id) {
-	let scroll = document.getElementById(id);
-	console.log(scroll);
-	if (scroll) {
-		scroll.scrollIntoView({ behavior: "smooth" });
-	}
-}
+
 // 비동기로 페이지 바꾸기
-function getMovieTheater(ctx) {
+function getMovieTheater(ctx, playStartTime, name, showtime, type,imgPath,age) {
+	if (!getDataSave(playStartTime, name, showtime, type,imgPath,age)) {
+		return false;
+	}
 	$.ajax({
 		url: "movietheater.do",
 		type: "GET",
@@ -177,8 +207,8 @@ function getMovieTheater(ctx) {
 			let list = data;
 
 			let body = document.querySelector(".body-iframe");
-			setBodyChange(body,list,ctx);
-			getScriptSetting(body,ctx);
+			setBodyChange(body, list, ctx);
+			getScriptSetting(body, ctx);
 		},
 		error: function(xhr, status, error) {
 			console.error(error);
@@ -186,7 +216,7 @@ function getMovieTheater(ctx) {
 	});
 }
 // movietheater html 가지고오기
-function setBodyChange(body,list,ctx) {
+function setBodyChange(body, list, ctx) {
 	body.innerHTML = `<div class="map-container">
 							<div class="map-header">
 								<h1>영화관</h1>
@@ -207,13 +237,151 @@ function setBodyChange(body,list,ctx) {
 	})
 }
 // script 적용
-function getScriptSetting(body,ctx) {
+function getScriptSetting(body, ctx) {
 	setTimeout(() => {
 		let script = document.createElement("script");
 
-		script.src = `${ctx+'/js/movietheater.js'}`;
+		script.src = `${ctx + '/js/movietheater.js'}`;
 
 		body.appendChild(script);
 
-	}, 1000);
+	}, 100);
+}
+//시간 리스트
+function getTimeSetting(on) {
+	document.querySelector(".movie-shedule-area > ul").innerHTML = "";
+	// 현재 시간
+	let hours = 9;
+	let minutes = 0;
+	// 영화 시간
+	for (let i = hours; i <= 25;) {
+		let rand = Math.floor(Math.random() * on.length);
+
+		let name = on[rand].getAttribute("movie-nm");
+		let showtime = on[rand].getAttribute("movie-time");
+		let type = on[rand].getAttribute("movie-type");
+		let imgPath = on[rand].getAttribute("img-path");
+		let ctx = on[rand].getAttribute("movie-ctx");
+		let age = on[rand].getAttribute("movie-age");
+
+		let curhours = Math.floor(parseInt(showtime) / 60);
+		let curminutes = parseInt(showtime) % 60;
+		console.log(curminutes);
+		// 정확한값을 주기위해 엘레멘탈 생성후 넣기
+		let li = document.createElement("li");
+		let legend = document.createElement("div");
+		// 빈공간
+		legend.classList.add("legend");
+		// button class 생성
+		let button = document.createElement("button");
+		button.classList.add("btn");
+
+		// play start time
+		button.setAttribute("play-start-time", `${(minutes + 10 >= 60 ? i + 1 : i) < 10 ? 0 + "" + (minutes + 10 >= 60 ? i + 1 : i)
+			: (minutes + 10 >= 60 ? i + 1 : i)}${i == 9 ? "00"
+				: (minutes + 10 >= 60 ? ((minutes + 10) % 60 < 10 ? 0 + "" + ((minutes + 10) % 60)
+					: ((minutes + 10) % 60))
+					: minutes + 10)}`);
+
+
+		// id
+		button.id = `${(minutes + 10 >= 60 ? i + 1 : i) < 10 ? 0 + "" + (minutes + 10 >= 60 ? i + 1 : i)
+			: (minutes + 10 >= 60 ? i + 1 : i)}${i == 9 ? "00" :
+				(minutes + 10 >= 60 ? ((minutes + 10) % 60 < 10 ?
+					0 + "" + ((minutes + 10) % 60)
+					: ((minutes + 10) % 60))
+					: minutes + 10)}`;
+		// time 생성
+		let time = document.createElement("span");
+		let strong = document.createElement("strong");
+		let em = document.createElement("em");
+
+		time.classList = "time";
+
+		strong.setAttribute("title", "상영 시작");
+		em.setAttribute("title", "상영 종료");
+
+
+
+		timeSet(minutes, curminutes, i, em, curhours, strong);
+		// time 업펜드
+		time.appendChild(strong);
+		time.appendChild(em);
+		// button 에 엡펜드
+		button.appendChild(legend);
+		button.appendChild(time);
+		// 제목 타입 넣기
+		button.innerHTML += `<span class="title"> 
+									<strong title="${name}">${name}
+										</strong> <em>${type}</em>
+								</span>
+								<div class="info">
+									<span class="theater" title="극장"> </span>
+								</div>`
+		li.appendChild(button);
+
+		document.querySelector(".movie-shedule-area > ul").appendChild(li);
+
+		let playStartTime = button.getAttribute("play-start-time");
+		button.onclick = function() {
+			getMovieTheater(ctx, playStartTime, name, showtime, type,imgPath,age);
+		}
+		minutes += curminutes;
+		if (minutes >= 60) {
+			i += 1;
+			minutes = minutes % 60;
+		}
+		i += curhours;
+	}
+
+}
+// 값을 더정확하게 전달하기위한 작업 1시 -> 01시 2분 -> 02분 
+function timeSet(minutes, curminutes, i, em, curhours, strong) {
+
+	// 상영 시작
+	if (minutes + 10 >= 60) {
+		strong.innerHTML = i + 1 < 10 ? 0 + "" + i + 1 : i + 1;
+		strong.innerHTML += ":" + (((minutes + 10) % 60) < 10 ? 0 + "" + ((minutes + 10) % 60) : ((minutes + 10) % 60));
+	} else {
+		strong.innerHTML = i < 10 ? 0 + "" + i : i;
+		strong.innerHTML += ":" + (i == 9 ? "00" : minutes + 10);
+	}
+	// 상영 종료
+	if (minutes + curminutes >= 60) {
+		em.innerHTML = "~";
+		em.innerHTML += i + 1 + curhours < 10 ? 0 + "" + i + 1 + curhours : i + 1 + curhours;
+		em.innerHTML += ":" + (((minutes + curminutes) % 60) < 10 ? 0 + "" + ((minutes + curminutes) % 60) : ((minutes + curminutes) % 60));
+	} else {
+		em.innerHTML = "~";
+		em.innerHTML += i + curhours < 10 ? 0 + "" + i + curhours : i + curhours;
+		em.innerHTML += ":" + ((minutes + curminutes) < 10 ? 0 + "" + (minutes + curminutes) : (minutes + curminutes));
+	}
+
+}
+
+function getDataSave(time, name, showtime, type,imgPath,age) {
+	console.log(document.querySelector(".wrap-list #on"));
+	if (!document.querySelector(".wrap-list #on")) {
+		alert("날짜를 선택후 이용해주세요!");
+		return false;
+	}
+	let date = document.querySelector(".wrap-list #on");
+	let selectDate = document.querySelector(".userDt .select-date");
+	let movieTime = document.querySelector(".userDt .movie-time");
+	let movieType = document.querySelector(".userDt .movie-type");
+	let movieName = document.querySelector(".userDt .movie-name");
+	let movieShowTime = document.querySelector(".userDt .movie-show-time");
+	let movieAge = document.querySelector(".userDt .movie-age");
+	let movieImg = document.querySelector(".userDt .movie-img");
+	let selectDay = document.querySelector(".userDt .select-day");
+
+	selectDate.value = date.getAttribute("data-date");
+	movieTime.value = time;
+	movieType.value = type;
+	movieName.value = name;
+	movieShowTime.value = showtime;
+	selectDay.value = date.getAttribute("data-day");
+	movieImg.value = imgPath;
+	movieAge.value = age;
+	return true;
 }
