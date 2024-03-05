@@ -13,6 +13,7 @@
 <mapper namespace="movie.dao.mybatis.ReviewMapper">
 
     <resultMap id="reviewResultMap" type="review">
+        <id property="reviewID" column="review_ID"/>
         <id property="movieID" column="movie_ID"/>
         <result property="userID" column="user_ID"/>
         <result property="content" column="content"/>
@@ -20,12 +21,29 @@
         <result property="point" column="point"/>
         <result property="viewPoint" column="view_point"/>
         <result property="like" column="like_count"/>
+        <result property="myLike" column="my_like"/>
     </resultMap>
 
     <select id="selectReviewById" parameterType="map" resultMap="reviewResultMap">
-        SELECT * FROM review WHERE movie_id = #{movieID} 
-        order by reg_date desc
-         LIMIT #{start}, #{pageSize}
+       SELECT c.*,
+              CASE WHEN l.user_ID = #{userID} 
+                   then true 
+                   else false 
+              end as 'my_like'
+       from review c left join review_likes l on c.review_ID = l.review_ID 
+	   WHERE movie_id = #{movieID} 
+		<choose>
+			<when test='order == 1'>
+	        order by like_count desc,reg_date desc
+			</when>
+			<when test='order == 2'>
+	        order by point desc, reg_date desc
+			</when>
+			<otherwise>
+	        order by reg_date desc
+			</otherwise>
+		</choose>
+		LIMIT #{start}, #{pageSize}
     </select>
     
     <select id="selectCountById" parameterType="int" resultType="integer">
@@ -53,6 +71,10 @@
         UPDATE review
         SET movie_thcd = #{movieThcd}, content = #{content}, reg_date = #{regDate}, point = #{point}, like_count = #{like}
         WHERE movie_id = #{movieID}
+    </update>
+    
+    <update id="plusLikeCount" parameterType="integer">
+        update review set like_count =  like_count+1 where review_ID = #{review_ID};
     </update>
 
     <delete id="deleteReview" parameterType="int">

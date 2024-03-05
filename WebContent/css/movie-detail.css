@@ -22,6 +22,7 @@
     height: 100%;
     background: url(https://img.megabox.co.kr/static/pc/images/movie/bg-movie-detail-pattern.png) repeat-x 0 0;
 }
+
 .movie-detail-page .bg-mask {
     position: absolute;
     left: 0;
@@ -51,11 +52,11 @@
     line-height: 22px;
     vertical-align: middle;
 }
+
 .movie-detail-page p {
     margin: 0;
     padding: 0;
 }
-
 
 /*타이틀  */
 .movie-detail-page .movie-detail-cont .title {
@@ -757,11 +758,17 @@ ol, ul {
     vertical-align: top;
 }
 .ico-like-gray {
+	cursor:pointer;
     width: 16px;
     height: 17px;
     background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-like-g.png);
 }
 
+.ico-like-purple {
+    width: 16px;
+    height: 17px;
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-like-p.png);
+}
 .movie-idv-story ul li .story-area .story-box .story-cont .story-util {
     display: table-cell;
     position: relative;
@@ -1265,4 +1272,16 @@ em {
 }
 .regi-reply-score.review .box-star-score .star .group .btn.right.on {
     background-image: url(https://img.megabox.co.kr/static/pc/images/common/btn/btn-star-right-review-on.png);
+}
+
+.regi-reply-score .txt-alert.errText {
+    color: #e81002;
+}
+
+.regi-reply-score .txt-alert {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
 }

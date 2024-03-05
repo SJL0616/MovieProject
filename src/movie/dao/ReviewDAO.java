@@ -16,6 +16,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import movie.vo.Review;
+import movie.vo.ReviewLikes;
 
 /**
  * 작성자 : 이상준 내용: 영화 리뷰 DTO 최초 작성일: 2024.02.29 마지막 수정일: 2024.02.29
@@ -48,11 +49,13 @@ public class ReviewDAO {
 	
 	
 	//영화의 리뷰 리스트 전체를 받아오는 함수
-	public ArrayList<Review> getTotalList(int id, int start, int pageSize){
-		Map<String,Integer> params = new HashMap<>();
+	public ArrayList<Review> getTotalList(String userID, int id, int start, int pageSize, int order){
+		Map<String,Object> params = new HashMap<>();
+		params.put("userID", userID);
 		params.put("movieID", id);
 		params.put("start", start);
 		params.put("pageSize", pageSize);
+		params.put("order", order);
 		
 		List<Review> mainList = null;
 		SqlSession session = sqlSessionFactory.openSession();
@@ -81,5 +84,15 @@ public class ReviewDAO {
 		session.close();
 		return cnt;
 	}
+	
+	public int plusLikeCount(int reviewID) {
+		SqlSession session = sqlSessionFactory.openSession();
+		int result = session.update("plusLikeCount",reviewID);
+		session.commit();
+		session.close();
+		return result;
+	}
+	
+	
 
 }

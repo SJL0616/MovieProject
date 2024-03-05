@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	  작성자 : 이상준 내용
+	  내용 :ReviewLikesMapper.xml
+	  파라미터: 없음 
+	  최초 작성일: 2024.03.04
+	  마지막 수정일: 2024.03.04
+	  -->
+<mapper namespace="movie.dao.mybatis.ReviewLikesMapper">
+
+    <!-- ResultMap for ReviewLikes class -->
+    <resultMap id="ReviewLikesResultMap" type="ReviewLikes">
+        <id property="likeID" column="like_ID"/>
+        <result property="reviewID" column="review_ID"/>
+        <result property="userID" column="user_ID"/>
+    </resultMap>
+    
+    
+      <!-- SELECT statement to retrieve likes by reviewID -->
+    <!-- <select id="getLikesByUserID" resultMap="ReviewLikesResultMap" parameterType="map">
+        select * from review_likes where review_ID BETWEEN #{start} AND #{end} AND user_ID =#{userID};
+    </select> -->
+    <insert id="insertReviewLike" parameterType="map">
+        INSERT INTO review_likes (review_ID, user_ID)
+        VALUES (#{reviewID}, #{userID})
+    </insert>
+
+</mapper>
