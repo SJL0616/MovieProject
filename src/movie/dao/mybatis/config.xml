@@ -17,6 +17,7 @@
 		<typeAlias type="movie.vo.Movie" alias="movie"/>
 		<typeAlias type="movie.vo.Review" alias="review"/>
 		<typeAlias type="movie.vo.ReviewLikes" alias="reviewLikes"/>
+		<typeAlias type="movie.vo.UserReservationView" alias="userReservationView"/>
 	</typeAliases>
 
 	<environments default="development">

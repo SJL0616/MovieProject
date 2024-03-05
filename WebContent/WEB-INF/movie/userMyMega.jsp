@@ -10,52 +10,61 @@
 
 		<h2>예매 내역</h2>
 		<div class="mymega_reservation">
-			이미지 사이즈 : 213 x 316
+			<c:if test="${myBookedList eq null}">
+				<div class="noList">예매 내역이 없습니다.</div>
+			</c:if>
 			<c:forEach var="m" items="${myBookedList}">
 				<div class="single_data">
 					<div class="left_section">
-						<a href="/movie-detail?rpstMovieNo=24009300" class="img"
+						<a href="${ctx}/movie-detail.do?id=${m.getMovieID()}" class="img"
 							title="영화상세보기"><img
-							src="https://img.megabox.co.kr/SharedImg/2024/02/15/wu6fkn83qsnhEKPwXXv0qbi4Oydk4q1J_316.jpg"
+							src="https://image.tmdb.org/t/p/w500${m.getImage()}"
 							alt="영화이미지" onerror="noImg(this)"></a>
 					</div>
 					<div class="right_section">
 						<table>
 							<tr>
+								<th scope="row" class="">예매번호</th>
+								<td colspan="3">
+									<p class="ticketCode">
+										<span>${m.getTicketCode()}</span>
+									</p>
+								</td>
+							</tr>
+							<tr>
 								<th scope="row" class="">영화명</th>
 								<td colspan="3">
 									<p class="">
-										<span>${m.getTitle()}</span> <span>2D(자막)</span>
+										<span>${m.getTitle()}</span>
 									</p>
 								</td>
 							</tr>
 							<tr>
 								<th scope="row" class="">극장/상영관</th>
-								<td>신촌/컴포트 4관</td>
+								<td>${m.getMovieName()}</td>
 								<th scope="row">관람인원</th>
 								<td>${m.getNumberPeople()}</td>
 							</tr>
 							<tr>
 								<th scope="row" class="">관람일시</th>
-								<td>2024.03.06 (수) 10:50 (1회차)</td>
+								<td>${m.getPreviewDate()}</td>
 								<th scope="row">관람좌석</th>
-								<td>A열 2</td>
+								<td>${m.getSeat()}</td>
 							</tr>
 						</table>
 						<div class="">
 							<table class="">
 								<tr>
 									<th scope="row" class="">결제일시</th>
-									<td>${m.getPaymentDate()}<a href="#" class="" title="결제정보">결제정보</a>
-									</td>
-									<th scope="row">적립예정 포인트</th>
-									<td>550 P</td>
+									<td>${m.getPaymentDate()}</td>
+									<th scope="row">결제가격</th>
+									<td>${m.getTicketPrice()}원</td>
 								</tr>
 							</table>
 						</div>
 						<div class="btn_section">
-							<a href="" title="" class="button purple">교환권출력</a> <a href=""
-								class="button gray" title="예매취소">예매취소</a>
+							<a href="#" title="" class="button purple">교환권출력</a> <a href="${ctx}/reserveCancel.do?ticketCode=${m.getTicketCode()}"
+								class="button gray" title="예매취소하기">예매취소</a>
 						</div>
 					</div>
 				</div>

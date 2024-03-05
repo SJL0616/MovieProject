@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<link rel="stylesheet" type="text/css" href="${ctx}/css/footer.css?after" />
+<link rel="stylesheet" type="text/css"
+	href="${ctx}/css/footer.css?after" />
 <footer id="footer">
 	<!-- footer-top -->
 	<div class="footer-top">

@@ -159,7 +159,8 @@
 }
 
 .mymega_reservation {
-	align-items: center; display : flex;
+	align-items: center;
+	display: flex;
 	flex-direction: column;
 	display: flex;
 }
@@ -183,11 +184,11 @@
 	flex-direction: column;
 	height: 100%;
 	width: 100%;
-	padding: 20px;
+	padding: 5px;
 }
 
 .mymega_reservation .right_section th {
-	width: 125px;
+	width: 100px;
 }
 
 .mymega_reservation .right_section>* {
@@ -228,4 +229,31 @@
 	border-radius: 4px;
 	font-family: NanumBarunGothic, Dotum, '돋움', sans-serif;
 	cursor: pointer;
+}
+
+.mymega_reservation .noList {
+	display: block;
+	height: 160px;
+	width: 100%;
+	padding: 0;
+	text-align: center;
+	line-height: 160px;
+	border: 1px solid #ddd;
+	border-width: 1px 0;
+	padding: 0;
+	letter-spacing: 0;
+	font-size: 15px;
+	color: #444;
+	font-weight: 400;
+	font-family: NanumBarunGothic, Dotum, '돋움', sans-serif;
+}
+
+.mymega_reservation img {
+	width: 213px;
+	height: 316px;
+}
+
+.mymega_reservation .ticketCode {
+	color: teal;
+	font-weight: bold;
 }
