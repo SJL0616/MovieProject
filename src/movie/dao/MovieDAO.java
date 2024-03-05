@@ -147,6 +147,10 @@ public class MovieDAO {
 		SqlSession session = sqlSessionFactory.openSession();
 		int sum = 0;
 		for(Movie m :list) {
+	          Gson gson = new Gson();
+	          String show = gson.toJson(m);
+	          System.out.println("m "+ show);
+			System.out.println(m.getTrailerStr());
 			int cnt = session.insert("insertMovie", m);
 			sum +=cnt;
 		}
