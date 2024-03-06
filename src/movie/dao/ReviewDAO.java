@@ -71,6 +71,18 @@ public class ReviewDAO {
 		session.close();
 		return cnt;
 	}
+	
+	//사용자의 특정 영화에 대한 리뷰 갯수 받아오는 함수
+	public int getMyReviewCount(int mid, String userID){
+		Map<String,Object> params = new HashMap<>();
+		params.put("movieID", mid);
+		params.put("userID", userID);
+		SqlSession session = sqlSessionFactory.openSession();
+		int cnt = session.selectOne("selectMyReviewCnt", params);
+		session.close();
+		return cnt;
+	}
+	
 	//영화의 리뷰 리스트 전체의 갯수 받아오는 함수
 	public int insert(String uid, String mid , String point, String content,String  vPoint ){
 		Date date = new Date();

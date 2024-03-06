@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import movie.controller.Controller;
+import movie.dao.ReviewDAO;
 
 public class ReviewCntController implements Controller{
 
@@ -16,11 +17,15 @@ public class ReviewCntController implements Controller{
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String userID = (String)session.getAttribute("log");
-		if(userID == null) {
-			response.getWriter().print("userIDIsNull");
+		String mid = request.getParameter("movieID");
+		if(userID == null || mid == null) {
+			response.getWriter().print("paramIsNull");
+			response.getWriter().close();
 			return null;
 		}
-		
+		int cnt = ReviewDAO.getInstance().getMyReviewCount(Integer.parseInt(mid), userID);
+		response.getWriter().print(cnt);
+		response.getWriter().close();
 		
 		return null;
 	}
