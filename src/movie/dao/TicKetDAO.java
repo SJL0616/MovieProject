@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import movie.vo.Ticket;
 import movie.vo.UserReservationView;
 
 public class TicKetDAO {
@@ -44,11 +45,18 @@ public class TicKetDAO {
 		return (ArrayList<UserReservationView>) list;
 	}
 
-	public int cancelTicketByCode(String ticketCode) {
+	public int cancelTicketByCode(int ticketCode) {
 		SqlSession session = sqlSessionFactory.openSession();
 		int cnt = session.delete("cancelTicketByCode", ticketCode);
 		session.commit();
 		session.close();
 		return cnt;
+	}
+
+	public Ticket getTicketByCode(int ticketCode) {
+		SqlSession session = sqlSessionFactory.openSession();
+		Ticket ticket = session.selectOne("getTicketByCode", ticketCode);
+		session.close();
+		return ticket;
 	}
 }

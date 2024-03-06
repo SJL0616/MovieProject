@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import movie.controller.Controller;
 import movie.dao.TicKetDAO;
+import movie.vo.Ticket;
 import movie.vo.UserReservationView;
 
 public class ReserveCancelController implements Controller {
@@ -17,13 +18,19 @@ public class ReserveCancelController implements Controller {
 	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String ticketCode = request.getParameter("ticketCode");
-		int cnt = TicKetDAO.getInstance().cancelTicketByCode(ticketCode);
+		int ticketCode = Integer.parseInt(request.getParameter("ticketCode"));
+		Ticket ticket = TicKetDAO.getInstance().getTicketByCode(ticketCode);
+
+		int cnt = TicKetDAO.getInstance().cancelTicketByCode(ticketCode); // 좌석을 되돌려놓은 후 예매객체 삭제
 		if (cnt > 0) {
 			HttpSession session = request.getSession();
 			String user_id = (String) session.getAttribute("log");
 			ArrayList<UserReservationView> list = TicKetDAO.getInstance().getTicketListById(user_id);
-			session.setAttribute("myBookedList", list);
+			if (list.size() == 0) {
+				session.removeAttribute("myBookedList");
+			} else {
+				session.setAttribute("myBookedList", list);
+			}
 			response.getWriter().print("canceled");
 		} else {
 			response.getWriter().print("notCanceled");
