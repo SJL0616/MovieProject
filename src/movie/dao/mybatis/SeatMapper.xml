@@ -2,7 +2,7 @@
 <!-- 작성자 : 김진수 -->
 <!-- 내용 : movieTheater DB -->
 <!-- 최초 작성일 : 24-02-29 -->
-<!-- 마지막 수정일 : 24-03-06 (김진수): seat insert 추가 -->
+<!-- 마지막 수정일 : 24-03-06 (김진수): seat insert select 추가 -->
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -26,13 +26,13 @@
 </select>
 <insert id="seatInsert" parameterType="seat">
 	insert into seat value(
-	null,
-	#{userID},
-	#{movieThcd},
-	#{movieID},
-	#{previewDate},
-	#{seatNumber},
-	#{seatGroup}
+		null,
+		#{userID},
+		#{movieThcd},
+		#{movieID},
+		#{previewDate},
+		#{seatNumber},
+		#{seatGroup}
 	)
 </insert>
   

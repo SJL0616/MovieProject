@@ -26,12 +26,10 @@
 
     <select id="selectReviewById" parameterType="map" resultMap="reviewResultMap">
        SELECT c.*,
-              CASE WHEN l.user_ID = #{userID} 
-                   then true 
-                   else false 
-              end as 'my_like'
+              SUM(CASE WHEN l.user_ID = #{userID} THEN 1 ELSE 0 END) AS 'my_like'
        from review c left join review_likes l on c.review_ID = l.review_ID 
 	   WHERE movie_id = #{movieID} 
+	   group by review_ID
 		<choose>
 			<when test='order == 1'>
 	        order by like_count desc,reg_date desc
@@ -48,6 +46,10 @@
     
     <select id="selectCountById" parameterType="int" resultType="integer">
         SELECT count(*) FROM review WHERE movie_id = #{movieID};
+    </select>
+    
+    <select id="selectMyReviewCnt" parameterType="map" resultType="integer">
+        SELECT case when count(*) > 0 then 1 else 0 end as 'count' FROM review WHERE movie_id = #{movieID} and user_id = #{userID};
     </select>
     
     <insert id="insertReview" parameterType="review">
