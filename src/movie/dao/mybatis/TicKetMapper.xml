@@ -47,31 +47,32 @@
 		= #{user_id};
 	</select>
 
-	<delete id="cancelTicketByCode" parameterType="Integer">
+	<delete id="cancelTicketByID" parameterType="Integer">
 		DELETE FROM ticket
-		WHERE ticket_code = #{ticketID};
+		WHERE ticket_ID = #{ticketID};
 	</delete>
 
-	<select id="getTicketByCode" parameterType="Integer"
-		resultType="ticket">
+	<select id="getTicketByID" parameterType="Integer"
+		resultMap="ticketResultMap">
 		SELECT *
 		FROM ticket
-		WHERE ticket_code = #{ticketID}
+		WHERE ticket_ID = #{ticketID}
 	</select>
 
 	<insert id="ticketInsert" parameterType="ticket">
-		insert into ticket value(
-			null,
-			#{movieID},
-			#{userID},
-			#{numberPeople},
-			#{previewDate},
-			#{movieName},
-			#{title},
-			#{paymentDate},
-			#{seatList},
-			#{seatIDList},
-			#{ticketPrice}
+		insert into ticket
+		value(
+		null,
+		#{movieID},
+		#{userID},
+		#{numberPeople},
+		#{previewDate},
+		#{movieName},
+		#{title},
+		#{paymentDate},
+		#{seatList},
+		#{seatIDList},
+		#{ticketPrice}
 		);
 	</insert>
 </mapper>

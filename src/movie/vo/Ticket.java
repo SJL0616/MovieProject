@@ -3,7 +3,7 @@ package movie.vo;
 //작성자 : 김진수
 //내용 : Ticket(예매) vo
 //최초 작성일 : 24-02-27
-//최종 수정일 : 24-03-05 (서원우 : 기본생성자를 추가했습니다. 변수 seat_id 와 ticketCode 를 추가했습니다.)
+//최종 수정일 : 24-03-05 (서원우)
 public class Ticket {
 	private int ticketID; // 예매 코드
 	private int movieID; // 영화 코드
@@ -17,9 +17,9 @@ public class Ticket {
 	private String seatIDList;// 코드
 	private int ticketPrice; // 티켓 총금액
 
-	
-	public Ticket() {}
-	
+	public Ticket() {
+	}
+
 	public Ticket(int ticketID, int movieID, String userID, int numberPeople, String previewDate, String movieName,
 			String title, String paymentDate, String seatList, String seatIDList, int ticketPrice) {
 		this.ticketID = ticketID;
@@ -33,14 +33,23 @@ public class Ticket {
 		this.seatList = seatList;
 		this.seatIDList = seatIDList;
 		this.ticketPrice = ticketPrice;
+
 	}
 
-	public int getTicketCode() {
+	@Override
+	public String toString() {
+		return "Ticket [ticketID=" + ticketID + ", movieID=" + movieID + ", userID=" + userID + ", numberPeople="
+				+ numberPeople + ", previewDate=" + previewDate + ", movieName=" + movieName + ", title=" + title
+				+ ", paymentDate=" + paymentDate + ", seatList=" + seatList + ", seatIDList=" + seatIDList
+				+ ", ticketPrice=" + ticketPrice + "]";
+	}
+
+	public int getTicketID() {
 		return ticketID;
 	}
 
-	public void setTicketCode(int ticketCode) {
-		this.ticketID = ticketCode;
+	public void setTicketID(int ticketID) {
+		this.ticketID = ticketID;
 	}
 
 	public int getMovieID() {
@@ -99,19 +108,27 @@ public class Ticket {
 		this.paymentDate = paymentDate;
 	}
 
+	public String getSeatList() {
+		return seatList;
+	}
+
+	public void setSeatList(String seatList) {
+		this.seatList = seatList;
+	}
+
+	public String getSeatIDList() {
+		return seatIDList;
+	}
+
+	public void setSeatIDList(String seatIDList) {
+		this.seatIDList = seatIDList;
+	}
+
 	public int getTicketPrice() {
 		return ticketPrice;
 	}
 
 	public void setTicketPrice(int ticketPrice) {
 		this.ticketPrice = ticketPrice;
-	}
-
-	@Override
-	public String toString() {
-		return "Ticket [ticketCode=" + ticketID + ", movieID=" + movieID + ", userID=" + userID + ", numberPeople="
-				+ numberPeople + ", previewDate=" + previewDate + ", movieName=" + movieName + ", title=" + title
-				+ ", paymentDate=" + paymentDate + ", seat=" + seatList + ", seat_id=" + seatIDList + ", ticketPrice="
-				+ ticketPrice + "]";
 	}
 }

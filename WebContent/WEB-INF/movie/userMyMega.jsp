@@ -27,7 +27,7 @@
 								<th scope="row" class="">예매번호</th>
 								<td colspan="3">
 									<p class="ticketCode">
-										<span>${m.getTicketCode()}</span>
+										<span>${m.getTicketID()}</span>
 									</p>
 								</td>
 							</tr>
@@ -49,7 +49,7 @@
 								<th scope="row" class="">관람일시</th>
 								<td>${m.getPreviewDate()}</td>
 								<th scope="row">관람좌석</th>
-								<td>${m.getSeat()}</td>
+								<td>${m.getSeatList()}</td>
 							</tr>
 						</table>
 						<div class="">
@@ -64,7 +64,7 @@
 						</div>
 						<div class="btn_section">
 							<a href="#" title="" class="button purple">교환권출력</a> <a
-								onclick="cancelCheck(${m.getTicketCode()})"
+								onclick="cancelCheck(${m.getTicketID()})"
 								class="button gray" title="예매취소하기">예매취소</a>
 						</div>
 					</div>

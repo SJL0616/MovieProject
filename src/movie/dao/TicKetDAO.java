@@ -45,28 +45,27 @@ public class TicKetDAO {
 		return (ArrayList<UserReservationView>) list;
 	}
 
-	public int cancelTicketByCode(int ticketCode) {
+	public int cancelTicketByID(int ticketID) {
 		SqlSession session = sqlSessionFactory.openSession();
-		int cnt = session.delete("cancelTicketByCode", ticketCode);
-  	session.commit();
-		session.close();
-		return cnt;
-	}
-  
-	// 예매 저장
-	public int ticketInsert(Ticket vo) {
-		SqlSession session = sqlSessionFactory.openSession();
-		int cnt = session.insert("ticketInsert",vo);
+		int cnt = session.delete("cancelTicketByID", ticketID);
 		session.commit();
 		session.close();
 		return cnt;
 	}
 
-	public Ticket getTicketByCode(int ticketCode) {
+	// 예매 저장
+	public int ticketInsert(Ticket vo) {
 		SqlSession session = sqlSessionFactory.openSession();
-		Ticket ticket = session.selectOne("getTicketByCode", ticketCode);
+		int cnt = session.insert("ticketInsert", vo);
+		session.commit();
+		session.close();
+		return cnt;
+	}
+
+	public Ticket getTicketByID(int ticketID) { // 티켓아이디로 티켓객체를 가져옵니다.
+		SqlSession session = sqlSessionFactory.openSession();
+		Ticket ticket = session.selectOne("getTicketByID", ticketID);
 		session.close();
 		return ticket;
 	}
-  
 }
