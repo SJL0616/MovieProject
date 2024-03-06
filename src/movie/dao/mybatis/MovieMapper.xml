@@ -55,6 +55,7 @@
         <foreach item="keyword" collection="list" separator="" open="'%'" close="'%'">
             #{keyword}
         </foreach>
+        order by open_date desc
     </select>
 
     <!-- Insert statement to add a new movie -->
