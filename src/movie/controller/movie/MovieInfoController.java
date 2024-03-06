@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import movie.controller.Controller;
 import movie.dao.MovieDAO;
@@ -24,19 +25,23 @@ public class MovieInfoController implements Controller {
 	@Override
 	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String id = request.getParameter("id");
-		if(id == null) {
+		String mid = request.getParameter("id");
+		if(mid == null) {
 			return null;
 		}
-		Movie m = MovieDAO.getInstance().getOneMovie(Integer.parseInt(id));
+		HttpSession session = request.getSession();
+		String userID = (String)session.getAttribute("log");
+		if(userID == null) userID = "";
+		
+		Movie m = MovieDAO.getInstance().getOneMovie(Integer.parseInt(mid));
 		request.setAttribute("vo", m);
 		
 		String currentPage = request.getParameter("currentPage");
 		if( currentPage == null) currentPage = "1";
-		int reviewCnt = ReviewDAO.getInstance().getCount(Integer.parseInt(id));
+		int reviewCnt = ReviewDAO.getInstance().getCount(Integer.parseInt(mid));
 		if( reviewCnt > 0) {
 			PageContext pageCxt = new PageContext(Integer.parseInt(currentPage), reviewCnt);
-			ArrayList<Review> rlist = ReviewDAO.getInstance().getTotalList("qwer",Integer.parseInt(id),pageCxt.getStartIndex() ,pageCxt.getPageSize(),0);
+			ArrayList<Review> rlist = ReviewDAO.getInstance().getTotalList(userID,Integer.parseInt(mid),pageCxt.getStartIndex() ,pageCxt.getPageSize(),0);
 			
 			request.setAttribute("rlist", rlist);
 			request.setAttribute("pageCxt", pageCxt);

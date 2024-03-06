@@ -108,7 +108,7 @@
 
 				<!-- 검색결과 없을 때 -->
 				<p class="no-result-count">
-					<strong id="totCnt">1</strong>개의 영화가 검색되었습니다.
+					<strong id="totCnt">${list.size() }</strong>개의 영화가 검색되었습니다.
 				</p>
 				<!--// 검색결과 없을 때 -->
 
@@ -213,8 +213,17 @@
 			</div>
 
 			<!-- 검색결과 없을 때 -->
-			<div class="movie-list-no-result" id="noDataDiv"
+			<c:choose>
+				<c:when test="${list.size() == 0}">
+					<div class="movie-list-no-result" id="noDataDiv"
+				style="display: block;">
+				</c:when>
+				<c:otherwise>
+					<div class="movie-list-no-result" id="noDataDiv"
 				style="display: none;">
+				</c:otherwise>
+			</c:choose>
+		
 				<p>현재 상영중인 영화가 없습니다.</p>
 			</div>
 

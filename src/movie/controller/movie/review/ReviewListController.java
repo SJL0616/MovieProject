@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -26,11 +26,15 @@ public class ReviewListController implements Controller {
 		String order = request.getParameter("order");
 		int sqlOrder = order.equals("공감순") ? 1 :  order.equals("평점순") ? 2 : 0;
 		System.out.println(order);
+		
+		HttpSession session = request.getSession();
+		String userID = (String)session.getAttribute("log");
+		if(userID == null) userID = "";
 	
 		int reviewCnt = ReviewDAO.getInstance().getCount(Integer.parseInt(id));
 		if( reviewCnt > 0) {
 			PageContext pageCxt = new PageContext(Integer.parseInt(currentPage), reviewCnt);
-			ArrayList<Review> rlist = ReviewDAO.getInstance().getTotalList("qwer",Integer.parseInt(id),pageCxt.getStartIndex() ,pageCxt.getPageSize(),sqlOrder);
+			ArrayList<Review> rlist = ReviewDAO.getInstance().getTotalList(userID,Integer.parseInt(id),pageCxt.getStartIndex() ,pageCxt.getPageSize(),sqlOrder);
 			
 			Gson gson = new Gson();
 			JsonArray ja = new JsonArray ();

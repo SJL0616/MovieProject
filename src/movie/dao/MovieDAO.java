@@ -158,8 +158,8 @@ public class MovieDAO {
 		for(Movie m :list) {
 	          Gson gson = new Gson();
 	          String show = gson.toJson(m);
-	          System.out.println("m "+ show);
-			System.out.println(m.getTrailerStr());
+	         // System.out.println("m "+ show);
+			//System.out.println(m.getTrailerStr());
 			int cnt = session.insert("insertMovie", m);
 			sum +=cnt;
 		}
