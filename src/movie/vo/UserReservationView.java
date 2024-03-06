@@ -22,14 +22,12 @@ public class UserReservationView {
 		this.image = image;
 	}
 
-
 	public int getTicketID() {
 		return ticketID;
 	}
 
 	public void setTicketID(int ticketID) {
 		this.ticketID = ticketID;
-
 	}
 
 	public int getMovieID() {
@@ -88,7 +86,6 @@ public class UserReservationView {
 		this.paymentDate = paymentDate;
 	}
 
-
 	public String getSeatList() {
 		return seatList;
 	}
@@ -105,27 +102,19 @@ public class UserReservationView {
 		this.seatIDList = seatIDList;
 	}
 
-	public String getSeatList() {
-		return seatList;
+	public int getTicketPrice() {
+		return ticketPrice;
 	}
 
-	public void setSeatList(String seatList) {
-		this.seatList = seatList;
+	public void setTicketPrice(int ticketPrice) {
+		this.ticketPrice = ticketPrice;
 	}
 
-	public String getSeatIDList() {
-		return seatIDList;
-	}
-
-	public void setSeatIDList(String seatIDList) {
-		this.seatIDList = seatIDList;
-	}
 	@Override
 	public String toString() {
-		return "UserReservationView [image=" + image + ", ticketCode=" + ticketID + ", movieID=" + movieID
-				+ ", userID=" + userID + ", numberPeople=" + numberPeople + ", previewDate=" + previewDate
-				+ ", movieName=" + movieName + ", title=" + title + ", paymentDate=" + paymentDate + ", seat=" + seatList
-				+ ", seat_id=" + seatIDList + ", ticketPrice=" + ticketPrice + "]";
+		return "UserReservationView [image=" + image + ", ticketID=" + ticketID + ", movieID=" + movieID + ", userID="
+				+ userID + ", numberPeople=" + numberPeople + ", previewDate=" + previewDate + ", movieName="
+				+ movieName + ", title=" + title + ", paymentDate=" + paymentDate + ", seatList=" + seatList
+				+ ", seatIDList=" + seatIDList + ", ticketPrice=" + ticketPrice + "]";
 	}
-
 }
