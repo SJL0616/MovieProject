@@ -63,8 +63,10 @@ moviebutton.addEventListener("click", () => {
 	$.ajax({
 		url: "seat.do",
 		type: "GET",
-		data: { btn: btn,
-				code: form[9].value},
+		data: { movieThcd: btn,
+				moiveID: form[9].value,
+				previewDate: form[0].value,
+				time: form[3].value},
 		success: function(data) {
 			let body = document.querySelector(".body-iframe");
 			setBodyChange(body, form, name);
@@ -172,7 +174,7 @@ function setBodyChange(body, form, name) {
 						</div>
 					</div>
 					<div class="btn-group">
-						<a href="" class="button" id="pageprevious">결제</a>
+						<a href="javascript:getPayment()" class="button" id="pageprevious">결제</a>
 					</div>
 				</div>
 			</div>

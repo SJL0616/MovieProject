@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import movie.controller.Controller;
 import movie.dao.ReviewDAO;
@@ -15,7 +16,12 @@ public class ReviewLikeController  implements Controller{
 	@Override
 	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String userID = "qwer"; //추후 수정 예정
+		HttpSession session = request.getSession();
+		String userID = (String)session.getAttribute("log");
+		if(userID == null) {
+			response.getWriter().print("userIDIsNull");
+			return null;
+		}
 		String reviewID = request.getParameter("reviewID");
 		
 		int result1 = ReviewLikesDAO.getInstance().insertReviewLike(Integer.parseInt(reviewID), userID);

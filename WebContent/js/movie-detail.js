@@ -13,13 +13,11 @@ let players = null;
 $(document).ready(function() {
 	//데이트피커 초기화
 	loadData();
-
 }); // document ready function
 
 
 function loadData() {
-
-	console.log("메인 로드");
+   
 	tablist = Array.from(document.querySelector(".tab-list").firstElementChild.children);
 	summary = document.querySelector(".movie-summary");
 	info = document.querySelector(".movie-info");
@@ -272,6 +270,11 @@ function setPaging(pageCxt, id) {
 
 
 function controlReviewForm() {
+	if(!isLoggedIn()){
+		alert("로그인이 필요한 서비스입니다.");
+		return;
+	}
+	
 	let form = document.getElementById("layer_regi_reply_review");
 	if (!form.classList.contains("on")) {
 		form.classList.add("on");
@@ -341,10 +344,10 @@ $('#textarea').on('keyup', function() {
 });
 
 $('#regOneBtn').on('click', function() {
+	
 	let mid = $(this).attr("data-mno");
-	let uid = 'qwer'
 	let content = $('#textarea').val();
-	console.log("아이디 : " + mid + ", 점수 : " + totalPoint + ", 내용 " + content + ", 분야 " + vPoint);
+	console.log("영화 아이디 : " + mid + ", 점수 : " + totalPoint + ", 내용 " + content + ", 분야 " + vPoint);
 	if (totalPoint == 0) {
 		$('.errText').html('이 영화에 대한 별점을 선택해주세요.');
 		$('.errText').show();
@@ -361,8 +364,7 @@ $('#regOneBtn').on('click', function() {
 		fetch("regReview.do", {
 			method: "POST",
 			headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", },
-			body: "uid=" + uid + "&"
-				+ "mid=" + mid + "&"
+			body: "mid=" + mid + "&"
 				+ "point=" + totalPoint + "&"
 				+ "vPoint=" + vPoint + "&"
 				+ "content=" + content
@@ -404,6 +406,10 @@ function resetReviewForm() {
 // 좋아요 증가 테이블
 function like(reviewID){
 	console.log(reviewID);
+	if(!isLoggedIn()){
+		alert("로그인이 필요한 서비스입니다.");
+		return;
+	}
 	
 	fetch("likeReview.do", {
 		method: "POST",
@@ -421,5 +427,10 @@ function like(reviewID){
 		})
 
 }
+
+
+
+
+
 
 

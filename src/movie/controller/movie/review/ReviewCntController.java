@@ -1,4 +1,4 @@
-package movie.controller.user;
+package movie.controller.movie.review;
 
 import java.io.IOException;
 
@@ -8,22 +8,21 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import movie.controller.Controller;
-import movie.vo.UserVO;
 
-public class CheckLogController implements Controller {
+public class ReviewCntController implements Controller{
 
 	@Override
 	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		UserVO user = (UserVO) session.getAttribute("user");
-		if (user == null) {
-			response.getWriter().print("false");
-		}else {
-			response.getWriter().print("true");
+		String userID = (String)session.getAttribute("log");
+		if(userID == null) {
+			response.getWriter().print("userIDIsNull");
+			return null;
 		}
-			response.getWriter().close();
+		
+		
 		return null;
 	}
+
 }

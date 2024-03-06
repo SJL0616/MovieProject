@@ -48,6 +48,15 @@ public class TicKetDAO {
 	public int cancelTicketByCode(int ticketCode) {
 		SqlSession session = sqlSessionFactory.openSession();
 		int cnt = session.delete("cancelTicketByCode", ticketCode);
+  	session.commit();
+		session.close();
+		return cnt;
+	}
+  
+	// 예매 저장
+	public int ticketInsert(Ticket vo) {
+		SqlSession session = sqlSessionFactory.openSession();
+		int cnt = session.insert("ticketInsert",vo);
 		session.commit();
 		session.close();
 		return cnt;
@@ -59,4 +68,5 @@ public class TicKetDAO {
 		session.close();
 		return ticket;
 	}
+  
 }

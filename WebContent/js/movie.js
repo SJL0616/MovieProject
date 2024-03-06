@@ -49,10 +49,11 @@ function searchMovieByNm(){
 			movieList.innerHTML = '';
 			if (result == 0) {
 				$("#noDataDiv").show();
+				$("#totCnt").text("0");
 			} else {
 				$("#noDataDiv").hide();
 				let list = result;
-				
+				$("#totCnt").text(list.length);
 				for(let i = 0; i < list.length; i++ ){
 					let vo = JSON.parse(list[i]);
 					let li =  getMovieli(vo);

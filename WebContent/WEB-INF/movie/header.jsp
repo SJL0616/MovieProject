@@ -25,6 +25,7 @@
 
 <body>
 	<header>
+	<input type="hidden" id="session" value="${sessionScope.log}">
 		<div class=header-content>
 			<div class="ci" onclick="location.href='${ctx}/index.jsp'"
 				title="MEGABOX 메인으로 가기">
