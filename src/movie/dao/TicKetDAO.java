@@ -43,4 +43,12 @@ public class TicKetDAO {
 		session.close();
 		return (ArrayList<UserReservationView>) list;
 	}
+
+	public int cancelTicketByCode(String ticketCode) {
+		SqlSession session = sqlSessionFactory.openSession();
+		int cnt = session.delete("cancelTicketByCode", ticketCode);
+		session.commit();
+		session.close();
+		return cnt;
+	}
 }

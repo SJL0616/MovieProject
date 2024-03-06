@@ -3,29 +3,26 @@ package movie.dao;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-
 import movie.vo.Seat;
 
 public class SeatDAO {
 	private static SeatDAO instance;
 	private static SqlSessionFactory sqlSessionFactory;
-	
-	public SeatDAO(){
-		
+
+	private SeatDAO() {
 	}
-	
+
 	public static SeatDAO getInstance() {
-		if(instance == null) {
+		if (instance == null) {
 			instance = new SeatDAO();
 		}
 		return instance;
 	}
-	
+
 	static {
 		String resource = "movie/dao/mybatis/config.xml";
 		InputStream inputStream;
@@ -36,12 +33,20 @@ public class SeatDAO {
 			e.printStackTrace();
 		}
 	}
+
 	// 해당하는 영화관 채워진 좌석 찾기
-	public List<Seat> seatCheckList(int movieThcd){
+	public List<Seat> seatCheckList(int movieThcd) {
 		SqlSession session = sqlSessionFactory.openSession();
-		List<Seat> list = session.selectList("seatCheckList",movieThcd);
+		List<Seat> list = session.selectList("seatCheckList", movieThcd);
 		session.close();
 		return list;
 	}
-	
+
+	public int putTheSeatsBack(int seatID) { // 고객이 예매를 취소하면, 취소된 좌석들을 공석으로 되돌려놓는 메서드입니다.
+		SqlSession session = sqlSessionFactory.openSession();
+		int cnt = session.delete("putTheSeatsBack", seatID);
+		session.commit();
+		session.close();
+		return cnt;
+	}
 }

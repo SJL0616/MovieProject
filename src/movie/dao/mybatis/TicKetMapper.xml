@@ -48,4 +48,9 @@
 		= #{user_id};
 	</select>
 
+	<delete id="cancelTicketByCode" parameterType="String">
+		DELETE FROM ticket
+		WHERE ticket_code = #{ticketCode};
+	</delete>
+
 </mapper>
