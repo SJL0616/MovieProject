@@ -17,7 +17,7 @@ $(document).ready(function() {
 
 
 function loadData() {
-   
+
 	tablist = Array.from(document.querySelector(".tab-list").firstElementChild.children);
 	summary = document.querySelector(".movie-summary");
 	info = document.querySelector(".movie-info");
@@ -158,14 +158,14 @@ function showReview(event, id) {
 	submit(pageNum, id, order);
 }
 
-function submit(pageNum, id, order){
+function submit(pageNum, id, order) {
 	let rBox = Array.from(document.querySelector('.reviewBox').children);
 	fetch("showReview.do", {
 		method: "POST",
 		headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", },
 		body: "currentPage=" + pageNum + "&"
 			+ "id=" + id + "&"
-			+ "order="+order
+			+ "order=" + order
 	})
 		.then(response => response.text())
 		.then((data) => {
@@ -215,17 +215,17 @@ function appendReviews(vo) {
 		+ '<div class="story-recommend"><em>' + vo.viewPoint + '</em></div>'
 		+ '<div class="story-txt">' + vo.content + '</div>'
 		+ '<div class="story-like">';
-		if(vo.myLike == true){
-		html +='<button type="button" class="oneLikeBtn" title="댓글 추천">'
-		+ '<i class="iconset ico-like-purple"></i> <span>' + vo.like + '</span>'
-		+ '</button>';
-		}else{
-		html +='<button type="button" class="oneLikeBtn" onclick="like('+vo.reviewID+')" title="댓글 추천" data-no="' + vo.movieID + '" data-is="N">'
-		+ '<i class="iconset ico-like-gray"></i> <span>' + vo.like + '</span>'
-		+ '</button>';	
-		}
-		
-		html += '</div>'
+	if (vo.myLike == true) {
+		html += '<button type="button" class="oneLikeBtn" title="댓글 추천">'
+			+ '<i class="iconset ico-like-purple"></i> <span>' + vo.like + '</span>'
+			+ '</button>';
+	} else {
+		html += '<button type="button" class="oneLikeBtn" onclick="like(' + vo.reviewID + ')" title="댓글 추천" data-no="' + vo.movieID + '" data-is="N">'
+			+ '<i class="iconset ico-like-gray"></i> <span>' + vo.like + '</span>'
+			+ '</button>';
+	}
+
+	html += '</div>'
 		+ '<div class="story-util">'
 		+ '<div class="post-funtion">'
 		+ '</div></div></div></div></div></div><div class="story-date"><div class="review on">'
@@ -270,19 +270,33 @@ function setPaging(pageCxt, id) {
 
 
 function controlReviewForm() {
-	if(!isLoggedIn()){
-		alert("로그인이 필요한 서비스입니다.");
-		return;
-	}
-	
+
 	let form = document.getElementById("layer_regi_reply_review");
 	if (!form.classList.contains("on")) {
-		form.classList.add("on");
+		if (!isLoggedIn()) {
+			alert("로그인이 필요한 서비스입니다.");
+			return;
+		}
+		fetch("getReviewCnt.do", {
+			method: "POST",
+			headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", },
+			body: "movieID=" + $(".movie-sorting-right .btn.orderBtn.on").attr('data-cd')
+		})
+			.then(response => response.text())
+			.then((data) => {
+				if (data == 0) {
+					form.classList.add("on");
+				} else {
+					alert(`이미 리뷰를 쓴 게시물입니다.`);
+				}
+		})
 	} else {
 		form.classList.remove("on");
 		resetReviewForm();
 	}
 }
+
+
 
 var selectCIdx;
 var selectPIdx;
@@ -344,7 +358,7 @@ $('#textarea').on('keyup', function() {
 });
 
 $('#regOneBtn').on('click', function() {
-	
+
 	let mid = $(this).attr("data-mno");
 	let content = $('#textarea').val();
 	console.log("영화 아이디 : " + mid + ", 점수 : " + totalPoint + ", 내용 " + content + ", 분야 " + vPoint);
@@ -398,19 +412,22 @@ function resetReviewForm() {
 	vPoint = '';
 	content = '';
 	$('.textarea .count span').html('0');
-	
+
 	$('.errText').html('');
 	$('.errText').hide();
 }
 
 // 좋아요 증가 테이블
-function like(reviewID){
+function like(reviewID) {
 	console.log(reviewID);
-	if(!isLoggedIn()){
+	if (!isLoggedIn()) {
 		alert("로그인이 필요한 서비스입니다.");
 		return;
 	}
-	
+	sendLike(reviewID);
+}
+
+function sendLike(reviewID) {
 	fetch("likeReview.do", {
 		method: "POST",
 		headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", },
@@ -425,7 +442,6 @@ function like(reviewID){
 				submit($(".pagination .active").text(), $(".movie-sorting-right .btn.orderBtn.on").attr('data-cd'), $(".movie-sorting-right .btn.orderBtn.on").text());
 			}
 		})
-
 }
 
 
