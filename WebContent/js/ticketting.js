@@ -250,7 +250,6 @@ function getMovieTheater(ctx, playStartTime, name, showtime, type, imgPath, age,
 	$.ajax({
 		url: "movietheater.do",
 		type: "GET",
-		dataType: "json",
 		success: function(data) {
 			let list = data;
 

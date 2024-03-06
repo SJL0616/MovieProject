@@ -6,22 +6,25 @@ const buttons = document.querySelector(".buttons");
 const btnPay = document.querySelector(".btn-group > .button");
 buttons.addEventListener("click", () => {
   alert("모두 초기화하였습니다.");
+  let number = document.querySelector(".number > p");
+
+  number.textContent = "0";
+  
   seatReset();
 });
 // 초기화버튼 및 인원수 0까지 내릴때
 function seatReset() {
-  let number = document.querySelector(".number > p");
   let money = document.querySelector(".money > em");
   let count = document.querySelector(".count > span > em");
-
-  number.textContent = "0";
+  
   money.textContent = "0";
   count.textContent = "0";
   //모든좌석 초기화
-  let seatList = [...document.querySelectorAll(".on")];
+  let seatList = [...document.querySelectorAll(".seat")];
   seatList.forEach((s) => {
     s.style.backgroundColor = "#747474";
     s.classList.remove("on");
+    s.classList.remove("cho");
   });
   //선택좌석 초기화
   let choiceList = [...document.querySelectorAll(".seats")];
@@ -63,9 +66,8 @@ buttonDown.addEventListener("click", () => {
   let num = parseInt(number.textContent);
   num -= 1;
   number.textContent = num;
-  if (number.textContent == "0") {
-    seatReset();
-  }
+  
+  seatReset();
 });
 
 /* 좌석 뽑아오기 */
@@ -168,18 +170,18 @@ function seatChoice(button) {
 	if(button.className.includes("cho") || button.className.includes("X")){
 		return;
 	}
-	button.classList.add("cho");
     // 총인원수, 돈, 구매할 인원수
     let number = document.querySelector(".number > p");
     let money = document.querySelector(".money > em");
     let count = document.querySelector(".count > span > em");
 
-    if (number.textContent == "0") {
+    if (number.textContent === "0") {
       return;
     }
-    if (number.textContent == count.textContent) {
+    if (number.textContent === count.textContent) {
       return;
     }
+	button.classList.add("cho");
     let seats = document.querySelector(".all");
     seats.classList.remove("all");
     seats.classList.add("choice");
@@ -206,4 +208,50 @@ function seatChoice(button) {
     btnPay.classList.add("active");
     btnPay.style.cursor = "pointer";
   });
+}
+
+function getPayment(){
+	if(!btnPay.className.includes("active")){
+		return;
+	}
+	let userDt = $(".userDt");
+	let choice = $(".my-seat > .choice");
+	let list = "";
+	for(let i = 0; i < choice.length; i+=1){
+	 	list += i == 0? choice[i].textContent : ","+choice[i].textContent;
+	}
+	
+	let count = $("<input>").attr({
+		'type': 'hidden',
+		'name': 'count',
+		'value': $(".count span > em").text(),
+	})
+	let money = $("<input>").attr({
+		'type': 'hidden',
+		'name': 'money',
+		'value': $(".money > em").text(),
+	})
+	let seatList = $("<input>").attr({
+		'type': 'hidden',
+		'name': 'seat',
+		'value': list,
+	})
+	userDt.append(count);
+	userDt.append(money);
+	userDt.append(seatList);
+	
+	$.ajax({
+		url: "payment.do",
+		type: "get",
+		data: userDt.serialize(),
+		success: function(data){
+			if(data == "true"){
+				alert("결제완료!");
+				location.href = "index.jsp";
+			}
+		},
+		error: function(xhr, status, error){
+			console.error(error);
+		}
+	})
 }

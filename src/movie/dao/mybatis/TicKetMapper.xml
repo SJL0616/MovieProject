@@ -7,9 +7,8 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="movie.dao.mybatis.TicKetMapper">
-
 	<resultMap id="ticketResultMap" type="ticket">
-		<result property="ticketCode" column="ticket_code" />
+		<result property="ticketID" column="ticket_ID" />
 		<result property="movieID" column="movie_ID" />
 		<result property="userID" column="user_id" />
 		<result property="numberPeople" column="number_people" />
@@ -17,8 +16,8 @@
 		<result property="movieName" column="movie_name" />
 		<result property="title" column="title" />
 		<result property="paymentDate" column="payment_date" />
-		<result property="seat" column="seat" />
-		<result property="seat_id" column="seat_id" />
+		<result property="seatList" column="seat_list" />
+		<result property="seatIDList" column="seatID_list" />
 		<result property="ticketPrice" column="ticket_price" />
 	</resultMap>
 
@@ -47,5 +46,19 @@
 		WHERE u.id
 		= #{user_id};
 	</select>
-
+	<insert id="ticketInsert" parameterType="ticket">
+		insert into ticket value(
+			null,
+			#{movieID},
+			#{userID},
+			#{numberPeople},
+			#{previewDate},
+			#{movieName},
+			#{title},
+			#{paymentDate},
+			#{seatList},
+			#{seatIDList},
+			#{ticketPrice}
+		);
+	</insert>
 </mapper>
