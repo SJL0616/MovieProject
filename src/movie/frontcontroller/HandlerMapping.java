@@ -12,6 +12,7 @@ import movie.controller.movie.review.ReviewLikeController;
 import movie.controller.movie.review.ReviewListController;
 import movie.controller.movie.review.ReviewRegController;
 import movie.controller.ticketing.MovieTheaterController;
+import movie.controller.ticketing.PaymentController;
 import movie.controller.ticketing.SeatController;
 import movie.controller.ticketing.TicketingController;
 import movie.controller.user.CheckLogController;
@@ -65,6 +66,7 @@ public class HandlerMapping {
 		mappings.put("/showReview.do", new ReviewListController());
 		mappings.put("/likeReview.do", new ReviewLikeController());
 		mappings.put("/reserveCancel.do", new ReserveCancelController());
+		mappings.put("/payment.do", new PaymentController());
 
 	}
 

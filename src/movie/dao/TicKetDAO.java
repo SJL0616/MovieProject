@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import movie.vo.Ticket;
 import movie.vo.UserReservationView;
 
 public class TicKetDAO {
@@ -42,5 +43,13 @@ public class TicKetDAO {
 		session.commit();
 		session.close();
 		return (ArrayList<UserReservationView>) list;
+	}
+	// 예매 저장
+	public int ticketInsert(Ticket vo) {
+		SqlSession session = sqlSessionFactory.openSession();
+		int cnt = session.insert("ticketInsert",vo);
+		session.commit();
+		session.close();
+		return cnt;
 	}
 }

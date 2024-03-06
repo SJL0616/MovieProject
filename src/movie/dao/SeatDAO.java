@@ -37,9 +37,24 @@ public class SeatDAO {
 		}
 	}
 	// 해당하는 영화관 채워진 좌석 찾기
-	public List<Seat> seatCheckList(int movieThcd){
+	public List<Seat> seatCheckList(Seat vo){
 		SqlSession session = sqlSessionFactory.openSession();
-		List<Seat> list = session.selectList("seatCheckList",movieThcd);
+		List<Seat> list = session.selectList("seatCheckList",vo);
+		session.close();
+		return list;
+	}
+	// 구입한 좌석 리스트에 담기
+	public int seatInsert(Seat vo) {
+		SqlSession session = sqlSessionFactory.openSession();
+		int cnt = session.insert("seatInsert",vo);
+		session.commit();
+		session.close();
+		return cnt;
+	}
+	// user에 맞는 좌석코드리스트 가지고오기
+	public List<Seat> seatCodeList(String id){
+		SqlSession session = sqlSessionFactory.openSession();
+		List<Seat> list = session.selectList("seatCodeList",id);
 		session.close();
 		return list;
 	}

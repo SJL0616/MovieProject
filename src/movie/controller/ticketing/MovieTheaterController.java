@@ -24,18 +24,21 @@ public class MovieTheaterController implements Controller{
 	@Override
 	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// json 으로 보내기
 		response.setContentType("application/json; charset=utf-8");
-		PrintWriter out = response.getWriter();
 		
 		List<MovieTheater> list = MovieTheaterDAO.getInstance().movieTheaterList();
 		
 		request.setAttribute("list",list);
+		
+
+		
+		PrintWriter out = response.getWriter();
 		Gson gson = new Gson();
 	
 		String json = gson.toJson(list);
 		
 		out.print(json);
-		
 		
 		return null;
 	}

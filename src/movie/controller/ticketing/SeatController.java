@@ -21,16 +21,29 @@ public class SeatController implements Controller {
 	@Override
 	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		int thcd = Integer.parseInt(request.getParameter("btn"));
-		
+
 		response.setContentType("application/json; charset=utf-8");
+		
+		//영화 코드 영화관 코드 관람날짜
+		int thcd = Integer.parseInt(request.getParameter("movieThcd"));
+		int movieID = Integer.parseInt(request.getParameter("moiveID"));
+		String time = request.getParameter("time");
+		String previewDate = request.getParameter("previewDate");
+		// 시간 넣기
+		previewDate += " "+ time.substring(0,2) + ":" + time.substring(2);
+		
+		System.out.println(previewDate);
 		PrintWriter out = response.getWriter();
 		
-		List<Seat> list = SeatDAO.getInstance().seatCheckList(thcd);
+		Seat vo = new Seat();
+		vo.setMovieThcd(thcd);
+		vo.setPreviewDate(previewDate.trim());
+		vo.setMovieID(movieID);
+		
+		List<Seat> list = SeatDAO.getInstance().seatCheckList(vo);
 		
 		Gson gson = new Gson();
-		
+
 		String json = gson.toJson(list);
 		System.out.println(json);
 		out.print(json);

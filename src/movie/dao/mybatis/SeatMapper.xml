@@ -2,19 +2,41 @@
 <!-- 작성자 : 김진수 -->
 <!-- 내용 : movieTheater DB -->
 <!-- 최초 작성일 : 24-02-29 -->
-<!-- 마지막 수정일 : 24-02-29(김진수) -->
+<!-- 마지막 수정일 : 24-03-06 (김진수): seat insert 추가 -->
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="movie.dao.mybatis.SeatMapper">
-<resultMap id="seatResultMap" type="Seat">
+<resultMap id="seatResultMap" type="seat">
     <result property="seatID" column="seat_id"/>
+    <result property="userID" column="user_ID"/>
     <result property="movieThcd" column="movie_thcd"/>
     <result property="movieID" column="movie_ID"/>
+    <result property="previewDate" column="preview_date"/>
     <result property="seatNumber" column="seat_number"/>
     <result property="seatGroup" column="seat_group"/>
 </resultMap>
-<select id="seatCheckList" parameterType="Integer" resultMap="seatResultMap">
-	select * from seat where movie_thcd = #{movieThcd};
+<select id="seatCheckList" parameterType="seat" resultMap="seatResultMap">
+	select * from seat 
+	where 
+	movie_thcd = #{movieThcd}
+	and movie_ID = #{movieID}
+	and preview_date = #{previewDate};
+</select>
+<insert id="seatInsert" parameterType="seat">
+	insert into seat value(
+	null,
+	#{userID},
+	#{movieThcd},
+	#{movieID},
+	#{previewDate},
+	#{seatNumber},
+	#{seatGroup}
+	)
+</insert>
+<select id="seatCodeList" parameterType="String" resultMap="seatResultMap">
+	select * from seat
+	where
+	user_ID = #{userID};
 </select>
 </mapper>
