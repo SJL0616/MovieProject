@@ -81,6 +81,16 @@ moviebutton.addEventListener("click", () => {
 			console.error(error);
 		}
 	})
+	// 영화관 코드
+	let userDt = document.querySelector(".userDt");
+	let input = document.createElement("input");
+	
+	input.name = "movietheater-code";
+	input.classList = "movietheater-code";
+	input.type = "hidden";
+	input.value = btn;
+	
+	userDt.append(input);
 });
 //페이지 만들기
 function setBodyChange(body, form, name) {
