@@ -2,7 +2,7 @@ package movie.vo;
 
 public class UserReservationView {
 	private String image; // 영화 이미지
-	private int ticketCode; // 예매 코드
+	private int ticketID; // 예매 코드
 	private int movieID; // 영화 코드
 	private String userID; // 유저 아이디
 	private int numberPeople; // 총 예매 인원수
@@ -10,8 +10,8 @@ public class UserReservationView {
 	private String movieName; // 영화관명
 	private String title; // 영화명
 	private String paymentDate; // 결제날짜
-	private String seat; // 좌석
-	private int seat_id;
+	private String seatList; // 좌석
+	private String seatIDList;
 	private int ticketPrice; // 티켓 총금액
 
 	public String getImage() {
@@ -23,11 +23,11 @@ public class UserReservationView {
 	}
 
 	public int getTicketCode() {
-		return ticketCode;
+		return ticketID;
 	}
 
 	public void setTicketCode(int ticketCode) {
-		this.ticketCode = ticketCode;
+		this.ticketID = ticketCode;
 	}
 
 	public int getMovieID() {
@@ -86,22 +86,6 @@ public class UserReservationView {
 		this.paymentDate = paymentDate;
 	}
 
-	public String getSeat() {
-		return seat;
-	}
-
-	public void setSeat(String seat) {
-		this.seat = seat;
-	}
-
-	public int getSeat_id() {
-		return seat_id;
-	}
-
-	public void setSeat_id(int seat_id) {
-		this.seat_id = seat_id;
-	}
-
 	public int getTicketPrice() {
 		return ticketPrice;
 	}
@@ -110,11 +94,35 @@ public class UserReservationView {
 		this.ticketPrice = ticketPrice;
 	}
 
+	public int getTicketID() {
+		return ticketID;
+	}
+
+	public void setTicketID(int ticketID) {
+		this.ticketID = ticketID;
+	}
+
+	public String getSeatList() {
+		return seatList;
+	}
+
+	public void setSeatList(String seatList) {
+		this.seatList = seatList;
+	}
+
+	public String getSeatIDList() {
+		return seatIDList;
+	}
+
+	public void setSeatIDList(String seatIDList) {
+		this.seatIDList = seatIDList;
+	}
+
 	@Override
 	public String toString() {
-		return "UserReservationView [image=" + image + ", ticketCode=" + ticketCode + ", movieID=" + movieID
+		return "UserReservationView [image=" + image + ", ticketCode=" + ticketID + ", movieID=" + movieID
 				+ ", userID=" + userID + ", numberPeople=" + numberPeople + ", previewDate=" + previewDate
-				+ ", movieName=" + movieName + ", title=" + title + ", paymentDate=" + paymentDate + ", seat=" + seat
-				+ ", seat_id=" + seat_id + ", ticketPrice=" + ticketPrice + "]";
+				+ ", movieName=" + movieName + ", title=" + title + ", paymentDate=" + paymentDate + ", seat=" + seatList
+				+ ", seat_id=" + seatIDList + ", ticketPrice=" + ticketPrice + "]";
 	}
 }

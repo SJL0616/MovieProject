@@ -31,7 +31,7 @@ public class PaymentController implements Controller{
 		String userID = (String)session.getAttribute("log"); // 유저 아이디
 		int numberPeople = Integer.parseInt(request.getParameter("count")); // 인원수
 		String movieName = request.getParameter("movie-theater"); // 영화관 명
-		
+		int movieThcd = Integer.parseInt(request.getParameter("movietheater-code"));// 영화관 코드
 		String time = request.getParameter("movie-time"); // 관란 시간
 		String previewDate = request.getParameter("select-date"); // 관람 날짜
 		// 시간 넣기
@@ -48,17 +48,21 @@ public class PaymentController implements Controller{
 		
 		// 여러 좌석을 받아온걸 스플릿
 		String[] seat = seatList.split(",");
-		
+
 		for(int i = 0; i < seat.length; i+=1) {
-			getSeatInsert(movieID, ticketPrice, previewDate, seat[i].charAt(1), seat[i].charAt(0),userID);
+			getSeatInsert(movieID, movieThcd, 
+					previewDate, Integer.parseInt(seat[i].charAt(1)+""), 
+					seat[i].charAt(0),userID);
 		}
 		// 예매 여러좌석 코드
 		String seatIDList = getSeatID(userID);
 		
-		Ticket vo = new Ticket(0, movieID, userID, numberPeople, previewDate, movieName, title, paymentDate, seatList, seatIDList, ticketPrice);
+		Ticket vo = new Ticket(0, movieID, userID, 
+				numberPeople, previewDate, 
+				movieName, title, paymentDate, 
+				seatList, seatIDList, ticketPrice);
 
 		TicKetDAO.getInstance().ticketInsert(vo);
-		System.out.println("결제 처리완료");
 		
 		PrintWriter out = response.getWriter();
 		
@@ -72,13 +76,12 @@ public class PaymentController implements Controller{
 		Seat vo = new Seat();
 		vo.setUserID(userID);
 		vo.setMovieID(movieID);
-		vo.setMovieThcd(movieID);
+		vo.setMovieThcd(moiveThcd);
 		vo.setPreviewDate(previewDate);
 		vo.setSeatNumber(seatNumber);
 		vo.setSeatGroup(seatGroup);
 		
 		SeatDAO.getInstance().seatInsert(vo);
-		System.out.println("좌석 처리완료");
 	}
 	// 좌석 코드 받아오기
 	private String getSeatID(String userID) {
@@ -88,8 +91,6 @@ public class PaymentController implements Controller{
 		for(int i = 0; i < list.size(); i+=1) {
 			seatIDList += i == 0? list.get(i).getSeatID() : "," + list.get(i).getSeatID();
 		}
-
-		System.out.println("좌석 코드 받아오기 완료");
 		return seatIDList;
 	}
 	
