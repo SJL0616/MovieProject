@@ -18,8 +18,8 @@
 					<div class="left_section">
 						<a href="${ctx}/movie-detail.do?id=${m.getMovieID()}" class="img"
 							title="영화상세보기"><img
-							src="https://image.tmdb.org/t/p/w500${m.getImage()}"
-							alt="영화이미지" onerror="noImg(this)"></a>
+							src="https://image.tmdb.org/t/p/w500${m.getImage()}" alt="영화이미지"
+							onerror="noImg(this)"></a>
 					</div>
 					<div class="right_section">
 						<table>
@@ -63,7 +63,8 @@
 							</table>
 						</div>
 						<div class="btn_section">
-							<a href="#" title="" class="button purple">교환권출력</a> <a href="${ctx}/reserveCancel.do?ticketCode=${m.getTicketCode()}"
+							<a href="#" title="" class="button purple">교환권출력</a> <a
+								onclick="cancelCheck(${m.getTicketCode()})"
 								class="button gray" title="예매취소하기">예매취소</a>
 						</div>
 					</div>
@@ -205,6 +206,20 @@
 			</div>
 		</c:if>
 	</div>
+	<br>
 </div>
-<br>
+<div class="cancel_modal">
+	<div class="cancel_title">
+		알림
+		<button type="button" class="btn-modal-close">
+			레이어 닫기
+			<!--레이어 닫기-->
+		</button>
+	</div>
+	<div class="cancel_body">
+		<h4>정말 예매를 취소하시겠습니까?</h4>
+		<a class="button gray cancelBtn" id="cancleBtn" title="예매취소하기">예매취소</a>
+	</div>
+</div>
+<div class="cancel_overlay"></div>
 <%@include file="./footer.jsp"%>

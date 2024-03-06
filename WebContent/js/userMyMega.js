@@ -109,3 +109,37 @@ function getResignResult(data) {
 		resignCheck = false;
 	}
 }
+
+function cancelCheck(code) {
+	const cancelModal = document.querySelector(".cancel_modal");
+	const cancelOverlay = document.querySelector(".cancel_overlay");
+	const cancelBtn = document.querySelector(".cancelBtn");
+	cancelModal.classList.add("active");
+	cancelOverlay.classList.add("active");
+
+	document.querySelector(".btn-modal-close").addEventListener("click", () => {
+		cancelModal.classList.remove("active");
+		cancelOverlay.classList.remove("active");
+	});
+	
+	cancelBtn.addEventListener(`click`, () => {
+		cancelModal.classList.remove("active");
+		cancelOverlay.classList.remove("active");
+		fetch("reserveCancel.do", {
+			method: "POST",
+			headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", },
+			body: "ticketCode=" + code,
+		})
+			.then(response => response.text())
+			.then(getCancelResult)
+			.catch(error => console.log("error= ", error));
+	});
+}
+
+function getCancelResult(data) {
+	if (data === `canceled`) {
+		window.location.reload();
+	} else if (data === "notCanceled") {
+		alert("예매취소에 실패했습니다.")
+	}
+}

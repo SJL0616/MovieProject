@@ -44,6 +44,15 @@ public class TicKetDAO {
 		session.close();
 		return (ArrayList<UserReservationView>) list;
 	}
+
+	public int cancelTicketByCode(int ticketCode) {
+		SqlSession session = sqlSessionFactory.openSession();
+		int cnt = session.delete("cancelTicketByCode", ticketCode);
+  	session.commit();
+		session.close();
+		return cnt;
+	}
+  
 	// 예매 저장
 	public int ticketInsert(Ticket vo) {
 		SqlSession session = sqlSessionFactory.openSession();
@@ -52,4 +61,12 @@ public class TicKetDAO {
 		session.close();
 		return cnt;
 	}
+
+	public Ticket getTicketByCode(int ticketCode) {
+		SqlSession session = sqlSessionFactory.openSession();
+		Ticket ticket = session.selectOne("getTicketByCode", ticketCode);
+		session.close();
+		return ticket;
+	}
+  
 }
