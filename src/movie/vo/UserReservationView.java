@@ -13,6 +13,15 @@ public class UserReservationView {
 	private String seatList; // 좌석
 	private String seatIDList;
 	private int ticketPrice; // 티켓 총금액
+	private boolean canceled;
+
+	@Override
+	public String toString() {
+		return "UserReservationView [image=" + image + ", ticketID=" + ticketID + ", movieID=" + movieID + ", userID="
+				+ userID + ", numberPeople=" + numberPeople + ", previewDate=" + previewDate + ", movieName="
+				+ movieName + ", title=" + title + ", paymentDate=" + paymentDate + ", seatList=" + seatList
+				+ ", seatIDList=" + seatIDList + ", ticketPrice=" + ticketPrice + ", canceled=" + canceled + "]";
+	}
 
 	public String getImage() {
 		return image;
@@ -110,11 +119,11 @@ public class UserReservationView {
 		this.ticketPrice = ticketPrice;
 	}
 
-	@Override
-	public String toString() {
-		return "UserReservationView [image=" + image + ", ticketID=" + ticketID + ", movieID=" + movieID + ", userID="
-				+ userID + ", numberPeople=" + numberPeople + ", previewDate=" + previewDate + ", movieName="
-				+ movieName + ", title=" + title + ", paymentDate=" + paymentDate + ", seatList=" + seatList
-				+ ", seatIDList=" + seatIDList + ", ticketPrice=" + ticketPrice + "]";
+	public boolean isCanceled() {
+		return canceled;
+	}
+
+	public void setCanceled(boolean canceled) {
+		this.canceled = canceled;
 	}
 }

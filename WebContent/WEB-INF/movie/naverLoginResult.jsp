@@ -17,8 +17,7 @@
 	}
 	function getResult(data) {
 		if (data === "valid") {
-			location.href="${ctx}/main.do";
-			alert("로그인 성공");
+			location.href="${ctx}/index.jsp";
 		} else if (data === "notValid") {
 			location.href="${ctx}/login.do";
 			alert("네이버와 연동된 유저가 없습니다.");

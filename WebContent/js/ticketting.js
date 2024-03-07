@@ -304,7 +304,7 @@ function getTimeSetting(on) {
 	let hours = 9;
 	let minutes = 0;
 	// 영화 시간
-	for (let i = hours; i <= 25;) {
+	for (let i = hours; i <= 23;) {
 		let rand = Math.floor(Math.random() * on.length);
 
 		let name = on[rand].getAttribute("movie-nm");

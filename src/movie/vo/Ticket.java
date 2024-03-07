@@ -16,6 +16,7 @@ public class Ticket {
 	private String seatList; // 좌석
 	private String seatIDList;// 코드
 	private int ticketPrice; // 티켓 총금액
+	private int canceled; // 고객이 취소했는지 안했는지
 
 	public Ticket() {
 	}
@@ -33,7 +34,6 @@ public class Ticket {
 		this.seatList = seatList;
 		this.seatIDList = seatIDList;
 		this.ticketPrice = ticketPrice;
-
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class Ticket {
 		return "Ticket [ticketID=" + ticketID + ", movieID=" + movieID + ", userID=" + userID + ", numberPeople="
 				+ numberPeople + ", previewDate=" + previewDate + ", movieName=" + movieName + ", title=" + title
 				+ ", paymentDate=" + paymentDate + ", seatList=" + seatList + ", seatIDList=" + seatIDList
-				+ ", ticketPrice=" + ticketPrice + "]";
+				+ ", ticketPrice=" + ticketPrice + ", canceled=" + canceled + "]";
 	}
 
 	public int getTicketID() {
@@ -130,5 +130,13 @@ public class Ticket {
 
 	public void setTicketPrice(int ticketPrice) {
 		this.ticketPrice = ticketPrice;
+	}
+
+	public int isCanceled() {
+		return canceled;
+	}
+
+	public void setCanceled(int canceled) {
+		this.canceled = canceled;
 	}
 }
