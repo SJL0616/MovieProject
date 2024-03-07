@@ -104,6 +104,22 @@ public class ReviewDAO {
 		session.close();
 		return result;
 	}
+
+	public int report(int reviewID) {
+		SqlSession session = sqlSessionFactory.openSession();
+		int result = session.update("reportReview",reviewID);
+		session.commit();
+		session.close();
+		return result;
+	}
+
+	public int delete(int reviewID) {
+		SqlSession session = sqlSessionFactory.openSession();
+		int result = session.delete("deleteReview",reviewID);
+		session.commit();
+		session.close();
+		return result;
+	}
 	
 	
 

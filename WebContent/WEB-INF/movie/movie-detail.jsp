@@ -118,7 +118,7 @@
 							<c:when test="${vo.getWatchGrade() eq '15세이상관람가'}">
 								<p class="movie-grade age-15">,</p>
 							</c:when>
-							<c:when test="${vo.getWatchGrade() eq '19세이상관람가'}">
+							<c:when test="${vo.getWatchGrade() eq '청소년관람불가' or vo.getWatchGrade() eq '연소자관람불가' }">
 								<p class="movie-grade age-19">,</p>
 							</c:when>
 							<c:otherwise>
@@ -295,7 +295,14 @@
 						<c:forEach var="vo" items="${rlist}">
 							<li class="type01 oneContentTag">
 								<div class="story-area">
-									<div class="user-prof">
+								<c:choose>
+									<c:when test="${vo.getUserID() eq sessionScope.log}">
+										<div class="user-prof my">
+									</c:when>
+									<c:otherwise>
+										<div class="user-prof">
+									</c:otherwise>
+								</c:choose>
 										<div class="prof-img">
 											<img
 												src="https://www.megabox.co.kr/static/pc/images/mypage/bg-photo.png"
@@ -334,26 +341,46 @@
 												</div>
 												<div class="story-util">
 													<div class="post-funtion">
-														<!-- <div class="wrap">
-														<button type="button" class="btn-alert">옵션보기</button>
-														<div class="balloon-space user">
-															<div class="balloon-cont">
-																<div class="user">
-																	<p class="reset a-c">
-																		스포일러 및 욕설/비방하는<br>내용이 있습니까?
-																	</p>
-																	<button type="button" class="maskOne" data-no="2725453">
-																		댓글 신고 <i class="iconset ico-arr-right-green"></i>
-																	</button>
-																</div>
-																<div class="btn-close">
-																	<a href="#" title="닫기"><img
-																		src="/static/pc/images/common/btn/btn-balloon-close.png"
-																		alt="닫기"></a>
+														<div class="wrap">
+														<button type="button" class="btn-alert" onclick="switchOpt(event)">옵션보기</button>
+															<div class="balloon-space user">
+																<div class="balloon-cont">
+
+																	<c:choose>
+																		<c:when test="${vo.getUserID() eq sessionScope.log}">
+																			<div class="user">
+																				<p class="reset a-c">
+																					리뷰를 <br>삭제하시겠습니까?
+																				</p>
+																				<button type="button" class="maskOne"
+																				    data-fnc = "delete"
+																					data-no="${vo.getReviewID()}">
+																					삭제하기 <i class="iconset ico-arr-right-green"></i>
+																				</button>
+																			</div>
+																		</c:when>
+																		<c:otherwise>
+																			<div class="user">
+																				<p class="reset a-c">
+																					스포일러 및 욕설/비방하는<br>내용이 있습니까?
+																				</p>
+																				<button type="button" class="maskOne"
+																				    data-fnc ="report"
+																					data-no="${vo.getReviewID()}">
+																					댓글 신고 <i class="iconset ico-arr-right-green"></i>
+																				</button>
+																			</div>
+																		</c:otherwise>
+																	</c:choose>
+
+																	<div class="btn-close">
+																		<a href="#" title="닫기"><img
+																			src="https://www.megabox.co.kr/static/pc/images/common/btn/btn-balloon-close.png"
+																			alt="닫기"></a>
+																	</div>
 																</div>
 															</div>
 														</div>
-													</div> -->
 													</div>
 												</div>
 											</div>
@@ -504,6 +531,7 @@
 
 	</div>
 </div>
+<div class="alertStyle" style="position: fixed; top: 0px; left: 0px; background: rgb(0, 0, 0); opacity: 0; width: 100%; height: 100%; z-index: 5005; display: none;"></div>
 </body>
 </html>
 <script type="text/javascript" src="${ctx}/js/movie-detail.js"></script>

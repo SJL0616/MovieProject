@@ -75,12 +75,18 @@
         WHERE movie_id = #{movieID}
     </update>
     
+     <update id="reportReview" parameterType="int">
+        UPDATE review
+        SET reported = true 
+        WHERE review_id = #{reviewID}
+    </update>
+    
     <update id="plusLikeCount" parameterType="integer">
         update review set like_count =  like_count+1 where review_ID = #{review_ID};
     </update>
 
     <delete id="deleteReview" parameterType="int">
-        DELETE FROM review WHERE movie_id = #{movieID}
+        DELETE FROM review WHERE review_id = #{reviewID}
     </delete>
 
 </mapper>

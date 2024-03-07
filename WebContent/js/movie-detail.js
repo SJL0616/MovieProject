@@ -196,44 +196,89 @@ function removeReviews(rBox) {
 
 
 function appendReviews(vo) {
-	var html = ''
-		+ '<li class="type01 oneContentTag">'
-		+ '<div class="story-area">'
-		+ '<div class="user-prof">'
-		+ '<div class="prof-img">'
-		+ '<img src="https://www.megabox.co.kr/static/pc/images/mypage/bg-photo.png" alt="프로필 사진" title="프로필 사진" >'
-		+ '</div>'
-		+ '<p class="user-id">' + vo.userID + '</p>'
-		+ '</div>'
-		+ '<div class="story-box">'
-		+ '<div class="story-wrap review">'
-		+ '<div class="tit">관람평</div>'
-		+ '<div class="story-cont">'
-		+ '<div class="story-point">'
-		+ '<span>' + vo.point + '</span>'
-		+ '</div>'
-		+ '<div class="story-recommend"><em>' + vo.viewPoint + '</em></div>'
-		+ '<div class="story-txt">' + vo.content + '</div>'
-		+ '<div class="story-like">';
-	if (vo.myLike == true) {
-		html += '<button type="button" class="oneLikeBtn" title="댓글 추천">'
-			+ '<i class="iconset ico-like-purple"></i> <span>' + vo.like + '</span>'
-			+ '</button>';
-	} else {
-		html += '<button type="button" class="oneLikeBtn" onclick="like(' + vo.reviewID + ')" title="댓글 추천" data-no="' + vo.movieID + '" data-is="N">'
-			+ '<i class="iconset ico-like-gray"></i> <span>' + vo.like + '</span>'
-			+ '</button>';
-	}
+	
+	
+	var html = '<li class="type01 oneContentTag">' +
+    '<div class="story-area">';
+if(vo.userID == sessionLog){
+	html +='<div class="user-prof my">';
+}else{
+	html +='<div class="user-prof">';
+}
+    html +='<div class="prof-img">' +
+    '<img src="https://www.megabox.co.kr/static/pc/images/mypage/bg-photo.png" alt="프로필 사진" title="프로필 사진" >' +
+    '</div>' +
+    '<p class="user-id">' + vo.userID + '</p>' +
+    '</div>' +
+    '<div class="story-box">' +
+    '<div class="story-wrap review">' +
+    '<div class="tit">관람평</div>' +
+    '<div class="story-cont">' +
+    '<div class="story-point">' +
+    '<span>' + vo.point + '</span>' +
+    '</div>' +
+    '<div class="story-recommend"><em>' + vo.viewPoint + '</em></div>' +
+    '<div class="story-txt">' + vo.content + '</div>' +
+    '<div class="story-like">';
 
-	html += '</div>'
-		+ '<div class="story-util">'
-		+ '<div class="post-funtion">'
-		+ '</div></div></div></div></div></div><div class="story-date"><div class="review on">'
-		+ '<span>' + vo.elapsedTime + '</span></div></div></li>';
+if (vo.myLike == true) {
+    html += '<button type="button" class="oneLikeBtn" title="댓글 추천">' +
+        '<i class="iconset ico-like-purple"></i> <span>' + vo.like + '</span>' +
+        '</button>';
+} else {
+    html += '<button type="button" class="oneLikeBtn" onclick="like(' + vo.reviewID + ')" title="댓글 추천" data-no="' + vo.movieID + '" data-is="N">' +
+        '<i class="iconset ico-like-gray"></i> <span>' + vo.like + '</span>' +
+        '</button>';
+}
+
+html += '</div>' +
+    '<div class="story-util">' +
+    '<div class="post-funtion">' +
+    '<div class="wrap">' +
+    '<button type="button" class="btn-alert" onclick="switchOpt(event)">옵션보기</button>' +
+    '<div class="balloon-space user">' +
+    '<div class="balloon-cont">' +
+    '<div class="user">';
+if(vo.userID == sessionLog){
+	html +='<p class="reset a-c">' +
+    '리뷰를 <br>삭제하시겠습니까?' +
+    '</p>' +
+    '<button type="button" class="maskOne" data-fnc="delete" data-no="' + vo.reviewID + '">' +
+    '삭제하기 <i class="iconset ico-arr-right-green"></i>' +
+    '</button>' +
+    '</div>';
+}else{
+	html +='<p class="reset a-c">' +
+    '스포일러 및 욕설/비방하는<br>내용이 있습니까?' +
+    '</p>' +
+    '<button type="button" class="maskOne" data-fnc="report" data-no="' + vo.reviewID + '">' +
+    '댓글 신고 <i class="iconset ico-arr-right-green"></i>' +
+    '</button>' +
+    '</div>';
+}
+html +='<div class="btn-close">' +
+    '<a href="#" title="닫기"><img src="https://www.megabox.co.kr/static/pc/images/common/btn/btn-balloon-close.png" alt="닫기"></a>' +
+    '</div>' +
+    '</div>' +
+    '</div>' +
+    '</div>' +
+    '</div>' +
+    '</div>' +
+    '</div>' +
+   
+    '</div>' +
+ 
+    '</div>' +
+'<div class="story-date">' +
+    '<div class="review on">' +
+    '<span>' + vo.elapsedTime + '</span>' +
+    '</div>' +
+    '</div>' +
+    '</li>';
+
 	document.querySelector('.reviewBox').insertAdjacentHTML("beforeend", html);
 
 }
-
 
 function setPaging(pageCxt, id) {
 	const pagination = document.querySelector('.pagination');
@@ -296,6 +341,140 @@ function controlReviewForm() {
 	}
 }
 
+// 말풍선 - 리뷰 옵션 
+$(document).on('click', '.balloon-space .btn-close a', function(e){
+    e.preventDefault();
+    $(this).closest('.balloon-space').removeClass('on');
+    $(this).closest('.post-funtion').find('.btn-alert').focus();
+});
+
+function switchOpt(event){
+	console.log("리뷰 추가기능");
+	if($(event.target).next().hasClass('on')){
+		$(event.target).next().removeClass('on');
+		$(event.target).next().children().children('div:eq(0)').css({"display": "none"});
+	}else{
+		$(event.target).next().addClass('on');
+		$(event.target).next().children().children('div:eq(0)').css({"display": "block"});
+	}
+};
+
+  $(document).on('click','.maskOne', function() {
+	if (!isLoggedIn()) {
+		alert("로그인이 필요한 서비스입니다.");
+		return;
+	}
+	
+	console.log($(this).data('no'));
+	console.log($(this).data('fnc'));
+	console.log($(this).data('fnc') == 'report');
+	
+	let content = $(this).data('fnc') == 'report'? "해당 댓글을 신고하시겠습니까?" : "정말로 삭제하시겠습니까?"
+		// Create a new div element
+	var newDiv = document.querySelector(".alert-popup");
+	if(newDiv == null || newDiv ==undefined){
+		 newDiv = document.createElement("div");
+	
+	// Set the CSS styles for the div element
+	newDiv.style.position = "fixed";
+	newDiv.style.paddingTop = "45px";
+	newDiv.style.background = "rgb(255, 255, 255)";
+	newDiv.style.zIndex = "5006";
+	newDiv.style.top = "50%";
+	newDiv.style.left = " 50%";
+	newDiv.style.transform = "translate(-50%, 0)";
+	newDiv.style.width = "300px";
+	newDiv.style.opacity = "1";
+	
+	newDiv.style.display = "block";
+	// Add the 'alert-popup' class to the div element
+	newDiv.classList.add("alert-popup");
+	newDiv.innerHTML = `
+    <div class="wrap">
+        <header class="layer-header">
+            <h3 class="tit">알림</h3>
+        </header>
+        <div class="layer-con" style="height:200px">
+            <p class="txt-common">`+content+`</p>
+    <div class="btn-group">
+                <button type="button" class="button lyclose">취소</button>
+                <button type="button" data-fnc="`+$(this).data('fnc')+`" class="button purple confirm">확인</button>
+            </div>
+        </div>
+        <button type="button" class="btn-layer-close">레이어 닫기</button>
+    </div>
+`;
+	// Append the div element to the body
+	document.body.appendChild(newDiv);
+	}else{
+		$(newDiv).css('display','block');
+		$(newDiv).find('.txt-common').text(content);
+		$(newDiv).find('.button.purple.confirm').data("fnc",$(this).data('fnc'));
+	}
+	$(newDiv).data('rid',$(this).data('no'));
+	$('.alertStyle').css('opacity','0.7').css('display','block');
+	$('body').addClass('no-scroll');
+	
+  });
+
+// 신고 - 닫기 
+$(document).on('click', '.alert-popup .btn-layer-close ,.alert-popup .lyclose',function(e){
+    e.preventDefault();
+	closeModal(this);
+});
+function closeModal(div){
+	$(div).closest('.alert-popup').data('rid','0');
+    $(div).closest('.alert-popup').css('display','none');
+    $('.alertStyle').css('opacity','0').css('display','none');
+	$('body').removeClass('no-scroll');
+}
+
+// 신고 - 보내기 
+$(document).on('click', '.alert-popup .confirm',function(e){
+    e.preventDefault();
+    if($(e.target).data('fnc') === 'report'){
+	    reportReview($(this).closest('.alert-popup').data('rid'), this);
+	}else{
+		deleteReview($(this).closest('.alert-popup').data('rid'), this);
+	}
+  
+});
+
+function reportReview(reviewID,div){
+	fetch("reportReview.do", {
+		method: "POST",
+		headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", },
+		body: "reviewID=" + reviewID
+	})
+		.then(response => response.text())
+		.then((data) => {
+			if (data == 0) {
+				alert(`실패했습니다.`);
+			} else {
+				alert(`신고 했습니다.`);
+				closeModal(div);
+				$(".balloon-space .btn-close a").closest('.balloon-space').removeClass('on');
+			}
+	})
+}
+
+function deleteReview(reviewID,div){
+	fetch("deleteReview.do", {
+		method: "POST",
+		headers: { "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8", },
+		body: "reviewID=" + reviewID
+	})
+		.then(response => response.text())
+		.then((data) => {
+			if (data == 0) {
+				alert(`실패했습니다.`);
+			} else {
+				alert(`삭제 했습니다.`);
+				closeModal(div);
+				submit(1, $(".movie-sorting-right .btn.orderBtn.on").attr('data-cd'), "최신순");
+			}
+	})
+}
 
 
 var selectCIdx;

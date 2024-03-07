@@ -524,6 +524,21 @@ ol, ul {
     width: 105px;
     text-align: center;
 }
+.movie-idv-story ul li .story-area .user-prof.my:before {
+    content: 'MY';
+    overflow: hidden;
+    display: block;
+    position: absolute;
+    left: 20px;
+    top: -5px;
+    width: 25px;
+    height: 25px;
+    line-height: 27px;
+    border-radius: 25px;
+    color: #fff;
+    font-size: 11px;
+    background-color: #666;
+}
 .movie-idv-story ul li.type03 .story-area .story-box {
     border-radius: 0 10px 10px 10px;
     border: 1px solid #eaeaea;
@@ -775,6 +790,138 @@ ol, ul {
     width: 40px;
     vertical-align: middle;
 }
+
+.movie-idv-story ul li .story-area .story-box .story-cont .story-util .post-funtion {
+    position: static;
+}
+
+.post-funtion {
+    position: absolute;
+    top: 30px;
+    right: 0;
+}
+.post-funtion .wrap, .post-funtion .wrapper {
+    position: relative;
+}
+
+.movie-idv-story ul li .story-area .story-box .story-cont .story-util .post-funtion .btn-alert {
+    width: 40px;
+    background-position: 10px center;
+}
+.post-funtion .btn-alert {cursor: pointer;
+    text-indent: -10000px;
+    background: url(https://img.megabox.co.kr/static/pc/images/movie/btn-alert.png) center no-repeat;
+    border: 0;
+    width: 50px;
+    height: 23px;
+    padding: 0;
+    margin: 0;
+    vertical-align: bottom;
+}
+.post-funtion .balloon-space.on {
+    display: block;
+}
+.post-funtion .balloon-space.user .user {
+    display: block;
+}
+.post-funtion .balloon-space.user {
+    height: 90px;
+    margin-top: -45px;
+}
+.movie-idv-story ul li .balloon-space {
+    color: #444;
+}
+.post-funtion .balloon-space {
+    display: none;
+    position: absolute;
+    top: 50%;
+    right: 50px;
+    z-index: 11;
+    width: 260px;
+    border: 1px solid #d8d9db;
+    background-color: #fff;
+    border-radius: 5px;
+    text-align: left;
+}
+.post-funtion .balloon-space .balloon-cont {
+    position: relative;
+    padding: 10px 25px 10px 20px;
+}
+.post-funtion .balloon-space.user .user {
+    display: block;
+}
+
+.post-funtion .balloon-space .balloon-cont .user {
+    display: none;
+    padding: 0 5px;
+    text-align: center;
+}
+.post-funtion .balloon-space .balloon-cont .btn-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+p.reset {
+    padding: 0;
+    margin: 0;
+}
+.post-funtion .balloon-space .balloon-cont a {
+    display: block;
+    margin: 0;
+    padding: 5px;
+    border: 0;
+    background-color: transparent;
+    color: #037b94;
+    font-size: .9333em;
+}
+a:link {
+    color: #444;
+    text-decoration: none;
+}
+
+.a-c {
+    text-align: center !important;
+}
+.post-funtion .balloon-space .balloon-cont .user button {
+    display: inline-block;
+}
+
+.post-funtion .balloon-space .balloon-cont button {
+	cursor:pointer;
+    display: block;
+    margin: 0;
+    padding: 5px;
+    border: 0;
+    background-color: transparent;
+    color: #037b94;
+    font-size: .9333em;
+}
+.movie-idv-story ul li button {
+    background: 0 0;
+    border: none;
+}
+.movie-idv-story ul li .balloon-space button i {
+    margin-left: 4px;
+}
+
+.ico-arr-right-green {
+    overflow: hidden;
+    width: 6px;
+    height: 10px;
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-arr-right-green.png);
+}
+.iconset {
+    overflow: hidden;
+    display: inline-block;
+    margin: -1px 0 0 0;
+    padding: 0;
+    font-size: 0;
+    line-height: 0;
+    vertical-align: middle;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+}
+
 
 
 .movie-idv-story ul li .story-date {
@@ -1285,3 +1432,81 @@ em {
     width: 100%;
     text-align: center;
 }
+
+.wrap .layer-header {
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 45px;
+    background: #503396;
+}
+.wrap .layer-con {
+    overflow-y: auto;
+    background-color: #fff;
+    padding: 20px 20px 0 20px;
+}
+.alert-popup .layer-con {
+    overflow-y: auto;
+    height: auto !important;
+    background-color: #fff;
+   /*  //padding: 20px; */
+}
+
+
+.alert-popup .btn-layer-close {
+	cursor:pointer;
+    display: block;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    width: 16px;
+    height: 15px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    text-indent: -9999px;
+    background: url(https://img.megabox.co.kr/static/pc/images/common/btn/btn-layer-close.png) no-repeat center;
+}
+.wrap .layer-header h3.tit {
+	width: 100%;
+    margin: 0;
+    color: #fff;
+    padding: 15px 20px 0 20px;
+    font-size: 1.2em;
+    line-height: 1.1;
+}
+.alert-popup .layer-con .txt-common {
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+.alert-popup .layer-con .btn-group {
+    padding: 15px 0 20px 0;
+}
+.btn-group {
+    padding: 20px 0 30px 0;
+    margin: 0;
+    text-align: center;
+}
+.btn-group:after, .btn-group:before {
+    content: '';
+    display: table;
+}
+.btn-group:after {
+    clear: both;
+}
+.btn-group:after, .btn-group:before {
+    content: '';
+    display: table;
+}
+body.no-scroll {
+    overflow: hidden;
+    overflow-y: hidden;
+    width: auto;
+    margin-right: 18px !important;
+}
+
+
+
