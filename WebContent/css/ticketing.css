@@ -159,6 +159,9 @@ ul,li{
   padding: 2px;
   font-size: 16px;
 }
+.movie-choice .list .btn .age-19{
+  background-color: rgb(255, 0, 0);
+}
 .movie-choice .list .btn .age-12{
   background-color: rgb(255, 225, 0);
 }.movie-choice .list .btn .age-15{

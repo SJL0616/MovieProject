@@ -143,12 +143,12 @@ function movieOn(movie) {
 	document.querySelector(".choice-all").style.display = "none";
 	document.querySelector(".choice-list").style.display = "block";
 	let bg = bglist.find((bg) => bg.innerHTML == "");
-	bg.innerHTML = `<div class="wrap">
-                           <div class="img">
-                              <img src="${img}" data-num="${num}">
-                            </div>
-                            <button class="del" onclick=imgDeleteBtn('${num}')>X</button>
-                         </div>`;
+	bg.innerHTML = '<div class="wrap">' +
+                '<div class="img">' +
+                '<img src="' + img + '" data-num="' + num + '">' +
+                '</div>' +
+                '<button class="del" onclick="imgDeleteBtn(\'' + num + '\')">X</button>' +
+                '</div>';
 	bgCnt += 1;
 	if (document.querySelector(".btn.on")) {
 		let on = [...document.querySelectorAll(".btn.on")];
@@ -267,23 +267,24 @@ function getMovieTheater(ctx, playStartTime, name, showtime, type, imgPath, age,
 
 // movietheater html 가지고오기
 function setBodyChange(body, list, ctx) {
-	body.innerHTML = `<div class="map-container">
-							<div class="map-header">
-								<h1>영화관</h1>
-							</div>
-							<div class="mapinner">
-								<div class="map-navi">
-				</div>
-						<div id="map"></div>
-					</div>
-					<div class="movie-result">
-						<button class="movie-button" data-url="${ctx}/js/seat.js">선택완료</button>
-					</div>`;
+	body.innerHTML = '<div class="map-container">' +
+                     '<div class="map-header">' +
+                         '<h1>영화관</h1>' +
+                     '</div>' +
+                     '<div class="mapinner">' +
+                         '<div class="map-navi">' +
+                         '</div>' +
+                         '<div id="map"></div>' +
+                     '</div>' +
+                     '<div class="movie-result">' +
+                         '<button class="movie-button" data-url="' + ctx + '/js/seat.js">선택완료</button>' +
+                     '</div>';
 	let navi = document.querySelector(".map-navi");
 	list.forEach(list => {
-		navi.innerHTML += `<div class="movietheater" data-code="${list.movieThcd}" data-x="${list.locationX}"
-							data-y="${list.locationY}" data-address="${list.movieAddress}"
-							data-name="${list.movieName}">${list.movieName}</div>`;
+		navi.innerHTML += '<div class="movietheater" data-code="' + list.movieThcd + '" data-x="' + list.locationX + '" ' +
+					 'data-y="' + list.locationY + '" data-address="' + list.movieAddress + '" ' +
+					 'data-name="' + list.movieName + '">' + list.movieName + '</div>';
+
 	})
 }
 // script 적용
@@ -304,7 +305,7 @@ function getTimeSetting(on) {
 	let hours = 9;
 	let minutes = 0;
 	// 영화 시간
-	for (let i = hours; i <= 23;) {
+	for (let i = hours; i <= 25;) {
 		let rand = Math.floor(Math.random() * on.length);
 
 		let name = on[rand].getAttribute("movie-nm");
@@ -356,13 +357,12 @@ function getTimeSetting(on) {
 		button.appendChild(legend);
 		button.appendChild(time);
 		// 제목 타입 넣기
-		button.innerHTML += `<span class="title"> 
-									<strong title="${name}">${name}
-										</strong> <em>${type}</em>
-								</span>
-								<div class="info">
-									<span class="theater" title="극장"> </span>
-								</div>`
+		button.innerHTML += '<span class="title">' +
+                     '<strong title="' + name + '">' + name + '</strong> <em>' + type + '</em>' +
+                     '</span>' +
+                     '<div class="info">' +
+                     '<span class="theater" title="극장"> </span>' +
+                     '</div>';
 		li.appendChild(button);
 
 		document.querySelector(".movie-shedule-area > ul").appendChild(li);
