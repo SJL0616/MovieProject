@@ -31,9 +31,9 @@ function validCheck(form) {
 	} else if (check == -1) {
 		alert('id 중복체크 다시하세요');
 		return false;
-	}
-	if (check == 1)
+	}else if (check == 1){
 		form.submit();
+	}
 }
 
 // id 중복 체크하는 버튼 이벤트
