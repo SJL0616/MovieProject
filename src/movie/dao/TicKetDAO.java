@@ -45,7 +45,7 @@ public class TicKetDAO {
 		return (ArrayList<UserReservationView>) list;
 	}
 
-	public int cancelTicketByID(int ticketID) {
+	public int cancelTicketByID(int ticketID) { // 관리자가 취소된 티켓을 환불처리한 후 예매내역을 데이터베이스에서 삭제합니다.
 		SqlSession session = sqlSessionFactory.openSession();
 		int cnt = session.delete("cancelTicketByID", ticketID);
 		session.commit();
