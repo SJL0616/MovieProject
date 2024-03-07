@@ -88,4 +88,12 @@
 		ticket_ID = #{ticketID};
 	</update>
 
+	<select id="getAllCanceledTickets" resultMap="myBookedListMap">
+		SELECT t.*, m.image
+		FROM ticket t
+		INNER JOIN movie m ON
+		t.movie_ID = m.movie_ID
+		WHERE t.canceled = 1;
+	</select>
+
 </mapper>

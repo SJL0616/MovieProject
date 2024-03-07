@@ -78,4 +78,11 @@ public class TicKetDAO {
 		session.close();
 		return cnt;
 	}
+
+	public ArrayList<UserReservationView> getAllCanceledTickets() { // 관리자가 예매취소된 티켓들을 조회하는 메서드입니다.
+		SqlSession session = sqlSessionFactory.openSession();
+		List<UserReservationView> list = session.selectList("getAllCanceledTickets");
+		session.close();
+		return (ArrayList<UserReservationView>) list;
+	}
 }
