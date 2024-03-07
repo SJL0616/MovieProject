@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="./header.jsp"%>
+<link rel="stylesheet" href="${ctx}/css/admin.css" />
+<div align="center">
 <div class="container">
       <div class="ticket-true">
         <h2>티켓 취소 리스트</h2>
@@ -56,5 +58,6 @@
           </c:forEach>
         </div>
       </div>
+    </div>
     </div>
 <%@include file="./footer.jsp"%>
