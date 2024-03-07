@@ -13,7 +13,7 @@ public class AdminController implements Controller {
 	@Override
 	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setAttribute("list", TicKetDAO.getInstance().getAllCanceledTickets());
+		request.setAttribute("userList", TicKetDAO.getInstance().getAllCanceledTickets());
 		return "admin";
 	}
 }
