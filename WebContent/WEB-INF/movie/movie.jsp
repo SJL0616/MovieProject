@@ -164,7 +164,7 @@
 							<c:when test="${vo.getWatchGrade() eq '15세이상관람가'}" >
 							<p class="movie-grade age-15">,</p>
 							</c:when>
-							<c:when test="${vo.getWatchGrade() eq '19세이상관람가'}" >
+							<c:when test="${vo.getWatchGrade() eq '청소년관람불가' or vo.getWatchGrade() eq '연소자관람불가'  }" >
 							<p class="movie-grade age-19">,</p>
 							</c:when>
 							<c:otherwise>

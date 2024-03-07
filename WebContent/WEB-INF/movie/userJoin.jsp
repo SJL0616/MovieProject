@@ -11,7 +11,7 @@
 			<tr>
 				<th>아이디 <em>*</em></th>
 				<td><input type="text" name="id" id="id" required="required" />
-					<button id="checkId">중복확인</button></td>
+					<button type="button" id="checkId">중복확인</button></td>
 			</tr>
 			<tr>
 				<th>패스워드 <em>*</em></th>

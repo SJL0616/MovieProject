@@ -64,9 +64,11 @@ function init() {
 		if (day == 6) {
 			wraplist[i - 1].style.color = "blue";
 		}
+		let tempM = month < 10 ? 0 + "" + month : month;
+		let tempD = date < 10 ? 0 + "" + date : date;
 		// day 값 넣기 및 date 값 data 에 담기
-		wraplist[i - 1].innerHTML = month + "월<br>" + date + " " + days(day);
-		wraplist[i - 1].setAttribute("data-date", year + "-" + month + "-" + date);
+		wraplist[i - 1].innerHTML = tempM + "월<br>" + tempD + " " + days(day);
+		wraplist[i - 1].setAttribute("data-date", year + "-" + tempM + "-" + tempD);
 		wraplist[i - 1].setAttribute("data-day", days(day));
 		date += 1;
 		day += 1;
@@ -315,7 +317,7 @@ function getTimeSetting(on) {
 
 		let curhours = Math.floor(parseInt(showtime) / 60);
 		let curminutes = parseInt(showtime) % 60;
-		console.log(curminutes);
+
 		// 정확한값을 주기위해 엘레멘탈 생성후 넣기
 		let li = document.createElement("li");
 		let legend = document.createElement("div");
@@ -324,22 +326,17 @@ function getTimeSetting(on) {
 		// button class 생성
 		let button = document.createElement("button");
 		button.classList.add("btn");
+		// 시간 초기화
 
+		let upHours = minutes + 10 >= 60 ? i + 1 : i;
+		upHours = timeReset(upHours);// 합산 시간 초기화
+		let upmintes = minutes + 10 >= 60 ? (minutes + 10) % 60 : minutes + 10;
 		// play start time
-		button.setAttribute("play-start-time", `${(minutes + 10 >= 60 ? i + 1 : i) < 10 ? 0 + "" + (minutes + 10 >= 60 ? i + 1 : i)
-			: (minutes + 10 >= 60 ? i + 1 : i)}${i == 9 ? "00"
-				: (minutes + 10 >= 60 ? ((minutes + 10) % 60 < 10 ? 0 + "" + ((minutes + 10) % 60)
-					: ((minutes + 10) % 60))
-					: minutes + 10)}`);
+		button.setAttribute("play-start-time", `${upHours < 10 ? 0 + "" + upHours : upHours}${i == 9 ? "00" : (upmintes < 10 ? 0 + "" + upmintes : upmintes)}`);
 
 
 		// id
-		button.id = `${(minutes + 10 >= 60 ? i + 1 : i) < 10 ? 0 + "" + (minutes + 10 >= 60 ? i + 1 : i)
-			: (minutes + 10 >= 60 ? i + 1 : i)}${i == 9 ? "00" :
-				(minutes + 10 >= 60 ? ((minutes + 10) % 60 < 10 ?
-					0 + "" + ((minutes + 10) % 60)
-					: ((minutes + 10) % 60))
-					: minutes + 10)}`;
+		button.id = `${upHours < 10 ? 0 + "" + upHours : upHours}${i == 9 ? "00" : (upmintes < 10 ? 0 + "" + upmintes : upmintes)}`;
 		// time 생성
 		let time = document.createElement("span");
 		let strong = document.createElement("strong");
@@ -349,7 +346,6 @@ function getTimeSetting(on) {
 
 		strong.setAttribute("title", "상영 시작");
 		em.setAttribute("title", "상영 종료");
-
 
 
 		timeSet(minutes, curminutes, i, em, curhours, strong);
@@ -384,38 +380,61 @@ function getTimeSetting(on) {
 	}
 
 }
+function timeReset(time) {
+	if (time >= 24) {
+		time = time % 24;
+		return time;
+	}
+	return time;
+}
 // 값을 더정확하게 전달하기위한 작업 1시 -> 01시 2분 -> 02분 
 function timeSet(minutes, curminutes, i, em, curhours, strong) {
-
+	let timeH = i; // 예외처리를 위한 시간값
+	let timeM = minutes; // 예외처리를 위한 분값
+	let timeHSum = i + curhours; // 상영시간 합시간
+	let timeMSum = minutes + curminutes; // 상영시간 합분
 	// 상영 시작
 	if (minutes + 10 >= 60) {
-		strong.innerHTML = i + 1 < 10 ? 0 + "" + i + 1 : i + 1;
-		strong.innerHTML += ":" + (((minutes + 10) % 60) < 10 ? 0 + "" + ((minutes + 10) % 60) : ((minutes + 10) % 60));
+		timeH = timeReset(timeH) + 1;
+		timeM = (minutes + 10) % 60;
+		strong.innerHTML = timeH < 10 ? 0 + "" + timeH : timeH;
+		strong.innerHTML += ":" + (timeM < 10 ? 0 + "" + timeM : timeM);
 	} else {
-		strong.innerHTML = i < 10 ? 0 + "" + i : i;
+		timeH = timeReset(timeH);
+		timeM = minutes + 10;
+		strong.innerHTML = timeH < 10 ? 0 + "" + timeH : timeH;
 		strong.innerHTML += ":" + (i == 9 ? "00" : minutes + 10);
 	}
 	// 상영 종료
 	if (minutes + curminutes >= 60) {
+		// 합산 시간 초기화
+		timeHSum = timeReset(timeHSum) + 1;
+		timeMSum = timeMSum % 60;
 		em.innerHTML = "~";
-		em.innerHTML += i + 1 + curhours < 10 ? 0 + "" + i + 1 + curhours : i + 1 + curhours;
-		em.innerHTML += ":" + (((minutes + curminutes) % 60) < 10 ? 0 + "" + ((minutes + curminutes) % 60) : ((minutes + curminutes) % 60));
+		em.innerHTML += timeHSum < 10 ? 0 + "" + timeHSum : timeHSum;
+		em.innerHTML += ":" + (timeMSum < 10 ? 0 + "" + timeMSum : timeMSum);
 	} else {
+		// 합산 시간 초기화
+		timeHSum = timeReset(timeHSum);
 		em.innerHTML = "~";
-		em.innerHTML += i + curhours < 10 ? 0 + "" + i + curhours : i + curhours;
-		em.innerHTML += ":" + ((minutes + curminutes) < 10 ? 0 + "" + (minutes + curminutes) : (minutes + curminutes));
+		em.innerHTML += timeHSum < 10 ? 0 + "" + timeHSum : timeHSum;
+		em.innerHTML += ":" + (timeMSum < 10 ? 0 + "" + timeMSum : timeMSum);
 	}
 
 }
-
+// 3개의 페이지를 이용하기위한 데이터 세이브작업
 function getDataSave(time, name, showtime, type, imgPath, age, code) {
 	console.log(document.querySelector(".wrap-list #on"));
 	if (!document.querySelector(".wrap-list #on")) {
 		alert("날짜를 선택후 이용해주세요!");
 		return false;
 	}
-	let date = document.querySelector(".wrap-list #on");
+	let wrap = document.querySelector(".wrap-list #on");
+	let date = wrap.getAttribute("data-date");
+	let day = wrap.getAttribute("data-day");
+	
 	let selectDate = document.querySelector(".userDt .select-date");
+	let resultDate = document.querySelector(".userDt .result-date");
 	let movieTime = document.querySelector(".userDt .movie-time");
 	let movieType = document.querySelector(".userDt .movie-type");
 	let movieName = document.querySelector(".userDt .movie-name");
@@ -424,13 +443,17 @@ function getDataSave(time, name, showtime, type, imgPath, age, code) {
 	let movieImg = document.querySelector(".userDt .movie-img");
 	let selectDay = document.querySelector(".userDt .select-day");
 	let movieCode = document.querySelector(".userDt .movie-code");
-
-	selectDate.value = date.getAttribute("data-date");
+	
+	selectDate.value = date; // 표현 날짜
+	if (parseInt(time.substring(0, 2)) <= 6) {
+		date = date.substring(0, 7) + "-" + (parseInt(date.substring(8)) + 1);
+	}
+	resultDate.value = date; // 실제 날짜
 	movieTime.value = time;
 	movieType.value = type;
 	movieName.value = name;
 	movieShowTime.value = showtime;
-	selectDay.value = date.getAttribute("data-day");
+	selectDay.value = day;
 	movieImg.value = imgPath;
 	movieAge.value = age;
 	movieCode.value = code;

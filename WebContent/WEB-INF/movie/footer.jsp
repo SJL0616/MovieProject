@@ -54,6 +54,19 @@
 			</div>
 		</div>
 	</div>
+	<form class="userDt" method="post">
+		<input class="select-date" name="select-date" type="hidden"> 
+		<input class="select-day" name="select-day" type="hidden"> 
+		<input class="movie-type" name="movie-type" type="hidden"> 
+		<input class="movie-time" name="movie-time" type="hidden"> 
+		<input class="movie-name" name="movie-name" type="hidden"> 
+		<input class="movie-age" name="movie-age" type="hidden"> 
+		<input class="movie-img" name="movie-img" type="hidden"> 
+		<input class="movie-show-time" name="movie-show-time" type="hidden">
+		<input class="movie-theater" name="movie-theater" type="hidden">
+		<input class="movie-code" name="movie-code" type="hidden">
+		<input class="result-date" name="result-date" type="hidden">
+	</form>
 	<!--// footer-bottom -->
 	<div id="layer_looking_theater" class="layer-looking-theater"></div>
 </footer>
