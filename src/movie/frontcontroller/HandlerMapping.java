@@ -1,9 +1,12 @@
 package movie.frontcontroller;
 
 import java.util.HashMap;
+
+import movie.controller.AdminController;
 import movie.controller.Controller;
 import movie.controller.IndexController;
 import movie.controller.movie.MovieInfoController;
+import movie.controller.movie.MovieLikeController;
 import movie.controller.movie.MovieListController;
 import movie.controller.movie.MovieSearchController;
 import movie.controller.movie.review.ReviewCntController;
@@ -16,7 +19,6 @@ import movie.controller.ticketing.MovieTheaterController;
 import movie.controller.ticketing.PaymentController;
 import movie.controller.ticketing.SeatController;
 import movie.controller.ticketing.TicketingController;
-import movie.controller.user.AdminController;
 import movie.controller.user.CheckLogController;
 import movie.controller.user.DisconnectToKakao;
 import movie.controller.user.DisconnectToNaver;
@@ -60,6 +62,7 @@ public class HandlerMapping {
 		mappings.put("/movie-detail.do", new MovieInfoController());
 		mappings.put("/movieSearch.do", new MovieSearchController());
 		mappings.put("/movieSearchFromMain.do", new MovieSearchController());
+		mappings.put("/movieLike.do", new MovieLikeController());
 		mappings.put("/seat.do", new SeatController());
 		mappings.put("/userPwValidAjax.do", new UserPwValidAjax());
 		mappings.put("/userResignValidAjax.do", new UserResignValidAjax());

@@ -17,6 +17,7 @@ public class TicketingController implements Controller{
 	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		//영화 리스트를 뽑아 가지고오기
+		
 		ArrayList<Movie> list = MovieDAO.getInstance().getTotalList();
 		String move = "";
 		if(request.getParameter("move") != null) {

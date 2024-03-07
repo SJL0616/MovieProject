@@ -68,8 +68,6 @@ function searchMovieByNm(){
 }
 
 function getMovieli(vo){
-	var ctx = "${ctx}";
-	console.log(ctx);
 	var html = '';
 	html += '<li tabindex="0" class="no-img">';
     html += '<div class="movie-list-info">';
@@ -102,8 +100,14 @@ function getMovieli(vo){
     html += '</div>';
 
     html += '<div class="btn-util">';
-    html += '<button type="button" class="button btn-like" data-no="23095500">';
-    html += '<i title="보고싶어 안함" class="iconset ico-heart-toggle-gray intrstType"></i> <span></span>';
+    html += '<button type="button" class="button btn-like" data-mylike="'+vo.myLike+'"  data-movie-no="'+vo.movieID+'">';
+
+    if(vo.myLike == true){
+	 html += '<i title="보고싶어 설정 함" class="iconset ico-heart-toggle-gray on"></i> <span>'+vo.totalLikes +'</span>';
+    }else{
+	 html += '<i title="보고싶어 안함" class="iconset ico-heart-toggle-gray intrstType"></i> <span>'+vo.totalLikes +'</span>';
+    }
+    
     html += '</button>';
     html += '<p class="txt movieStat1" style="display: none">상영예정</p>';
     html += '<p class="txt movieStat2" style="display: none">2월 개봉예정</p>';

@@ -33,7 +33,7 @@ public class MovieInfoController implements Controller {
 		String userID = (String)session.getAttribute("log");
 		if(userID == null) userID = "";
 		
-		Movie m = MovieDAO.getInstance().getOneMovie(Integer.parseInt(mid));
+		Movie m = MovieDAO.getInstance().getOneMovie(Integer.parseInt(mid),userID);
 		request.setAttribute("vo", m);
 		
 		String currentPage = request.getParameter("currentPage");
