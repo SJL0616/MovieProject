@@ -29,9 +29,6 @@ function loadData() {
 	trailer = document.querySelector(".videoContainer");
 	trailer.style.display = 'none';
 	videoSet();
-
-
-
 }
 
 function videoSet() {
@@ -190,7 +187,6 @@ function removeReviews(rBox) {
 		if (e.classList.contains("type01")) {
 			document.querySelector('.reviewBox').removeChild(e);
 		}
-
 	});
 }
 
