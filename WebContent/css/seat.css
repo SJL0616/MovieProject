@@ -120,8 +120,15 @@ h3.tit.small{
   color: #fff;
   cursor: pointer;
 }
-.seat-wrapper .seat .on:hover{
+.seat-wrapper .seat.on:hover{
   background-color: #503396;
+}
+
+.seat-wrapper .seat.X{
+  background-color: white;
+}
+.seat-wrapper .seat.X:hover{
+  background-color: black;
 }
 .seat-wrapper .seatline{
   width: 20px;

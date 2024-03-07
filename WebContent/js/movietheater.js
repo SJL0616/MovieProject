@@ -73,6 +73,7 @@ moviebutton.addEventListener("click", () => {
 			getScriptSetting(body, ctx);
 			let list = null;
 			if (data != null) {
+				console.log(data);
 				list = data;
 				getSeatCheck(list);
 			}
@@ -194,13 +195,14 @@ function setBodyChange(body, form, name) {
 }
 // 해당하는 관에서 좌석이 자리가있는지 확인
 function getSeatCheck(list){
+	console.log(list);
 	list.forEach((seat) =>{
 		let input = $('<input>').attr({
 					'type': 'hidden',
 					'class':'seatCheck',
-					'value': `${seat.seatGroup + "" + seat.seatNumber}`,
+					'value': seat.seatGroup + seat.seatNumber,
 		})
-		$(".seat-section").append(input);
+		$("#footer").append(input);
 	})
 }
 // script 적용

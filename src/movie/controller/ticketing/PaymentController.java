@@ -33,7 +33,7 @@ public class PaymentController implements Controller{
 		String movieName = request.getParameter("movie-theater"); // 영화관 명
 		int movieThcd = Integer.parseInt(request.getParameter("movietheater-code"));// 영화관 코드
 		String time = request.getParameter("movie-time"); // 관란 시간
-		String previewDate = request.getParameter("select-date"); // 관람 날짜
+		String previewDate = request.getParameter("result-date"); // 관람 날짜
 		// 시간 넣기
 		previewDate += " "+ time.substring(0,2) + ":" + time.substring(2);
 		

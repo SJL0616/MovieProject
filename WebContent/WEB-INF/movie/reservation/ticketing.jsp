@@ -114,8 +114,8 @@
 						<i class="fa fa-chevron-left"></i>
 					</button>
 					<div class="time-list">
-						<c:forEach var="i" begin="1" end="25">
-							<button id="btn-time" data-time="${i >= 10? i : 0+i}">${i}</button>
+						<c:forEach var="i" begin="9" end="25">
+							<button id="btn-time" data-time="${i >= 10? (i >= 24? i % 24 : i) : 0+(i >= 25? i % 24 : i)}">${i}</button>
 						</c:forEach>
 					</div>
 					<button title="다음 날짜 보기" class="time-next">
@@ -206,16 +206,5 @@
     </div>
     <div class="overlay"></div>
 </div>
-<form class="userDt" method="post">
-<input class="select-date" name="select-date" type="hidden">
-<input class="select-day" name="select-day" type="hidden">
-<input class="movie-type" name="movie-type" type="hidden">
-<input class="movie-time" name="movie-time" type="hidden">
-<input class="movie-name" name="movie-name" type="hidden">
-<input class="movie-age" name="movie-age" type="hidden">
-<input class="movie-img" name="movie-img" type="hidden">
-<input class="movie-show-time" name="movie-show-time" type="hidden">
-<input class="movie-theater" name="movie-theater" type="hidden">
-<input class="movie-code" name="movie-code" type="hidden">
-</form>
+
 <%@include file="/WEB-INF/movie/footer.jsp"%>
