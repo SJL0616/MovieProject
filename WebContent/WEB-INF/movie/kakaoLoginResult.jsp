@@ -22,14 +22,13 @@
 			}
 			function getResult(data) {
 				if (data === "valid") {
-					location.href="${ctx}/main.do"
-					alert("로그인 성공");
+					location.href="${ctx}/index.jsp"
 				} else if (data === "notValid") {
 					location.href="${ctx}/login.do"
 					alert("카카오와 연동된 유저가 없습니다.");
 				} else if (data === "connected"){
 					location.href="${ctx}/userMyMega.do"
-					alert("연동에 성공했습니다.");
+					alert("카카오 연동에 성공했습니다.");
 				}
 			}
 		</script>

@@ -37,19 +37,19 @@
 				</div>
 				<div class="right-links">
 					<c:if test="${log ne null and log  ne 'admin'}">
-						<a href="${ctx}/myReserve.do?id=${log}">내 예매</a>
+						<a href="${ctx}/userMyMega.do">내 예매</a>
 						<a href="${ctx}/userMyMega.do">회원탈퇴</a>
 						<a href="${ctx}/logout.do">로그아웃</a>
 					</c:if>
 					<c:if test="${log  eq 'admin'}">
-						<a href="${ctx}/register.do?form=true">등록</a>
+						<a href="${ctx}/admin.do">관리자</a>
 						<a href="${ctx}/logout.do">로그아웃</a>
 					</c:if>
 					<c:if test="${empty log  }">
 						<a href="${ctx}/login.do">로그인</a>
 						<a href="${ctx}/userJoin.do">회원가입</a>
 					</c:if>
-					<a href="#">빠른예매</a>
+					<a href="${ctx}/ticketing.do">빠른예매</a>
 				</div>
 			</div>
 			<div class="bottom-of-header">

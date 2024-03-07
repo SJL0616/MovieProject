@@ -2,7 +2,7 @@
 <!-- 작성자 : 김진수 -->
 <!-- 내용 : movieTheater DB -->
 <!-- 최초 작성일 : 24-02-29 -->
-<!-- 마지막 수정일 : 24-03-06(김진수) tiket insert 추가-->
+<!-- 마지막 수정일 : 24-03-06(김진수) tiket insert 추가 -->
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -19,6 +19,7 @@
 		<result property="seatList" column="seat_list" />
 		<result property="seatIDList" column="seatID_list" />
 		<result property="ticketPrice" column="ticket_price" />
+		<result property="canceled" column="canceled" />
 	</resultMap>
 
 	<resultMap id="myBookedListMap" type="userReservationView">
@@ -34,6 +35,7 @@
 		<result property="seatList" column="seat_list" />
 		<result property="seatIDList" column="seatID_list" />
 		<result property="ticketPrice" column="ticket_price" />
+		<result property="canceled" column="canceled" />
 	</resultMap>
 
 	<select id="getTicketListById" parameterType="String"
@@ -44,7 +46,8 @@
 		t.movie_ID = m.movie_ID
 		INNER JOIN user u ON t.user_id = u.id
 		WHERE u.id
-		= #{user_id};
+		= #{user_id}
+		and t.canceled = 0;
 	</select>
 
 	<delete id="cancelTicketByID" parameterType="Integer">
@@ -56,7 +59,7 @@
 		resultMap="ticketResultMap">
 		SELECT *
 		FROM ticket
-		WHERE ticket_ID = #{ticketID}
+		WHERE ticket_ID = #{ticketID};
 	</select>
 
 	<insert id="ticketInsert" parameterType="ticket">
@@ -72,7 +75,17 @@
 		#{paymentDate},
 		#{seatList},
 		#{seatIDList},
-		#{ticketPrice}
+		#{ticketPrice},
+		0
 		);
 	</insert>
+
+	<update id="setTrueToTicket" parameterType="Integer">
+		UPDATE ticket
+		SET
+		canceled = 1
+		WHERE
+		ticket_ID = #{ticketID};
+	</update>
+
 </mapper>

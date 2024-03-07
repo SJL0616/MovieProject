@@ -7,15 +7,13 @@
 	<div class="footer-top">
 		<div class="inner-wrap">
 			<ul class="fnb">
-				<li><a href="/megaboxinfo" title="회사소개 페이지로 이동">회사소개</a></li>
-				<li><a href="/recruit" title="인재채용 페이지로 이동">인재채용</a></li>
-				<li><a href="/socialcontribution" title="사회공헌 페이지로 이동">사회공헌</a></li>
-				<li><a href="/partner" title="제휴/광고/부대사업문의 페이지로 이동">제휴/광고/부대사업문의</a></li>
-				<li><a href="/support/terms" title="이용약관 페이지로 이동">이용약관</a></li>
-				<li><a href="/support/lcinfo" title="위치기반서비스 이용약관 페이지로 이동">위치기반서비스
-						이용약관</a></li>
-				<li class="privacy"><a href="/support/privacy"
-					title="개인정보처리방침 페이지로 이동">개인정보처리방침</a></li>
+				<li><a href="#" title="회사소개 페이지로 이동">회사소개</a></li>
+				<li><a href="#" title="인재채용 페이지로 이동">인재채용</a></li>
+				<li><a href="#" title="사회공헌 페이지로 이동">사회공헌</a></li>
+				<li><a href="#" title="제휴/광고/부대사업문의 페이지로 이동">제휴/광고/부대사업문의</a></li>
+				<li><a href="#" title="이용약관 페이지로 이동">이용약관</a></li>
+				<li><a href="#" title="위치기반서비스 이용약관 페이지로 이동">위치기반서비스 이용약관</a></li>
+				<li class="privacy"><a href="#" title="개인정보처리방침 페이지로 이동">개인정보처리방침</a></li>
 				<li><a href="https://jebo.joonganggroup.com/main.do"
 					target="_blank" title="윤리경영 페이지로 이동">윤리경영</a></li>
 			</ul>

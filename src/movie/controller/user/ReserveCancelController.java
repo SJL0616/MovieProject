@@ -22,11 +22,13 @@ public class ReserveCancelController implements Controller {
 		String beforeSplit = ticket.getSeatIDList();
 		String[] afterSplit = beforeSplit.split(",");
 
-		for (int i = 0; i < afterSplit.length; i += 1) { // 취소된 좌석들을 돌려놓는 반복문입니다.
+		// 취소된 좌석들을 돌려놓는 반복문입니다.
+		for (int i = 0; i < afterSplit.length; i += 1) {
 			SeatDAO.getInstance().putTheSeatsBack(Integer.parseInt(afterSplit[i]));
 		}
 
-		int cnt = TicKetDAO.getInstance().cancelTicketByID(ticketID); // 좌석을 전부 되돌려놓은 후에 예매객체가 삭제됩니다.
+		// 좌석을 전부 되돌려놓은 후에 예매객체의 canceled 컬럼이 ture 가 됩니다
+		int cnt = TicKetDAO.getInstance().setTrueToTicket(ticketID);
 
 		if (cnt > 0) {
 			HttpSession session = request.getSession();

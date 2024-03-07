@@ -64,8 +64,8 @@
 						</div>
 						<div class="btn_section">
 							<a href="#" title="" class="button purple">교환권출력</a> <a
-								onclick="cancelCheck(${m.getTicketID()})"
-								class="button gray" title="예매취소하기">예매취소</a>
+								onclick="cancelCheck(${m.getTicketID()})" class="button gray"
+								title="예매취소하기">예매취소</a>
 						</div>
 					</div>
 				</div>
@@ -208,6 +208,7 @@
 	</div>
 	<br>
 </div>
+<%@include file="./footer.jsp"%>
 <div class="cancel_modal">
 	<div class="cancel_title">
 		알림
@@ -222,4 +223,3 @@
 	</div>
 </div>
 <div class="cancel_overlay"></div>
-<%@include file="./footer.jsp"%>

@@ -114,7 +114,7 @@
 						<i class="fa fa-chevron-left"></i>
 					</button>
 					<div class="time-list">
-						<c:forEach var="i" begin="1" end="25">
+						<c:forEach var="i" begin="1" end="23">
 							<button id="btn-time" data-time="${i >= 10? i : 0+i}">${i}</button>
 						</c:forEach>
 					</div>
