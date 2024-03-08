@@ -18,7 +18,7 @@
 ## 요구사항 정의서
 - ![MovieProject/요구사항 정의서.png](https://github.com/SJL0616/MovieProject/blob/aba94961e065cc9b413c56c28568a6393e0c4232/%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD%20%EC%A0%95%EC%9D%98%EC%84%9C.png)
 ## 테이블 정의서
--
+- ![테이블 정의서](https://github.com/SJL0616/MovieProject/blob/187416183828d7dda777d28f80f6bc361a9138ba/%ED%85%8C%EC%9D%B4%EB%B8%94%20%EC%A0%95%EC%9D%98%EC%84%9C.jpeg)
 ## DATABASE ERD 다이어 그램
 -
 
