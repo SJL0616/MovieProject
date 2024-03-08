@@ -20,7 +20,6 @@ public class AdminController implements Controller {
 		request.setAttribute("userList", list);
 		ArrayList<Review> reviewList = ReviewDAO.getInstance().getAllReportedReviews();
 		request.setAttribute("reviewList", reviewList);
-		System.out.println("어드민 컨트롤러입니다.");
 		return "admin";
 	}
 }
