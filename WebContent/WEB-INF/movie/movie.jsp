@@ -4,17 +4,7 @@
 <%@ include file="./header.jsp"%>
 <link rel="stylesheet" type="text/css" href="${ctx}/css/movie.css">
 <div class="container">
-	<div class="page-util">
-		<div class="inner-wrap">
-			<div class="location">
-				<span>Home</span> <a href="/movie" title="영화 페이지로 이동">영화</a> <a
-					href="/movie" title="전체영화 페이지로 이동">전체영화</a>
-			</div>
-
-
-		</div>
-	</div>
-
+	
 	<!-- contents -->
 	<div id="contents" class="">
 		<!-- inner-wrap -->
@@ -23,11 +13,11 @@
 
 			<div class="tab-list fixed">
 				<ul id="topMenu">
-					<li class="on"><a href="/movie" title="박스오피스 탭으로 이동">박스오피스</a></li>
-					<li><a href="/movie/comingsoon" title="상영예정작 탭으로 이동">상영예정작</a></li>
-					<li><a href="/movie/special" title="특별상영 탭으로 이동">특별상영</a></li>
-					<li><a href="/movie/film" title="필름소사이어티 탭으로 이동">필름소사이어티</a></li>
-					<li><a href="/movie/classic" title="클래식소사이어티 탭으로 이동">클래식소사이어티</a></li>
+					<li class="on"><a href="${ctx}/movie.do" title="박스오피스 탭으로 이동">박스오피스</a></li>
+					<li><a href="#" title="상영예정작 탭으로 이동">상영예정작</a></li>
+					<li><a href="#" title="특별상영 탭으로 이동">특별상영</a></li>
+					<li><a href="#" title="필름소사이어티 탭으로 이동">필름소사이어티</a></li>
+					<li><a href="#" title="클래식소사이어티 탭으로 이동">클래식소사이어티</a></li>
 
 				</ul>
 			</div>
