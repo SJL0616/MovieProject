@@ -27,7 +27,7 @@ function validCheck(form) {
 	}
 	if (check == false) return false;
 	form.submit();
-	alert(`개인벙보를 수정했습니다.`);
+	alert(`개인정보를 수정했습니다.`);
 }
 
 document.getElementById("updateBtn").addEventListener("click", () => {
