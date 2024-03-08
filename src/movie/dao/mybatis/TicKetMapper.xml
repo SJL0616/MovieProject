@@ -64,6 +64,20 @@
 
 	<insert id="ticketInsert" parameterType="ticket">
 		insert into ticket
+		(
+		ticket_ID,
+		movie_ID,
+		user_id,
+		number_people,
+		preview_date,
+		movie_name,
+		title,
+		payment_date,
+		seat_list,
+		seatID_list,
+		ticket_price,
+		canceled
+		)
 		value(
 		null,
 		#{movieID},
