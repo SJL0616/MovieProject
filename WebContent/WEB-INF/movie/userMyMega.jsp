@@ -191,7 +191,7 @@
 			<h2>회원탈퇴</h2>
 			<a>회원님의 비밀번호를 입력하시고 [탈퇴 비밀번호 확인] 버튼을 클릭해주세요.</a>
 			<div class="mymega_resign">
-				<form action="${ctx}/userResign.do" id="resignForm">
+				<form action="${ctx}/userResign.do" id="resignForm" method="post">
 					<table>
 						<tr>
 							<th scope="row">비밀번호<em>*</em></th>
@@ -201,7 +201,7 @@
 					</table>
 					<br>
 					<button type="button" id="resignBtn"
-						onclick="resignValidCheck(form)">탈퇴 비밀번호 확인</button>
+						onclick="resignValidCheck(form)" onkeydown="if(event.keyCode === 13) resignValidCheck(form)" >탈퇴 비밀번호 확인</button>
 				</form>
 			</div>
 		</c:if>

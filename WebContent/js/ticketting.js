@@ -144,11 +144,11 @@ function movieOn(movie) {
 	document.querySelector(".choice-list").style.display = "block";
 	let bg = bglist.find((bg) => bg.innerHTML == "");
 	bg.innerHTML = '<div class="wrap">' +
-                '<div class="img">' +
-                '<img src="' + img + '" data-num="' + num + '">' +
-                '</div>' +
-                '<button class="del" onclick="imgDeleteBtn(\'' + num + '\')">X</button>' +
-                '</div>';
+		'<div class="img">' +
+		'<img src="' + img + '" data-num="' + num + '">' +
+		'</div>' +
+		'<button class="del" onclick="imgDeleteBtn(\'' + num + '\')">X</button>' +
+		'</div>';
 	bgCnt += 1;
 	if (document.querySelector(".btn.on")) {
 		let on = [...document.querySelectorAll(".btn.on")];
@@ -233,6 +233,18 @@ function getResult(data, id) {
 	} else if (data === "notValid") {
 		alert("아이디와 비밀번호를 확인하세요.");
 	}
+	const rightlinks = document.querySelector(".right-links");
+	if (id != "admin") {
+		rightlinks.innerHTML =
+			'<a href="/MovieProject/userMyMega.do">내 예매</a>\
+    		<a href="/MovieProject/userMyMega.do">회원탈퇴</a>\
+  			<a href="/MovieProject/logout.do">로그아웃</a>\
+    		<a href="/MovieProject/ticketing.do">빠른예매</a>';
+	} else {
+		rightlinks.innerHTML = '<a href="/MovieProject/logout.do">로그아웃</a>\
+								<a href="/MovieProject/admin.do">관리자</a>\
+								<a href="/MovieProject/ticketing.do">빠른예매</a>';
+	}
 }
 overlay.addEventListener("click", () => {
 	$('.modal, .overlay').removeClass('active');
@@ -268,22 +280,22 @@ function getMovieTheater(ctx, playStartTime, name, showtime, type, imgPath, age,
 // movietheater html 가지고오기
 function setBodyChange(body, list, ctx) {
 	body.innerHTML = '<div class="map-container">' +
-                     '<div class="map-header">' +
-                         '<h1>영화관</h1>' +
-                     '</div>' +
-                     '<div class="mapinner">' +
-                         '<div class="map-navi">' +
-                         '</div>' +
-                         '<div id="map"></div>' +
-                     '</div>' +
-                     '<div class="movie-result">' +
-                         '<button class="movie-button" data-url="' + ctx + '/js/seat.js">선택완료</button>' +
-                     '</div>';
+		'<div class="map-header">' +
+		'<h1>영화관</h1>' +
+		'</div>' +
+		'<div class="mapinner">' +
+		'<div class="map-navi">' +
+		'</div>' +
+		'<div id="map"></div>' +
+		'</div>' +
+		'<div class="movie-result">' +
+		'<button class="movie-button" data-url="' + ctx + '/js/seat.js">선택완료</button>' +
+		'</div>';
 	let navi = document.querySelector(".map-navi");
 	list.forEach(list => {
 		navi.innerHTML += '<div class="movietheater" data-code="' + list.movieThcd + '" data-x="' + list.locationX + '" ' +
-					 'data-y="' + list.locationY + '" data-address="' + list.movieAddress + '" ' +
-					 'data-name="' + list.movieName + '">' + list.movieName + '</div>';
+			'data-y="' + list.locationY + '" data-address="' + list.movieAddress + '" ' +
+			'data-name="' + list.movieName + '">' + list.movieName + '</div>';
 
 	})
 }
@@ -358,11 +370,11 @@ function getTimeSetting(on) {
 		button.appendChild(time);
 		// 제목 타입 넣기
 		button.innerHTML += '<span class="title">' +
-                     '<strong title="' + name + '">' + name + '</strong> <em>' + type + '</em>' +
-                     '</span>' +
-                     '<div class="info">' +
-                     '<span class="theater" title="극장"> </span>' +
-                     '</div>';
+			'<strong title="' + name + '">' + name + '</strong> <em>' + type + '</em>' +
+			'</span>' +
+			'<div class="info">' +
+			'<span class="theater" title="극장"> </span>' +
+			'</div>';
 		li.appendChild(button);
 
 		document.querySelector(".movie-shedule-area > ul").appendChild(li);
@@ -432,7 +444,7 @@ function getDataSave(time, name, showtime, type, imgPath, age, code) {
 	let wrap = document.querySelector(".wrap-list #on");
 	let date = wrap.getAttribute("data-date");
 	let day = wrap.getAttribute("data-day");
-	
+
 	let selectDate = document.querySelector(".userDt .select-date");
 	let resultDate = document.querySelector(".userDt .result-date");
 	let movieTime = document.querySelector(".userDt .movie-time");
@@ -443,7 +455,7 @@ function getDataSave(time, name, showtime, type, imgPath, age, code) {
 	let movieImg = document.querySelector(".userDt .movie-img");
 	let selectDay = document.querySelector(".userDt .select-day");
 	let movieCode = document.querySelector(".userDt .movie-code");
-	
+
 	selectDate.value = date; // 표현 날짜
 	if (parseInt(time.substring(0, 2)) <= 6) {
 		date = date.substring(0, 7) + "-" + (parseInt(date.substring(8)) + 1);
