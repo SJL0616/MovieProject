@@ -170,8 +170,10 @@ function submit(pageNum, id, order) {
 		.then(response => response.text())
 		.then((data) => {
 			if (data === `fail`) {
-				alert(`실패했습니다.`);
+				console.log('no review found');
+				removeReviews(rBox);
 			} else {
+				console.log('review found');
 				let list = JSON.parse(data);
 				let pageCxt = JSON.parse(list[0]);
 				removeReviews(rBox);

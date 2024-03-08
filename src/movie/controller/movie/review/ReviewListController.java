@@ -49,6 +49,9 @@ public class ReviewListController implements Controller {
 			response.setContentType("text/html; charset=utf-8");
 			response.getWriter().print(ja.toString());
 			response.getWriter().close();
+		}else {
+			response.getWriter().print("fail");
+			response.getWriter().close();
 		}
 		return null;
 	}

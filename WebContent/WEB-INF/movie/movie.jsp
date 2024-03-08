@@ -4,17 +4,7 @@
 <%@ include file="./header.jsp"%>
 <link rel="stylesheet" type="text/css" href="${ctx}/css/movie.css">
 <div class="container">
-	<div class="page-util">
-		<div class="inner-wrap">
-			<div class="location">
-				<span>Home</span> <a href="/movie" title="영화 페이지로 이동">영화</a> <a
-					href="/movie" title="전체영화 페이지로 이동">전체영화</a>
-			</div>
-
-
-		</div>
-	</div>
-
+	
 	<!-- contents -->
 	<div id="contents" class="">
 		<!-- inner-wrap -->
