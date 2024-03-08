@@ -53,7 +53,7 @@
     <!-- Select statement to retrieve a movie by its ID -->
     <select id="selectMovieById" parameterType="map" resultMap="movieResultMap">
         SELECT m.*,
-             CASE WHEN l.user_ID = #{userID} THEN 1 ELSE 0 END AS my_like,
+             SUM(CASE WHEN l.user_ID = #{userID} THEN 1 ELSE 0 END)AS my_like,
              SUM(CASE WHEN l.movie_ID IS NOT NULL THEN 1 ELSE 0 END) AS total_likes
         from movie m left join movie_likes l on m.movie_ID = l.movie_ID 
         WHERE m.movie_ID = #{movieID}
