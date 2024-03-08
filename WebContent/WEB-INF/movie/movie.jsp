@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <%@ include file="./header.jsp"%>
 <link rel="stylesheet" type="text/css" href="${ctx}/css/movie.css">
-<div class="container">
+<div class="container" style="height:2000px">
 	
 	<!-- contents -->
 	<div id="contents" class="">
@@ -244,3 +244,4 @@
 </html>
 <script type="text/javascript" src="${ctx}/js/movie.js"></script>
 <script type="text/javascript" src="${ctx}/js/movieLike.js"></script>
+<%@include file="/WEB-INF/movie/footer.jsp"%>

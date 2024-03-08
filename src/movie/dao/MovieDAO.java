@@ -42,10 +42,9 @@ public class MovieDAO {
 
 	private MovieDAO() {
 	
-		if(!isLtstData()) {
-			deleteData();
-			saveMovieData();
-		}
+		/*
+		 * if(!isLtstData()) { deleteData(); saveMovieData(); }
+		 */
 	}
 	
 	public static MovieDAO getInstance() {

@@ -537,6 +537,7 @@
 
 	</div>
 </div>
+<%@include file="/WEB-INF/movie/footer.jsp"%>
 <div class="alertStyle" style="position: fixed; top: 0px; left: 0px; background: rgb(0, 0, 0); opacity: 0; width: 100%; height: 100%; z-index: 5005; display: none;"></div>
 </body>
 </html>
