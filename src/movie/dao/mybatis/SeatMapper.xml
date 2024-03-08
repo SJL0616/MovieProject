@@ -25,7 +25,14 @@
 	and preview_date = #{previewDate};
 </select>
 <insert id="seatInsert" parameterType="seat">
-	insert into seat value(
+	insert into seat (
+	seat_id
+	,user_ID
+	,movie_thcd
+	,movie_ID
+	,preview_date
+	,seat_number
+	,seat_group)value(
 		null,
 		#{userID},
 		#{movieThcd},
