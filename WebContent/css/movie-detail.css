@@ -111,6 +111,13 @@
     height: 15px;
     background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-heart-line.png);
 }
+.movie-detail-page .movie-detail-cont .btn-util .btn.on .ico-heart-line, .movie-detail-page .movie-detail-cont .btn-util .btn:hover .ico-heart-line {
+    background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-heart-on.png);
+}
+.movie-detail-page .movie-detail-cont .btn-util .btn:hover{
+	background-color: #eee;
+	color: black;
+}
 .iconset {
     overflow: hidden;
     display: inline-block;
@@ -784,6 +791,7 @@ ol, ul {
     height: 17px;
     background-image: url(https://img.megabox.co.kr/static/pc/images/common/ico/ico-like-p.png);
 }
+
 .movie-idv-story ul li .story-area .story-box .story-cont .story-util {
     display: table-cell;
     position: relative;

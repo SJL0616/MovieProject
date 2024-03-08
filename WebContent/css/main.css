@@ -221,11 +221,16 @@
     cursor: pointer;
 }
 .main-movie-list > ol li .btn-util .btn-like .ico-heart-toggle-gray {
-    display: block;
-    margin: 10px;
     width: 17px;
     height: 15px;
     background-image: url(../img/ico-heart-toggle-main.png);
+}
+.button>i:first-child {
+    margin-left: 0;
+    margin-right: 4px;
+}
+.ico-heart-toggle-gray.on {
+    background-position: -17px 0;
 }
 .main-movie-list > ol li .movie-list-info .wrap .summary {
     overflow: hidden;

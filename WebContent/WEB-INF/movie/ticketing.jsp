@@ -43,29 +43,9 @@
         </div> -->
 				<div class="date-area" id="formDeList">
 					<div class="wrap-list" id="wrap-list">
+					<c:forEach var="i" begin="1" end="23">
 						<button id="date-list"></button>
-						<button id="date-list"></button>
-						<button id="date-list"></button>
-						<button id="date-list"></button>
-						<button id="date-list"></button>
-						<button id="date-list"></button>
-						<button id="date-list"></button>
-						<button id="date-list"></button>
-						<button id="date-list"></button>
-						<button id="date-list"></button>
-						<button id="date-list"></button>
-						<button id="date-list"></button>
-						<button id="date-list"></button>
-						<button id="date-list"></button>
-						<button id="date-list"></button>
-						<button id="date-list"></button>
-						<button id="date-list"></button>
-						<button id="date-list"></button>
-						<button id="date-list"></button>
-						<button id="date-list"></button>
-						<button id="date-list"></button>
-						<button id="date-list"></button>
-						<button id="date-list"></button>
+					</c:forEach>
 					</div>
 				</div>
 			</div>
@@ -79,15 +59,28 @@
 				<div class="list">
 					<ul>
 						<c:forEach var="list" items="${list}">
+						<c:choose>
+						 <c:when test="${list.watchGrade eq '전체관람가'}">
+						 	<c:set var="watchgrade" value="all"/>
+						 </c:when>
+						 <c:when test="${list.watchGrade eq '12세이상관람가'}">
+						 	<c:set var="watchgrade" value="12"/>
+						 </c:when>
+						 <c:when test="${list.watchGrade eq '15세이상관람가'}">
+						 	<c:set var="watchgrade" value="15"/>
+						 </c:when><c:when test="${list.watchGrade eq '청소년관람불가' or list.watchGrade eq '연소자관람불가'}">
+						 	<c:set var="watchgrade" value="19"/>
+						 </c:when>
+						</c:choose>
 							<li>
 								<button class="btn" movie-nm="${list.title}"
 									movie-no="${list.movieID}"
 									img-path="https://image.tmdb.org/t/p/w500${list.image}"
 									movie-type="${list.showTypes}" movie-time="${list.showTime}"
-									movie-ctx= "${ctx}" movie-age="${fn:substring(list.watchGrade,0,2) == '전체'? 'all' : fn:substring(list.watchGrade,0,2)}"
+									movie-ctx= "${ctx}" movie-age="${watchgrade}"
 									>
 									<span
-										class="movie-grade age-${fn:substring(list.watchGrade,0,2) == '전체'? 'all' : fn:substring(list.watchGrade,0,2)}">${fn:substring(list.watchGrade,0,2) == '전체'? 'All' : fn:substring(list.watchGrade,0,2)}</span>
+										class="movie-grade age-${watchgrade}">${watchgrade}</span>
 									<span class="txt">${list.title}</span>
 								</button>
 							</li>
@@ -99,9 +92,9 @@
 						<strong>모든영화</strong> <span>목록에서 영화를 선택하세요.</span>
 					</div>
 					<div class="choice-list">
+					<c:forEach var="i" begin="1" end="3">
 						<div class="bg"></div>
-						<div class="bg"></div>
-						<div class="bg"></div>
+					</c:forEach>
 					</div>
 				</div>
 			</div>

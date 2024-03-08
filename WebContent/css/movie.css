@@ -413,6 +413,9 @@ a:link {
     font-size: .8667em;
     border-color: #ebebeb;
 }
+.ico-heart-toggle-gray.on {
+    background-position: -17px 0;
+}
 .movie-list ol li .btn-util .case {
     float: left;
     width: 153px;

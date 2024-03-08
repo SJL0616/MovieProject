@@ -27,6 +27,10 @@ public class Movie {
 	private String overview;
 	private int showTime;
 	private String showTypes;
+	private boolean myLike; // 사용 유저 좋아요 여부
+	private int totalLikes; // 사용 유저 좋아요 여부
+	
+
 	@Override
 	public String toString() {
 		return "Movie [movieID=" + movieID + ", tmdbCd=" + tmdbCd + ", title=" + title + ", titleEn=" + titleEn
@@ -272,5 +276,20 @@ public class Movie {
 		this.regDate = regDate;
 	}
 
+	public boolean isMyLike() {
+		return myLike;
+	}
+
+	public void setMyLike(boolean myLike) {
+		this.myLike = myLike;
+	}
+
+	public int getTotalLikes() {
+		return totalLikes;
+	}
+
+	public void setTotalLikes(int totalLikes) {
+		this.totalLikes = totalLikes;
+	}
 	
 }

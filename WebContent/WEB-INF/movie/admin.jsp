@@ -4,7 +4,8 @@
 <link rel="stylesheet" href="${ctx}/css/admin.css" />
 <div align="center">
 	<div class="container">
-		<div class="ticket-true">
+		<div class="ticket-true" style="display: none;">
+
 			<h2>티켓 취소 리스트</h2>
 			<div class="ticket-table">
 				<ul class="title">
@@ -29,15 +30,16 @@
 						<li>${list.paymentDate}</li>
 						<li>${list.ticketPrice}</li>
 						<li><button onclick="location.href='${ctx}/adminTicketRemove.do?ticketID=${list.getTicketID()}'">취소</button></li>
+
 					</ul>
 				</c:forEach>
 			</div>
 		</div>
-		<div class="review-true">
+		<div class="review-true" style="display: none;">
 			<h2>리뷰 신고 리스트</h2>
 			<div class="review-table">
 				<ul class="title">
-					<li>리뷰아이디</li>
+					<li>유저</li>
 					<li>내용</li>
 					<li>등록일</li>
 					<li>경과시간</li>
@@ -59,5 +61,20 @@
 			</div>
 		</div>
 	</div>
+<div class="admin-btn" align="center">
+	<button class="ticket" style="display:block">예매 취소 리스트</button>
+	<button class="review" style="display:block">리뷰 신고 리스트</button>
 </div>
+<script>
+  document.querySelector(".admin-btn .ticket").addEventListener("click", () => {
+    document.querySelector(".ticket-true").style.display = "block";
+    document.querySelector(".review-true").style.display = "none";
+  });
+  document.querySelector(".admin-btn .review").addEventListener("click", () => {
+    document.querySelector(".review-true").style.display = "block";
+    document.querySelector(".ticket-true").style.display = "none";
+  });
+</script>
+</div>
+
 <%@include file="./footer.jsp"%>

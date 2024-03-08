@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -19,6 +20,9 @@ public class MovieSearchController implements Controller{
 	@Override
 	public String requestHandler(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		String userID = (String)session.getAttribute("log");
+		if(userID == null) userID = "";
 		String keywords = request.getParameter("keywords");
 		String isFromIndex = request.getParameter("fromIndex");
 		Gson gson = new Gson();
@@ -27,7 +31,7 @@ public class MovieSearchController implements Controller{
 		for(String word : keywordList) {
 			System.out.println(word);
 		}
-		ArrayList<Movie> list = MovieDAO.getInstance().searchMovie(keywordList);
+		ArrayList<Movie> list = MovieDAO.getInstance().searchMovie(keywordList,userID);
 		
 		/*
 		 * for(Movie m : list) { String show = gson.toJson(m); System.out.println("m "+

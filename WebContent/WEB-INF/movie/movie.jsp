@@ -179,9 +179,17 @@
 									${vo.getOpenDotDate() }</span>
 							</div>
 							<div class="btn-util">
-								<button type="button" class="button btn-like" data-no="23095500">
-									<i title="보고싶어 안함"
-										class="iconset ico-heart-toggle-gray intrstType"></i> <span></span>
+							    <button type="button" class="button btn-like" data-mylike="${vo.isMyLike()}" data-movie-no="${vo.getMovieID()}">
+							    <c:choose>
+									<c:when test="${vo.isMyLike() == true}">
+											<i title="보고싶어 설정 함" class="iconset ico-heart-toggle-gray on"></i>
+									</c:when>
+									<c:otherwise>
+											<i title="보고싶어 안함"
+										class="iconset ico-heart-toggle-gray intrstType"></i> 
+									</c:otherwise>
+								</c:choose>
+								<span>${vo.getTotalLikes()}</span>
 								</button>
 								<p class="txt movieStat1" style="display: none">상영예정</p>
 								<p class="txt movieStat2" style="display: none">2월 개봉예정</p>
@@ -245,3 +253,4 @@
 </body>
 </html>
 <script type="text/javascript" src="${ctx}/js/movie.js"></script>
+<script type="text/javascript" src="${ctx}/js/movieLike.js"></script>
