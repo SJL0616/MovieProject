@@ -69,7 +69,15 @@ public class ReviewDAO {
 		session.close();
 		return cnt;
 	}
+	
+	public int getAvgPoint(int id) {
 
+		SqlSession session = sqlSessionFactory.openSession();
+		int avg = session.selectOne("selectAvgPoint", id);
+		session.close();
+		return avg;
+	}
+	
 	// 사용자의 특정 영화에 대한 리뷰 갯수 받아오는 함수
 	public int getMyReviewCount(int mid, String userID) {
 		Map<String, Object> params = new HashMap<>();

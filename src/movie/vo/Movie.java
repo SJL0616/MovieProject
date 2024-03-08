@@ -27,9 +27,10 @@ public class Movie {
 	private String overview;
 	private int showTime;
 	private String showTypes;
+	private String salesShare;
 	private boolean myLike; // 사용 유저 좋아요 여부
 	private int totalLikes; // 사용 유저 좋아요 여부
-	
+	private int pointAvg;
 
 	@Override
 	public String toString() {
@@ -54,7 +55,7 @@ public class Movie {
 	
 	public Movie(int movieID, String title, String titleEn, String openDate, int rank, int audiCum, String overview,
 			int showTime, String showTypes, String director, String actors, String genre, String watchGrade,
-			String image, List<String> trailer,String regDate) {
+			String image, List<String> trailer,String regDate,String salesShare) {
 		this.movieID = movieID;
 		this.title = title;
 		this.titleEn = titleEn;
@@ -71,12 +72,13 @@ public class Movie {
 		this.image = image;
 		this.trailer = trailer;
 		this.regDate = regDate;
+		this.salesShare = salesShare;
 	}
 	
 	
 	public Movie(int movieID, String title, String titleEn, String openDate, int rank, int audiCum, String overview,
 			int showTime, JsonArray showTypes, JsonArray director, JsonArray actors, JsonArray genre, JsonArray watchGrade,
-			String image, List<String> trailer,String regDate) {
+			String image, List<String> trailer,String regDate, String salesShare) {
 		this.movieID = movieID;
 		this.title = title;
 		this.titleEn = titleEn;
@@ -94,6 +96,7 @@ public class Movie {
 		this.trailer = trailer;
 		this.trailerStr = toStringByGson(trailer);
 		this.regDate = regDate;
+		this.salesShare = salesShare;
 	}
 	
 	public String toStringByGson(List<String> str) {
@@ -291,5 +294,22 @@ public class Movie {
 	public void setTotalLikes(int totalLikes) {
 		this.totalLikes = totalLikes;
 	}
+
+	public String getSalesShare() {
+		return salesShare;
+	}
+
+	public void setSalesShare(String salesShare) {
+		this.salesShare = salesShare;
+	}
+
+	public int getPointAvg() {
+		return pointAvg;
+	}
+
+	public void setPointAvg(int pointAvg) {
+		this.pointAvg = pointAvg;
+	}
+	
 	
 }

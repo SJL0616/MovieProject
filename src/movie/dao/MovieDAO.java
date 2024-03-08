@@ -41,6 +41,7 @@ public class MovieDAO {
 	private final String tmdbKey = "4bbd8a79baa451e755477a68934a9110";
 
 	private MovieDAO() {
+	
 		if(!isLtstData()) {
 			deleteData();
 			saveMovieData();
@@ -84,18 +85,18 @@ public class MovieDAO {
 	 */
 	public void saveMovieData() {
 		
-        
         ArrayList<Movie> list = getMovieListByKobis();
 		setVisualInfoByTBDB(list);
 		addMovieIntoDB(list);
-		/*
-								 * 
-								 * 
-								 * for(Movie m : list) {
-								 * 
-								 * Gson gson = new Gson(); String show = gson.toJson(m);
-								 * System.out.println("m "+ show); }
-								 */
+        
+		
+								  
+								  
+								  for(Movie m : list) {
+								  
+								  Gson gson = new Gson(); String show = gson.toJson(m);
+								  System.out.println("m "+ show); }
+								 
 		 
 	}
 	
@@ -207,6 +208,7 @@ public class MovieDAO {
 
 
 	private ArrayList<Movie> getMovieListByKobis() {
+		System.out.println("getMovieListByKobis");
 		LocalDate localDate = LocalDate.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");        
 		DateTimeFormatter DBformat = DateTimeFormatter.ofPattern("yyyy.MM.dd");        
@@ -233,6 +235,7 @@ public class MovieDAO {
 
 			JsonObject movieListResult = (JsonObject) jsonObject.get("boxOfficeResult");
 			JsonArray movieList = (JsonArray) movieListResult.get("dailyBoxOfficeList");
+			
 			Movie m = null;
 			for (Object movie : movieList) {
 				JsonObject movieData = (JsonObject) movie;
@@ -255,7 +258,7 @@ public class MovieDAO {
 				System.out.println("13. 관람 등급 :" + movieInfo.get("audits"));*/    
 				
 				if(!movieInfo.isJsonNull()) {
-					//System.out.println(movieInfo);
+					
 					m = new Movie(
 							Integer.parseInt(movieData.get("movieCd").getAsString()),
 							movieData.get("movieNm").getAsString(),
@@ -271,7 +274,9 @@ public class MovieDAO {
 							(JsonArray)movieInfo.get("genres"),
 							(JsonArray)movieInfo.get("audits"),
 							null, null,
-							DottedNow);
+							DottedNow,
+							movieData.get("salesShare").getAsString()
+							);
 					
 					list.add(m);
 				}
