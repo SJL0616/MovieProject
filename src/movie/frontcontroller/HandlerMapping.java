@@ -3,6 +3,8 @@ package movie.frontcontroller;
 import java.util.HashMap;
 
 import movie.controller.AdminController;
+import movie.controller.AdminReviewDeleteController;
+import movie.controller.AdminTicketRemoveController;
 import movie.controller.Controller;
 import movie.controller.IndexController;
 import movie.controller.movie.MovieInfoController;
@@ -71,11 +73,13 @@ public class HandlerMapping {
 		mappings.put("/showReview.do", new ReviewListController());
 		mappings.put("/likeReview.do", new ReviewLikeController());
 		mappings.put("/reportReview.do", new ReviewReportController());
-		mappings.put("/deleteReview.do", new ReviewDeleteController());		
+		mappings.put("/deleteReview.do", new ReviewDeleteController());
 		mappings.put("/getReviewCnt.do", new ReviewCntController());
 		mappings.put("/reserveCancel.do", new ReserveCancelController());
 		mappings.put("/payment.do", new PaymentController());
 		mappings.put("/admin.do", new AdminController());
+		mappings.put("/adminTicketRemove.do", new AdminTicketRemoveController());
+		mappings.put("/adminReviewDelete.do", new AdminReviewDeleteController());
 	}
 
 	public Controller getController(String key) {

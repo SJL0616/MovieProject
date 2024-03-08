@@ -105,7 +105,7 @@ function getResignResult(data) {
 		resignForm.appendChild($p);
 		setTimeout(() => {
 			$p.remove();
-		}, 2000);
+		}, 10000);
 		resignCheck = false;
 	}
 }

@@ -5,6 +5,7 @@
 <div align="center">
 	<div class="container">
 		<div class="ticket-true" style="display: none;">
+
 			<h2>티켓 취소 리스트</h2>
 			<div class="ticket-table">
 				<ul class="title">
@@ -27,8 +28,9 @@
 						<li>${list.movieName}</li>
 						<li>${list.title}</li>
 						<li>${list.paymentDate}</li>
-						<li>${list.ticketPrice}원</li>
-						<li><button>취소</button></li>
+						<li>${list.ticketPrice}</li>
+						<li><button onclick="location.href='${ctx}/adminTicketRemove.do?ticketID=${list.getTicketID()}'">취소</button></li>
+
 					</ul>
 				</c:forEach>
 			</div>
@@ -48,18 +50,17 @@
 				<c:forEach var="list" items="${reviewList}">
 					<ul>
 						<li>${list.reviewID}</li>
-						<li>${list.content}></li>
+						<li>${list.content}</li>
 						<li>${list.regDate}</li>
 						<li>${list.elapsedTime}</li>
-						<li>${list.pint}</li>
+						<li>${list.point}</li>
 						<li>${list.like}</li>
-						<li><button>삭제</button></li>
+						<li><button onclick="location.href='${ctx}/adminReviewDelete.do?reviewID=${list.getReviewID()}'">삭제</button></li>
 					</ul>
 				</c:forEach>
 			</div>
 		</div>
 	</div>
-	
 <div class="admin-btn" align="center">
 	<button class="ticket" style="display:block">예매 취소 리스트</button>
 	<button class="review" style="display:block">리뷰 신고 리스트</button>

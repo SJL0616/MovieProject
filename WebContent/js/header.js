@@ -5,18 +5,18 @@ $(document).ready(function() {
 }); // document ready function
 
 function toMyMega() {
-	if(isLoggedIn()){
-	    location.href = "http://localhost:8085/MovieProject/userMyMega.do";
-	}else{
+	if (isLoggedIn()) {
+		location.href = "http://localhost:8085/MovieProject/userMyMega.do";
+	} else {
 		alert(`로그인이 필요한 메뉴입니다.`);
 	}
 }
 
-function isLoggedIn(){
-	console.log("현재 세션값 : "+sessionLog);
-	if(sessionLog != '' && sessionLog != undefined && sessionLog != null){
-	    return true;
-	}else{
+function isLoggedIn() {
+	console.log("현재 세션값 : " + sessionLog);
+	if (sessionLog != '' && sessionLog != undefined && sessionLog != null) {
+		return true;
+	} else {
 		return false;
 	}
 }
