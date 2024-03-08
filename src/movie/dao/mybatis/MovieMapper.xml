@@ -31,6 +31,7 @@
         <result property="regDate" column="reg_date"/>
         <result property="myLike" column="my_like"/>
         <result property="totalLikes" column="total_likes"/>
+        <result property="salesShare" column="sales_share"/>
     </resultMap>
     <!-- Select statement to retrieve a movie by its ID -->
     <select id="selectAllMovies" parameterType="String" resultMap="movieResultMap">
@@ -50,6 +51,7 @@
         GROUP BY m.movie_ID
         order by movie_rank limit 4;
     </select>
+    
     <!-- Select statement to retrieve a movie by its ID -->
     <select id="selectMovieById" parameterType="map" resultMap="movieResultMap">
         SELECT m.*,
@@ -81,9 +83,9 @@
     <!-- Insert statement to add a new movie -->
     <insert id="insertMovie" parameterType="movie">
         INSERT INTO movie 
-        (movie_ID, title, title_en, open_date, movie_rank, audi_cum, overview, show_time, show_types, director, actors, genre, watch_grade, image, trailer, reg_date)
+        (movie_ID, title, title_en, open_date, movie_rank, audi_cum, overview, show_time, show_types, director, actors, genre, watch_grade, image, trailer, reg_date, sales_share)
         VALUES 
-        (#{movieID}, #{title}, #{titleEn}, #{openDate}, #{rank}, #{audiCum}, #{overview}, #{showTime}, #{showTypes}, #{director}, #{actors}, #{genre}, #{watchGrade}, #{image}, #{trailerStr}, #{regDate})
+        (#{movieID}, #{title}, #{titleEn}, #{openDate}, #{rank}, #{audiCum}, #{overview}, #{showTime}, #{showTypes}, #{director}, #{actors}, #{genre}, #{watchGrade}, #{image}, #{trailerStr}, #{regDate},#{salesShare})
     </insert>
 
     <!-- Update statement to update an existing movie -->

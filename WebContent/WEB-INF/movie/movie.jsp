@@ -175,7 +175,7 @@
 								<p title="듄: 파트2" class="tit">${vo.getTitle() }</p>
 							</div>
 							<div class="rate-date">
-								<span class="rate">예매율 46.9%</span> <span class="date">개봉일
+								<span class="rate">점유율 ${vo.getSalesShare()}%</span> <span class="date">개봉일
 									${vo.getOpenDotDate() }</span>
 							</div>
 							<div class="btn-util">

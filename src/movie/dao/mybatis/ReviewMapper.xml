@@ -45,6 +45,10 @@
 		LIMIT #{start}, #{pageSize}
     </select>
     
+    <select id="selectAvgPoint" parameterType="int" resultType="integer">
+      select COALESCE(floor(avg(point)),0) from review where movie_ID =  #{movieID};
+    </select>
+    
     <select id="selectCountById" parameterType="int" resultType="integer">
         SELECT count(*) FROM review WHERE movie_id = #{movieID};
     </select>

@@ -39,6 +39,7 @@ public class MovieInfoController implements Controller {
 		String currentPage = request.getParameter("currentPage");
 		if( currentPage == null) currentPage = "1";
 		int reviewCnt = ReviewDAO.getInstance().getCount(Integer.parseInt(mid));
+		int pointAvg = ReviewDAO.getInstance().getAvgPoint(Integer.parseInt(mid));
 		if( reviewCnt > 0) {
 			PageContext pageCxt = new PageContext(Integer.parseInt(currentPage), reviewCnt);
 			ArrayList<Review> rlist = ReviewDAO.getInstance().getTotalList(userID,Integer.parseInt(mid),pageCxt.getStartIndex() ,pageCxt.getPageSize(),0);
@@ -47,6 +48,7 @@ public class MovieInfoController implements Controller {
 			request.setAttribute("pageCxt", pageCxt);
 		}
 		request.setAttribute("reviewCnt",reviewCnt);
+		request.setAttribute("pointAvg",pointAvg);
 		
 		return "movie-detail";
 	}

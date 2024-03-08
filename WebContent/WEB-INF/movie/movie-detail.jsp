@@ -73,13 +73,13 @@
 					<p title="관람 전 점수" class="before"><em>0</em><span class="ir">점</span></p>
 					<p title="관람 후 점수" class="after"><em>8.7</em><span class="ir">점</span></p> -->
 							<p title="실관람 평점" class="before">
-								<em>0</em><span class="ir">점</span>
+								<em>${pointAvg}</em><span class="ir">점</span>
 							</p>
 						</div>
 					</div>
 
 					<div class="rate">
-						<p class="tit">예매율</p>
+						<p class="tit">점유율 ${vo.getSalesShare()}%</p>
 						<p class="cont">
 							<em>${vo.getRank()}</em>위
 							<!-- (0.1%) -->
