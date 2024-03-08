@@ -29,32 +29,52 @@
         <result property="image" column="image"/>
         <result property="trailerStr" column="trailer"/>
         <result property="regDate" column="reg_date"/>
+        <result property="myLike" column="my_like"/>
+        <result property="totalLikes" column="total_likes"/>
     </resultMap>
     <!-- Select statement to retrieve a movie by its ID -->
-    <select id="selectAllMovies" resultMap="movieResultMap">
-        SELECT * FROM movie order by movie_rank
+    <select id="selectAllMovies" parameterType="String" resultMap="movieResultMap">
+       SELECT m.*,
+             SUM(CASE WHEN l.user_ID = #{userID} THEN 1 ELSE 0 END)  AS my_like,
+             SUM(CASE WHEN l.movie_ID IS NOT NULL THEN 1 ELSE 0 END) AS total_likes
+        from movie m left join movie_likes l on m.movie_ID = l.movie_ID 
+        GROUP BY m.movie_ID
+        order by movie_rank;
     </select>
     
-    <select id="selectTopMovies" resultMap="movieResultMap">
-        SELECT * FROM movie order by movie_rank limit 4;
+    <select id="selectTopMovies" parameterType="String" resultMap="movieResultMap">
+        SELECT m.*,
+             SUM(CASE WHEN l.user_ID = #{userID} THEN 1 ELSE 0 END)  AS my_like,
+             SUM(CASE WHEN l.movie_ID IS NOT NULL THEN 1 ELSE 0 END) AS total_likes
+        from movie m left join movie_likes l on m.movie_ID = l.movie_ID 
+        GROUP BY m.movie_ID
+        order by movie_rank limit 4;
     </select>
     <!-- Select statement to retrieve a movie by its ID -->
-    <select id="selectMovieById" parameterType="int" resultMap="movieResultMap">
-        SELECT * FROM movie WHERE movie_ID = #{movieID}
+    <select id="selectMovieById" parameterType="map" resultMap="movieResultMap">
+        SELECT m.*,
+             SUM(CASE WHEN l.user_ID = #{userID} THEN 1 ELSE 0 END)AS my_like,
+             SUM(CASE WHEN l.movie_ID IS NOT NULL THEN 1 ELSE 0 END) AS total_likes
+        from movie m left join movie_likes l on m.movie_ID = l.movie_ID 
+        WHERE m.movie_ID = #{movieID}
     </select>
     
     <select id="checkRegDate" resultType="integer">
            SELECT count(*) FROM movie WHERE reg_date = CURDATE();
     </select>
     
-     <select id="searchByKeywords" parameterType="java.util.List" resultMap="movieResultMap">
-        SELECT *
-        FROM movie
+    <select id="searchByKeywords" parameterType="map" resultMap="movieResultMap">
+    
+        SELECT m.*,
+             SUM(CASE WHEN l.user_ID = #{userID} THEN 1 ELSE 0 END)  AS my_like,
+             SUM(CASE WHEN l.movie_ID IS NOT NULL THEN 1 ELSE 0 END) AS total_likes
+        from movie m left join movie_likes l on m.movie_ID = l.movie_ID 
         WHERE
         REPLACE(title,' ','') like
         <foreach item="keyword" collection="list" separator="" open="'%'" close="'%'">
             #{keyword}
         </foreach>
+        GROUP BY m.movie_ID
         order by open_date desc
     </select>
 
@@ -85,7 +105,13 @@
         image = #{image}
         WHERE movieID = #{movieID}
     </update>
-
+    
+    <insert id="movieLike" parameterType="map">
+        insert into movie_likes (movie_ID, user_ID) values(#{movieID}, #{userID})
+    </insert>
+    <delete id="movieDislike" parameterType="map">
+        delete from movie_likes where movie_ID = #{movieID} and user_ID = #{userID}
+    </delete>
     <!-- Delete statement to remove a movie by its ID -->
     <delete id="deleteMovieById">
         DELETE FROM movie WHERE movieID = #{movieID}

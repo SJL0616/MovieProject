@@ -20,10 +20,16 @@
 				<p class="title">${vo.getTitle() }</p>
 				<p class="title-eng">${vo.getTitleEn() }</p>
 				<div class="btn-util">
-					<button type="button" title="보고싶어 안함" class="btn btn-like"
-						rpst-movie-no="24001400">
-						<i class="iconset ico-heart-line"></i> <span title="보고싶어 한 명수"
-							id="intrstCnt"> 0 </span>
+					   <c:choose>
+							<c:when test="${vo.isMyLike() == true}">
+									 <button type="button" class="btn btn-like on" data-mylike="${vo.isMyLike()}" data-movie-no="${vo.getMovieID()}">
+							</c:when>
+							<c:otherwise>
+									 <button type="button" class="btn btn-like" data-mylike="${vo.isMyLike()}" data-movie-no="${vo.getMovieID()}">
+							</c:otherwise>
+						</c:choose>
+						<i title="보고싶어 설정" class="iconset iconset ico-heart-line"></i>
+					<span>${vo.getTotalLikes()}</span> 
 					</button>
 					<!-- <div class="sns-share">
 						<a href="#" class="btn btn-common-share" title="공유하기"> <i
@@ -535,3 +541,4 @@
 </body>
 </html>
 <script type="text/javascript" src="${ctx}/js/movie-detail.js"></script>
+<script type="text/javascript" src="${ctx}/js/movieLike.js"></script>

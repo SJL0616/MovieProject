@@ -40,10 +40,16 @@
 								</div>
 						</a>
 							<div class="btn-util">
-								<button type="button" class="button btn-like"
-									rpst-movie-no="${vo.getMovieID()}">
-									<i title="보고싶어 설정 안함" class="iconset ico-heart-toggle-gray"></i>
-
+							    <button type="button" class="button btn-like"  data-mylike="${vo.isMyLike()}" data-movie-no="${vo.getMovieID()}">
+							    <c:choose>
+									<c:when test="${vo.isMyLike() == true}">
+											<i title="보고싶어 설정 함" class="iconset ico-heart-toggle-gray on"></i>
+									</c:when>
+									<c:otherwise>
+											<i title="보고싶어 설정 안함" class="iconset ico-heart-toggle-gray"></i>
+									</c:otherwise>
+								</c:choose>
+								 <span>${vo.getTotalLikes()}</span>
 								</button>
 								<div class="case">
 									<!-- 개봉 예매가능 기본-->
@@ -210,3 +216,4 @@
 </body>
 </html>
 <script type="text/javascript" src="${ctx}/js/main.js"></script>
+<script type="text/javascript" src="${ctx}/js/movieLike.js"></script>

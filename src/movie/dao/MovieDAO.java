@@ -12,7 +12,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -98,37 +100,47 @@ public class MovieDAO {
 	}
 	
 	//rank 탑4 영화리스트를 받아오는 함수
-	public ArrayList<Movie> getTopFour(){
+	public ArrayList<Movie> getTopFour(String userID){
 		List<Movie> mainList = null;
 		SqlSession session = sqlSessionFactory.openSession();
-		mainList = session.selectList("selectTopMovies");
+		mainList = session.selectList("selectTopMovies",userID);
 		session.close();
 		return new ArrayList<Movie>(mainList);
 	}
-	
-	//전체 영화리스트를 받아오는 함수
 	public ArrayList<Movie> getTotalList(){
+		return getTotalList("");
+	}
+	//전체 영화리스트를 받아오는 함수
+	public ArrayList<Movie> getTotalList(String userID){
 		List<Movie> mainList = null;
 		SqlSession session = sqlSessionFactory.openSession();
-		mainList = session.selectList("selectAllMovies");
+		mainList = session.selectList("selectAllMovies", userID);
 		session.close();
 		return new ArrayList<Movie>(mainList);
 	}
 	
 	//전체 영화리스트를 받아오는 함수
-	public ArrayList<Movie> searchMovie(List<String> keywords){
+	public ArrayList<Movie> searchMovie(List<String> keywords, String userID){
+		Map<String ,Object> map = new HashMap<String, Object>();
+		map.put("list", keywords);
+		map.put("userID", userID);
+		
 		List<Movie> mainList = null;
 		SqlSession session = sqlSessionFactory.openSession();
-		mainList = session.selectList("searchByKeywords",keywords);
+		mainList = session.selectList("searchByKeywords",map);
 		session.close();
 		return new ArrayList<Movie>(mainList);
 	}
 		
 	//전체 영화리스트를 받아오는 함수
-	public Movie getOneMovie(int id){
+	public Movie getOneMovie(int id, String userID){
+		Map<String ,Object> map = new HashMap<String, Object>();
+		map.put("movieID", id);
+		map.put("userID", userID);
+		
 		Movie m = null;
 		SqlSession session = sqlSessionFactory.openSession();
-		m = session.selectOne("selectMovieById", id);
+		m = session.selectOne("selectMovieById", map);
 		session.close();
 		return m;
 	}
@@ -150,7 +162,32 @@ public class MovieDAO {
 		session.close();
 		return count > 0;
 	}
+	
+	//영화 좋아요 
+	public int likeMovie(String movieID, String userID) {
+		Map<String ,Object> map = new HashMap<String, Object>();
+		map.put("movieID", movieID);
+		map.put("userID", userID);
 		
+		SqlSession session = sqlSessionFactory.openSession();
+		int result = session.insert("movieLike",map);
+		session.commit();
+		session.close();
+		return result;
+	}
+	//영화 좋아요 취소
+	public int dislikeMovie(String movieID, String userID) {
+		Map<String ,Object> map = new HashMap<String, Object>();
+		map.put("movieID", Integer.parseInt(movieID));
+		map.put("userID", userID.trim());
+		
+		SqlSession session = sqlSessionFactory.openSession();
+		int result = session.insert("movieDislike",map);
+		session.commit();
+		session.close();
+		return result;
+	}
+	
 	// regDate가 오늘인지 확인하는 로직
 	private boolean addMovieIntoDB(ArrayList<Movie> list) {
 		SqlSession session = sqlSessionFactory.openSession();
@@ -167,6 +204,7 @@ public class MovieDAO {
 		session.close();
 		return sum == list.size();
 	}
+
 
 	private ArrayList<Movie> getMovieListByKobis() {
 		LocalDate localDate = LocalDate.now();
