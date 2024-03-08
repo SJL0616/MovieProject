@@ -96,7 +96,7 @@ function getMovieli(vo){
     html += '<p title="' + vo.title + '" class="tit">' + vo.title + '</p></div>';
 
     html += '<div class="rate-date">';
-    html += '<span class="rate">예매율 46.9%</span> <span class="date">개봉일 ' + vo.openDate+ '</span>';
+    html += '<span class="rate">점유율 '+vo.salesShare+'%</span> <span class="date">개봉일 ' + vo.openDate+ '</span>';
     html += '</div>';
 
     html += '<div class="btn-util">';

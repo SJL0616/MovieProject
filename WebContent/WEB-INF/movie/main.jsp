@@ -33,7 +33,7 @@
 										<div class="preview">
 											<p class="tit">관람평</p>
 											<p class="number">
-												<span class="ir">점</span>
+												<span class="ir">${vo.getPointAvg()}점</span>
 											</p>
 										</div>
 									</div>
