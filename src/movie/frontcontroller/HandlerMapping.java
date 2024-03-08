@@ -1,6 +1,8 @@
 package movie.frontcontroller;
 
 import java.util.HashMap;
+
+import movie.controller.AdminController;
 import movie.controller.Controller;
 import movie.controller.IndexController;
 import movie.controller.movie.MovieInfoController;
@@ -16,7 +18,6 @@ import movie.controller.ticketing.MovieTheaterController;
 import movie.controller.ticketing.PaymentController;
 import movie.controller.ticketing.SeatController;
 import movie.controller.ticketing.TicketingController;
-import movie.controller.user.AdminController;
 import movie.controller.user.CheckLogController;
 import movie.controller.user.DisconnectToKakao;
 import movie.controller.user.DisconnectToNaver;
