@@ -31,7 +31,7 @@ function validCheck(form) {
 	} else if (check == -1) {
 		alert('id 중복체크 다시하세요');
 		return false;
-	}else if (check == 1){
+	} else if (check == 1) {
 		form.submit();
 	}
 }
@@ -70,3 +70,14 @@ function getResult(data) {
 		check = -1;
 	}
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+	const form = document.getElementById("userJoinForm");
+
+	// 폼에서 Enter 키를 눌렀을 때 validCheck 함수 호출
+	form.addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			validCheck(form);
+		}
+	});
+});

@@ -13,7 +13,8 @@
 		<div class="title">로그인</div>
 		<div class="formBody">
 			<div class="leftSection">
-				<form class="realForm" action="${ctx}/login.do" method="post">
+				<form class="realForm" id="realForm" action="${ctx}/login.do"
+					method="post">
 					<input id="id" maxlength="20" type="text" placeholder="아이디"
 						required="required" /> <input id="pw" maxlength="20"
 						type="password" placeholder="비밀번호" required="required" /> <br>
@@ -38,7 +39,7 @@
 				</div>
 			</div>
 			<div class="rightSection">
-			<img alt="광고 이미지" src="${ctx}/img/login_page_advertisement.jpg">
+				<img alt="광고 이미지" src="${ctx}/img/login_page_advertisement.jpg">
 			</div>
 		</div>
 	</div>

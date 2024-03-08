@@ -27,3 +27,14 @@ function getResult(data) {
 		alert("아이디와 비밀번호를 확인하세요.");
 	}
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+	const form = document.getElementById("realForm");
+
+	// 폼에서 Enter 키를 눌렀을 때 validCheck 함수 호출
+	form.addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			validCheck(form);
+		}
+	});
+});
