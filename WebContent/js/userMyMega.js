@@ -30,7 +30,10 @@ function validCheck(form) {
 	alert(`개인정보를 수정했습니다.`);
 }
 
-document.getElementById("updateBtn").addEventListener("click", () => {
+document.getElementById("updateBtn").addEventListener("click", (event) => {
+	 if (event.keyCode === 13) { // Enter 키의 키코드는 13입니다.
+                event.preventDefault(); // 기본 동작(폼 제출)을 막습니다.
+            }
 	const currentPw = document.getElementById("currentPw").value;
 	fetch("userPwValidAjax.do", {
 		method: "POST",
@@ -78,7 +81,11 @@ function resignValidCheck(form) {
 
 const resignBtn = document.getElementById("resignBtn");
 if (resignBtn != null) {
-	resignBtn.addEventListener("click", () => {
+	resignBtn.addEventListener("click", (event) => {
+		 if (event.keyCode === 13) { // Enter 키의 키코드는 13입니다.
+		 console.log("123123");
+                event.preventDefault(); // 기본 동작(폼 제출)을 막습니다.
+            }
 		const resignPw = document.getElementById("resignPw").value;
 		fetch("userResignValidAjax.do", {
 			method: "POST",
@@ -105,7 +112,7 @@ function getResignResult(data) {
 		resignForm.appendChild($p);
 		setTimeout(() => {
 			$p.remove();
-		}, 10000);
+		}, 2000);
 		resignCheck = false;
 	}
 }
@@ -117,12 +124,18 @@ function cancelCheck(code) {
 	cancelModal.classList.add("active");
 	cancelOverlay.classList.add("active");
 
-	document.querySelector(".btn-modal-close").addEventListener("click", () => {
+	document.querySelector(".btn-modal-close").addEventListener("click", (event) => {
+		 if (event.keyCode === 13) { // Enter 키의 키코드는 13입니다.
+                event.preventDefault(); // 기본 동작(폼 제출)을 막습니다.
+            }
 		cancelModal.classList.remove("active");
 		cancelOverlay.classList.remove("active");
 	});
 	
-	cancelBtn.addEventListener(`click`, () => {
+	cancelBtn.addEventListener(`click`, (event) => {
+	  if (event.keyCode === 13) { // Enter 키의 키코드는 13입니다.
+                event.preventDefault(); // 기본 동작(폼 제출)을 막습니다.
+            }
 		cancelModal.classList.remove("active");
 		cancelOverlay.classList.remove("active");
 		fetch("reserveCancel.do", {
@@ -143,3 +156,26 @@ function getCancelResult(data) {
 		alert("예매취소에 실패했습니다.")
 	}
 }
+
+function preventEnterSubmit(event) {
+            if (event.keyCode === 13) { // Enter 키의 키코드는 13입니다.
+                event.preventDefault(); // 기본 동작(폼 제출)을 막습니다.
+            }
+        }
+        
+document.addEventListener("DOMContentLoaded", function() {
+	const form = document.getElementById("resignBtn");
+
+	// 폼에서 Enter 키를 눌렀을 때 validCheck 함수 호출
+	form.addEventListener("keypress", function(event) {
+		if (event.key === "Enter") {
+			resignValidCheck(form);
+		}
+	});
+});
+
+$('#resignForm').keydown(function() {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+  };
+});
