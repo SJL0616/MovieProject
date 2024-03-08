@@ -17,7 +17,6 @@ public class AdminController implements Controller {
 		ArrayList<UserReservationView> list = TicKetDAO.getInstance().getAllCanceledTickets();
 		request.setAttribute("userList", list);
 		
-		
 		return "admin";
 	}
 }

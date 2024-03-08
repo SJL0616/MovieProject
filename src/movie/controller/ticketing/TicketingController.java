@@ -31,7 +31,7 @@ public class TicketingController implements Controller{
 		}
 
 		System.out.println(move);
-		return "reservation/ticketing";
+		return "ticketing";
 	}
 
 }
