@@ -13,7 +13,6 @@
 - 영화관랸 텍스트 정보 조회(영화 진흥원 오픈API)
 - 영화 포스터, 트레일러 URL조회 (TMDB API)
 - 지도 출력(API 네이버 Maps)
-- 결제 시스템 (API iamport 포트원) -> (결제 시스템은 잘되나 데이터 받는량이 방대해서 보류)
 - 로그인 API(카카오 로그인 API, 네이버 로그인API, 애플 로그인API, 구글 로그인API) -> (로그인 API는 2개로 추려 카카오 네이버로 확정하고 애플과 구글은 안하기로 결정됐습니다.)
 ## 요구사항 정의서
 - ![MovieProject/요구사항 정의서.png](https://github.com/SJL0616/MovieProject/blob/aba94961e065cc9b413c56c28568a6393e0c4232/%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD%20%EC%A0%95%EC%9D%98%EC%84%9C.png)
