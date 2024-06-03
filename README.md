@@ -3,7 +3,8 @@
 평소 자주 이용하는 사이트인 만큼  똑같이 구현해 보면서 공부해 보기 위해서 시작하게 되었습니다. 참고한 사이트는 메가박스입니다.
 ## 피피티 링크
 - https://docs.google.com/presentation/d/1BBiqL61_NXkHN9eHJl-HolsSObckNMP_GbklZgWILtQ/edit
-
+## 노션 링크
+- [https://gorgeous-blinker-6f2.notion.site/4-kobis-ba174932b1ee40b79bddb9a47d35ba67?pvs=74](https://gorgeous-blinker-6f2.notion.site/4-kobis-ba174932b1ee40b79bddb9a47d35ba67)
 ## 팀원 구성
 - 이상준: Index, 전체 영화 조회, 상세보기
 - 김진수: 예매(날짜와 시간, 좌석, 극장 등), 결제
